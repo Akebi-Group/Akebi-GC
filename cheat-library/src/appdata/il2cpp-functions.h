@@ -12,7 +12,7 @@ DO_APP_FUNC(0x013815E0, void, InLevelMapPageContext_OnMarkClicked, (InLevelMapPa
 DO_APP_FUNC(0x01390800, void, InLevelMapPageContext_OnMapClicked, (InLevelMapPageContext* __this, Vector2 screenPos, MethodInfo* method));
 DO_APP_FUNC(0x0158AD40, bool, MapModule_IsAreaUnlock, (MBHLOBDPKEC* __this, uint32_t sceneID, uint32_t areaID, MethodInfo* method));
 DO_APP_FUNC(0x05036C50, uint16_t, SimpleSafeUInt16_get_Value, (void* __this, LAFKDOLNGNA rawValue, MethodInfo* method));
-
+DO_APP_FUNC(0x03427B90, uint32_t, SimpleSafeUInt32_get_Value, (void* __this, app::SimpleSafeUInt32 rawValue, MethodInfo* method));
 
 // Map utility
 DO_APP_FUNC(0x04339D30, Rect, MonoInLevelMapPage_get_mapRect, (MonoInLevelMapPage* __this, MethodInfo* method));
@@ -42,9 +42,10 @@ DO_APP_FUNC(0x015E1C90, bool, Miscs_CheckTargetAttackable, (void* __this, BaseEn
 // Cooldown cheats
 DO_APP_FUNC(0x024D5450, bool, HumanoidMoveFSM_CheckSprintCooldown, (/* HumanoidMoveFSM */void* __this, MethodInfo* method));
 DO_APP_FUNC(0x02548810, bool, LCAvatarCombat_IsEnergyMax, (void* __this, MethodInfo* method));
-DO_APP_FUNC(0x02546C10, bool, LCAvatarCombat_IsSkillInCD_1, (void* __this, void* skillInfo, MethodInfo* method));
 DO_APP_FUNC(0x0254A170, void, LCAvatarCombat_ChangeEnergy_1, (LCAvatarCombat* __this, ElementType__Enum type, float value, DataPropOp__Enum state, MethodInfo* method));
 DO_APP_FUNC(0x0254D660, bool, LCAvatarCombat_OnSkillStart, (LCAvatarCombat* __this, uint32_t skillID, float cdMultipler, MethodInfo* method));
+DO_APP_FUNC(0x02546C10, bool, LCAvatarCombat_IsSkillInCD_1, (LCAvatarCombat* __this, LCAvatarCombat_OMIIMOJOHIP* skillInfo, MethodInfo* method));
+
 DO_APP_FUNC(0x0112A110, void, ActorAbilityPlugin_AddDynamicFloatWithRange, (void* __this, String* key, float value, float min, float max, bool forceDoAtRemote, MethodInfo* method));
 
 // Rapid fire
@@ -123,8 +124,19 @@ DO_APP_FUNC(0x036B8AA0, void, FishingModule_OnExitFishingRsp, (void* __this, voi
 DO_APP_FUNC(0x036BB0B0, void, FishingModule_onFishChosenNotify, (void* __this, void* notify, MethodInfo* method));
 
 
-// Camera
+// Visuals
 DO_APP_FUNC(0x0289DE30, void, SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data, MethodInfo* method));
+
+// Chest Indicator | RyujinZX#6666
+DO_APP_FUNC(0x0487E1D0, bool, LCIndicatorPlugin_DoCheck, (LCIndicatorPlugin* __this, MethodInfo* method));
+DO_APP_FUNC(0x0487F680, void, LCIndicatorPlugin_ShowIcon, (LCIndicatorPlugin* __this, MethodInfo* method));
+DO_APP_FUNC(0x0487CBF0, void, LCIndicatorPlugin_HideIcon, (LCIndicatorPlugin* __this, MethodInfo* method));
+
+// Auto Cooking | RyujinZX#6666
+DO_APP_FUNC(0x01B91500, void, PlayerModule_RequestPlayerCook, (PlayerModule* __this, uint32_t recipeId, uint32_t avatarId, uint32_t qteQuality, uint32_t count, MethodInfo* method));
+DO_APP_FUNC(0x01B9E8F0, void, PlayerModule_OnPlayerCookRsp, (PlayerModule* __this, PlayerCookRsp* rsp, MethodInfo* method));
+DO_APP_FUNC(0x030E1000, void, CookingQtePageContext_UpdateProficiency, (CookingQtePageContext* __this, MethodInfo* method));
+DO_APP_FUNC(0x03AA2920, uint32_t, CookRecipeExcelConfig_get_maxProficiency, (CookRecipeExcelConfig* __this, MethodInfo* method));
 
 
 // Utility
@@ -146,6 +158,7 @@ DO_APP_FUNC(0x014C88B0, void,    ActorUtils_SyncAvatarMotion, (void* __this, int
 DO_APP_FUNC(0x02ECCFE0, Notify, Notify_CreateNotify_1, (void* __this, AJAPIFPNFKP__Enum type, Object* body, MethodInfo* method));
 
 DO_APP_FUNC(0x04D3A960, float, SafeFloat_GetValue, (void* __this, SafeFloat safeFloat, MethodInfo* method));
+DO_APP_FUNC(0x04D3A770, SafeFloat, SafeFloat_SetValue, (void* __this, float value, MethodInfo* method));
 
 DO_APP_FUNC(0x01645B20, void, Entity_SetPosition, (BaseEntity* __this, Vector3 position, bool someBool, MethodInfo* method));
 DO_APP_FUNC(0x05102970, LCBaseCombat*, BaseEntity_GetBaseCombat, (BaseEntity* __this, MethodInfo* method));
@@ -176,7 +189,9 @@ DO_APP_FUNC(0x01560F70, List_1_MoleMole_BaseEntity_*, EntityManager_GetEntities,
 
 DO_APP_FUNC(0x05D07B50, Bounds, Utils_1_GetBounds, (void* __this, GameObject* go, MethodInfo* method));
 
-DO_APP_FUNC(0x024E0BA0, void, HumanoidMoveFSM_LateTick, (void* __this, float deltaTime, MethodInfo* method));
+// Modify | RyujinZX#6666
+DO_APP_FUNC(0x024E0BA0, void, HumanoidMoveFSM_LateTick, (app::HumanoidMoveFSM* __this, float deltaTime, MethodInfo* method));
+
 DO_APP_FUNC(0x03511760, bool, ScenePropManager_GetTreeTypeByPattern, (ScenePropManager* __this, String* pattern, ECGLPBEEEAA__Enum* treeType, MethodInfo* method));
 
 DO_APP_FUNC(0x01997D90, void, NetworkManager_1_RequestHitTreeDropNotify, (NetworkManager_1* __this, Vector3 position, Vector3 hitPostion, ECGLPBEEEAA__Enum treeType, MethodInfo* method));
@@ -184,7 +199,7 @@ DO_APP_FUNC(0x0332CD30, uint64_t, GetTimestamp, (void* __this, MethodInfo* metho
 
 DO_APP_FUNC(0x017F43F0, bool, LoadingManager_IsLoaded, (LoadingManager* __this, MethodInfo* method));
 
-// Thanks to @RyujinZX
+// Thanks to | RyujinZX
 DO_APP_FUNC(0x019C5D50, void, LCAbilityElement_ReduceModifierDurability, (LCAbilityElement* __this, int32_t modifierDurabilityIndex, float reduceDurability, Nullable_1_Single_ deltaTime, MethodInfo* method));
 
 DO_APP_FUNC(0x035D8B70, BaseEntity*, GadgetEntity_GetOwnerEntity, (GadgetEntity* __this, MethodInfo* method));

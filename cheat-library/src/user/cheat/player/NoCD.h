@@ -8,7 +8,7 @@ namespace cheat::feature
     {
 	public:
 		config::Field<config::Toggle<Hotkey>> f_AbilityReduce;
-		config::Field<float> f_AbilityReduceValue;
+		config::Field<float> f_TimerReduce;
 
 		config::Field<config::Toggle<Hotkey>> f_UtimateMaxEnergy;
 		config::Field<config::Toggle<Hotkey>> f_Sprint;

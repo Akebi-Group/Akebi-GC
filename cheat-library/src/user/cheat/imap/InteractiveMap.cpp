@@ -112,7 +112,7 @@ namespace cheat::feature
 
 	void InteractiveMap::DrawMenu()
 	{
-		BeginGroupPanel("General");
+		ImGui::BeginGroupPanel("General");
 		{
 			ConfigWidget("Enabled", f_Enabled);
 			ConfigWidget(f_SeparatedWindows, "Config and filters will be in separate windows.");
@@ -121,25 +121,25 @@ namespace cheat::feature
 				UpdateUserDataField(f_CompletedPointsJson, f_STCompletedPoints.value(), true);
 			}
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Icon view");
+		ImGui::BeginGroupPanel("Icon view");
 		{
 			ConfigWidget(f_IconSize, 0.01f, 4.0f, 100.0f);
 			ConfigWidget(f_MinimapIconSize, 0.01f, 4.0f, 100.0f);
 			ConfigWidget(f_DynamicSize, "Icons will be sized dynamically depend to zoom size.\nMinimap icons don't affected.");
 			ConfigWidget(f_ShowHDIcons, "Toggle icons to HD format.");
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Completed icon view");
+		ImGui::BeginGroupPanel("Completed icon view");
 		{
 			ConfigWidget(f_ShowCompleted, "Show completed points.");
 			ConfigWidget(f_CompletePointTransparency, 0.01f, 0.0f, 1.0f, "Completed points transparency.");
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Item adjusting");
+		ImGui::BeginGroupPanel("Item adjusting");
 		{
 			ConfigWidget(f_AutoFixItemPositions, "Do fix positions to nearest to point.\n"
 				"Only items with green line support this function.");
@@ -157,9 +157,9 @@ namespace cheat::feature
 			ConfigWidget(f_CheckObjectsDelay, 10, 100, 100000, "Adjusting items is power consumption operation.\n"
 				"So rescanning will happen with specified delay.");
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Gather detecting");
+		ImGui::BeginGroupPanel("Gather detecting");
 		{
 			ConfigWidget(f_AutoDetectGatheredItems, "Enables detecting gathered items.\n"
 				"It works only items what will be gathered after enabling this function.\n"
@@ -168,16 +168,16 @@ namespace cheat::feature
 			ConfigWidget(f_GatheredItemsDetectRange, 0.1f, 5.0f, 30.0f,
 				"When entity was gathered finding nearest point in this range.");
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Manual completing");
+		ImGui::BeginGroupPanel("Manual completing");
 		{
 			ConfigWidget(f_CompleteNearestPoint, true, "When pressed, complete the nearest to avatar point.");
 			ConfigWidget(f_RevertLatestCompletion, true, "When pressed, revert latest complete operation.");
 			ConfigWidget(f_CompleteOnlyViewed, "Complete performed only to visible points.");
 			ConfigWidget(f_PointFindRange, 0.5f, 0.0f, 200.0f, "Complete performs within specified range. If 0 - unlimited.");
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 	}
 
 	void InteractiveMap::DrawFilters(const bool searchFixed)
@@ -223,13 +223,10 @@ namespace cheat::feature
 			if (validLabels.empty())
 				continue;
 
-			SelectData selData
-			{
-				std::all_of(validLabels.begin(), validLabels.end(), [](const LabelData* label) { return label->enabled; }),
-				false
-			};
+			bool checked = std::all_of(validLabels.begin(), validLabels.end(), [](const LabelData* label) { return label->enabled; });
+			bool changed = false;
 
-			if (BeginGroupPanel(categoryName.c_str(), ImVec2(-1, 0), true, &selData))
+			if (ImGui::BeginSelectableGroupPanel(categoryName.c_str(), checked, changed, true))
 			{
 				if (ImGui::BeginTable("MarkFilters", 2))
 				{
@@ -242,15 +239,14 @@ namespace cheat::feature
 					}
 					ImGui::EndTable();
 				}
-
-				EndGroupPanel();
 			}
+			ImGui::EndSelectableGroupPanel();
 
-			if (selData.changed)
+			if (changed)
 			{
 				for (const auto& label : validLabels)
 				{
-					label->enabled = selData.toggle;
+					label->enabled = checked;
 				}
 			}
 			

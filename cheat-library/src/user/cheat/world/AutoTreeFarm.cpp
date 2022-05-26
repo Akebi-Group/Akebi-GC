@@ -178,7 +178,7 @@ namespace cheat::feature
 
 				auto& attackCount = s_AttackCountMap[position];
 				attackCount++;
-				if (attackCount > m_AttackPerTree)
+				if (attackCount > static_cast<uint32_t>(m_AttackPerTree))
 					continue;
 			}
 

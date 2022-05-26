@@ -47,8 +47,8 @@ std::optional<ImageLoader::ImageData> ImageLoader::GetImage(const std::string& i
 		return {};
 	}
 
-	imageData.size.x = width;
-	imageData.size.y = height;
+	imageData.size.x = static_cast<float>(width);
+	imageData.size.y = static_cast<float>(height);
 	s_Textures[imageName] = imageData;
 	return imageData;
 }

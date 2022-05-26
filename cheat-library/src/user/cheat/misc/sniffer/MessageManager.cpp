@@ -39,6 +39,8 @@ namespace sniffer
 		default:
 			break;
 		}
+
+		return nullptr;
 	}
 
 	void MessageManager::ProcessMessage()

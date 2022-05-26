@@ -81,16 +81,6 @@ void DrawTextWithOutline(ImDrawList* drawList, ImFont* font, float fontSize, con
 void DrawTextWithOutline(ImDrawList* drawList, const ImVec2& screenPos, const char* text, const ImColor& textColor, 
 	float outlineThickness = 0.0f, OutlineSide sides = OutlineSide::All, const ImColor& outlineColor = ImColor(0.0f, 0.0f, 0.0f));
 
-
-struct SelectData
-{
-	bool toggle;
-	bool changed;
-};
-
-bool BeginGroupPanel(const char* name, const ImVec2& size = ImVec2(-1, 0), bool node = false, SelectData* selectData = nullptr);
-void EndGroupPanel();
-
 namespace ImGui
 {
 	bool HotkeyWidget(const char* label, Hotkey& hotkey, const ImVec2& size = ImVec2(0, 0));
@@ -102,6 +92,16 @@ namespace ImGui
 	void OpenRenamePopup(const std::string& initName);
 	bool IsRenamePopupOpened();
 	bool DrawRenamePopup(std::string& out);
+
+	bool BeginGroupPanel(const char* label, bool node = false, const ImVec2& size = ImVec2(-1.0f, 0.0f));
+	void EndGroupPanel();
+
+	bool BeginSelectableGroupPanel(const char* label, bool& value, bool& changed, bool node = false, const ImVec2& size = ImVec2(-1.0f, 0.0f), const char* selectLabel = "Select");
+	void EndSelectableGroupPanel();
+
+	void NextGroupPanelHeaderItem(const ImVec2& size, bool rightAlign = false);
+
+	ImVec2 CalcButtonSize(const char* label);
 }
 
 float CalcWidth(const std::string_view& view);
@@ -116,18 +116,29 @@ float GetMaxEnumWidth()
 }
 
 template <typename T>
-bool ComboEnum(const char* label, T* currentValue)
+bool ComboEnum(const char* label, T* currentValue, std::vector<T>* whitelist = nullptr)
 {
 	auto name = magic_enum::enum_name(*currentValue);
 	auto& current = *currentValue;
 	bool result = false;
 	static auto width = GetMaxEnumWidth<T>();
 
+	std::unordered_set<T> whiteSet;
+	if (whitelist != nullptr)
+	{
+		for (auto& value : *whitelist)
+		{
+			whiteSet.insert(value);
+		}
+	}
 	ImGui::SetNextItemWidth(width);
 	if (ImGui::BeginCombo(label, name.data()))
 	{
 		for (auto& entry : magic_enum::enum_entries<T>())
 		{
+			if (whitelist != nullptr && whiteSet.count(entry.first) == 0)
+				continue;
+
 			bool is_selected = (name == entry.second);
 			if (ImGui::Selectable(entry.second.data(), is_selected))
 			{

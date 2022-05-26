@@ -36,10 +36,12 @@
 #include <cheat/imap/InteractiveMap.h>
 
 #include <cheat/world/AutoFish.h>
+#include <cheat/world/AutoCook.h>
 
 #include <cheat/visuals/NoFog.h>
 #include <cheat/visuals/FPSUnlock.h>
 #include <cheat/visuals/CameraZoom.h>
+#include <cheat/visuals/ShowChestIndicator.h>
 
 #include "GenshinCM.h"
 
@@ -88,10 +90,12 @@ namespace cheat
 			FEAT_INST(InteractiveMap),
 
 			FEAT_INST(AutoFish),
+			FEAT_INST(AutoCook),
 
 			FEAT_INST(NoFog),
 			FEAT_INST(FPSUnlock),
-			FEAT_INST(CameraZoom)
+			FEAT_INST(CameraZoom),
+			FEAT_INST(ChestIndicator)
 
 			});
 #undef FEAT_INST

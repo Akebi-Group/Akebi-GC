@@ -9,11 +9,12 @@
 
 namespace cheat::feature 
 {
-	static void HumanoidMoveFSM_LateTick_Hook(void* __this, float deltaTime, MethodInfo* method);
+	static void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, MethodInfo* method);
 	app::Vector3 zero;
 
     NoClip::NoClip() : Feature(),
         NF(f_Enabled,            "No clip",              "NoClip", false),
+		NF(f_NoAnimation,		 "No Animation",		 "NoClip", true),
         NF(f_Speed,              "Speed",                "NoClip", 5.5f),
         NF(f_CameraRelative,     "Relative to camera",   "NoClip", true),
 		NF(f_VelocityMode,       "Velocity mode",        "NoClip", false),
@@ -37,6 +38,8 @@ namespace cheat::feature
     {
 		ConfigWidget("Enabled", f_Enabled, "Enables no-clip (fast speed + no collision).\n" \
             "To move, use WASD, Space (go up), and Shift (go down).");
+
+		ConfigWidget("No Animation", f_NoAnimation, "Disables player animations.");
 
 		ConfigWidget("Speed", f_Speed, 0.1f, 2.0f, 100.0f,
 			"No-clip move speed.\n" \
@@ -210,11 +213,18 @@ namespace cheat::feature
 	// Disabling standard motion performing.
 	// This disabling any animations, climb, jump, swim and so on.
 	// But when it disabled, MoveSync sending our last position, so needs to update position in packet.
-	static void HumanoidMoveFSM_LateTick_Hook(void* __this, float deltaTime, MethodInfo* method)
+	static void HumanoidMoveFSM_LateTick_Hook(app::HumanoidMoveFSM* __this, float deltaTime, MethodInfo* method)
 	{
 		NoClip& noClip = NoClip::GetInstance();
-		if (noClip.f_Enabled)
-			return;
+
+		if (noClip.f_Enabled) {
+			if (!noClip.f_NoAnimation) {
+				__this->fields._layerMaskScene = 2;
+			}
+			else {
+				return;
+			}
+		}
 
 		CALL_ORIGIN(HumanoidMoveFSM_LateTick_Hook, __this, deltaTime, method);
 	}

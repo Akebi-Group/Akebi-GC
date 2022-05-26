@@ -7,8 +7,8 @@ void PacketData::Write(PipeTransfer* transfer)
 	transfer->Write(ioType);
 	transfer->Write(dataType);
 	transfer->Write(valid);
-	transfer->Write(parentID);
-	transfer->Write(packetID);
+	transfer->Write(parentPacketID);
+	transfer->Write(messageID);
 	transfer->Write(headRawData);
 	transfer->Write(messageRawData);
 
@@ -26,8 +26,8 @@ void PacketData::Read(PipeTransfer* transfer)
 	transfer->Read(ioType);
 	transfer->Read(dataType);
 	transfer->Read(valid);
-	transfer->Read(parentID);
-	transfer->Read(packetID);
+	transfer->Read(parentPacketID);
+	transfer->Read(messageID);
 	transfer->Read(headRawData);
 	transfer->Read(messageRawData);
 

@@ -27,7 +27,7 @@ protected:
 	std::map<std::string, std::vector<OffsetSignature>> m_MethodInfoPattern;
 	std::map<std::string, std::vector<OffsetSignature>> m_TypeInfoPattern;
 
-	// Maybe in some feature I do search method/type info by translated name, but not now, not now
+	// Maybe in future I do search method/type info by translated name, but not now, not now
 	// std::map<std::string, std::string> m_TranslationMap;
 
 	std::map<std::string, uintptr_t> m_ApiMethodsCache;

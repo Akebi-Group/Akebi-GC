@@ -26,7 +26,7 @@ namespace sniffer
 
 	bool PacketParser::Parse(PacketData& data)
 	{
-		auto name = m_ProtoManager.GetName(data.packetID);
+		auto name = m_ProtoManager.GetName(data.messageID);
 		if (!name)
 			return false;
 
@@ -34,7 +34,7 @@ namespace sniffer
 		if (!head)
 			return false;
 
-		auto message = m_ProtoManager.GetJson(data.packetID, data.messageRawData);
+		auto message = m_ProtoManager.GetJson(data.messageID, data.messageRawData);
 		if (!message)
 			return false;
 
@@ -46,7 +46,7 @@ namespace sniffer
 
 	bool PacketParser::IsUnionPacket(const PacketData& data)
 	{
-		return m_UnionPacketIds.count(data.packetID) > 0;
+		return m_UnionPacketIds.count(data.messageID) > 0;
 	}
 
 	std::vector<PacketData> PacketParser::ParseUnionPacket(const PacketData& data)
@@ -54,7 +54,7 @@ namespace sniffer
 		if (!IsUnionPacket(data))
 			return {};
 
-		auto parseFunction = m_UnionPacketIds[data.packetID];
+		auto parseFunction = m_UnionPacketIds[data.messageID];
 		return (this->*parseFunction)(data);
 	}
 
@@ -64,10 +64,10 @@ namespace sniffer
 		nestedPacketData.headRawData = parent.headRawData;
 		nestedPacketData.headJson = parent.headJson;
 		nestedPacketData.messageRawData = util::base64_decode(bodyEncoded);
-		nestedPacketData.packetID = packetID;
+		nestedPacketData.messageID = packetID;
 		nestedPacketData.valid = true;
 		nestedPacketData.ioType = parent.ioType;
-		nestedPacketData.parentID = parent.sequenceID();
+		nestedPacketData.parentPacketID = parent.sequenceID();
 
 		if (packetID != 0)
 			Parse(nestedPacketData);

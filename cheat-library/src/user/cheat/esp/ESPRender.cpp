@@ -26,18 +26,20 @@ namespace cheat::feature::esp::render
 
 		s_Camera = nullptr;
 
+		auto loadingManager = GET_SINGLETON(LoadingManager);
+		if (loadingManager == nullptr || !app::LoadingManager_IsLoaded(loadingManager, nullptr))
+			return;
+
+		SAFE_BEGIN();
 		auto camera = app::Camera_get_main(nullptr, nullptr);
 		if (camera == nullptr)
 			return;
 
 		if (!app::Behaviour_get_isActiveAndEnabled(reinterpret_cast<app::Behaviour*>(camera), nullptr))
 			return;
-
-		auto loadingManager = GET_SINGLETON(LoadingManager);
-		if (loadingManager == nullptr || !app::LoadingManager_IsLoaded(loadingManager, nullptr))
-			return;
-
+		
 		s_Camera = camera;
+		SAFE_EEND();
 	}
 
 	static void UpdateResolutionScale()
@@ -65,11 +67,11 @@ namespace cheat::feature::esp::render
 		if (screenHeight == pixelHeight && screenWidth == pixelWidth)
 			return;
 
-		s_ScreenResolution.x = screenWidth;
-		s_ScreenResolution.y = screenHeight;
+		s_ScreenResolution.x = static_cast<float>(screenWidth);
+		s_ScreenResolution.y = static_cast<float>(screenHeight);
 
-		s_ResolutionScale.x = static_cast<float>(screenWidth) / static_cast<float>(pixelWidth);
-		s_ResolutionScale.y = static_cast<float>(screenHeight) / static_cast<float>(pixelHeight);
+		s_ResolutionScale.x = s_ScreenResolution.x / static_cast<float>(pixelWidth);
+		s_ResolutionScale.y = s_ScreenResolution.y / static_cast<float>(pixelHeight);
 		SAFE_EEND();
 	}
 
@@ -391,7 +393,7 @@ namespace cheat::feature::esp::render
 		draw->AddLine(s_AvatarPosition, *screenPos, color);
 	}
   
-#define PI 3.14159265358979323846
+#define PI 3.14159265358979323846f
 
 	static void DrawOffscreenArrows(game::Entity* entity, const ImColor& color)
 	{
@@ -438,10 +440,10 @@ namespace cheat::feature::esp::render
 				entity_pos.x < 0 ? abs(entity_pos.x) : (entity_pos.x > screen_rect.Max.x ? entity_pos.x - screen_rect.Max.x : 0.0f),
 				entity_pos.y < 0 ? abs(entity_pos.y) : (entity_pos.y > screen_rect.Max.y ? entity_pos.y - screen_rect.Max.y : 0.0f),
 			};
-			auto distance = std::pow(screen_outer_diff.x, 2) + std::pow(screen_outer_diff.y, 2);
+			float distance = static_cast<float>(std::pow(screen_outer_diff.x, 2) + std::pow(screen_outer_diff.y, 2));
 			alpha = entity_pos.z < 0 ? 1.0f : (distance / nearThreshold);
 		}
-		auto arrowColor = color;
+		auto arrowColor = color; // Copy
 		arrowColor.Value.w = std::min(alpha, 1.0f);
 
 		// Draw the arrow
@@ -477,19 +479,19 @@ namespace cheat::feature::esp::render
 			// Might need to be aware of performance hit but there shouldn't be any.
 			ImGuiContext& g = *GImGui;
 			ImFont* font = g.Font;
-			auto textSize = font->CalcTextSizeA(esp.f_FontSize, FLT_MAX, FLT_MAX, text.c_str());
+			auto textSize = font->CalcTextSizeA(static_cast<float>(esp.f_FontSize), FLT_MAX, FLT_MAX, text.c_str());
 			namePosition.x -= (textSize.x / 2.0f);
 			namePosition.y -= esp.f_FontSize;
 		}
 
 
 		auto draw = ImGui::GetBackgroundDrawList();
-		auto font = renderer::GetFontBySize(esp.f_FontSize);
+		auto font = renderer::GetFontBySize(static_cast<float>(esp.f_FontSize));
 		// Outline
 		if (esp.f_FontOutline)
-			DrawTextWithOutline(draw, font, esp.f_FontSize, namePosition, text.c_str(), color, esp.f_FontOutlineSize, OutlineSide::All, contrastColor);
+			DrawTextWithOutline(draw, font, static_cast<float>(esp.f_FontSize), namePosition, text.c_str(), color, esp.f_FontOutlineSize, OutlineSide::All, contrastColor);
 		else
-			draw->AddText(font, esp.f_FontSize, namePosition, color, text.c_str());
+			draw->AddText(font, static_cast<float>(esp.f_FontSize), namePosition, color, text.c_str());
 	}
 
 	bool DrawEntity(const std::string& name, game::Entity* entity, const ImColor& color, const ImColor& contrastColor)

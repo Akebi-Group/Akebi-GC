@@ -14,7 +14,7 @@ const std::string ChinaGenshinProcName = "YuanShen.exe";
 
 static CSimpleIni ini;
 
-HANDLE OpenGenshinProcess();
+bool OpenGenshinProcess(HANDLE* phProcess, HANDLE* phThread);
 
 int main(int argc, char* argv[])
 {
@@ -31,8 +31,8 @@ int main(int argc, char* argv[])
     ini.SetUnicode();
     ini.LoadFile("cfg.ini");
 
-    HANDLE hProcess = OpenGenshinProcess();
-    if (hProcess == NULL)
+    HANDLE hProcess, hThread;
+    if (!OpenGenshinProcess(&hProcess, &hThread))
     {
         std::cout << "Failed to open GenshinImpact process." << std::endl;
         return 1;
@@ -60,10 +60,13 @@ int main(int argc, char* argv[])
     InjectDLL(hProcess, currentDllPath.string());
 #endif
 
+    Sleep(2000);
+    ResumeThread(hThread);
+
     CloseHandle(hProcess);
 }
 
-HANDLE OpenGenshinProcess() 
+bool OpenGenshinProcess(HANDLE *phProcess, HANDLE* phThread)
 {
     STARTUPINFOA startInfo{};
     PROCESS_INFORMATION processInformation{};
@@ -74,7 +77,7 @@ HANDLE OpenGenshinProcess()
     LPSTR lpstr = commandline == nullptr ? nullptr : const_cast<LPSTR>(commandline);
 
     if (!filePath)
-        return NULL;
+        return false;
 
     BOOL result = CreateProcessA(filePath->c_str(),
         lpstr, 0, 0, FALSE, CREATE_SUSPENDED, nullptr, nullptr, &startInfo, &processInformation);
@@ -82,12 +85,12 @@ HANDLE OpenGenshinProcess()
     {
         LOG_LAST_ERROR("Failed to create game process.");
         LOG_ERROR("If you have problem with GenshinImpact.exe path. You can change it manually in cfg.ini.");
-        return NULL;
+        return false;
     }
 
     ini.SaveFile("cfg.ini");
 
-    ResumeThread(processInformation.hThread);
-
-    return processInformation.hProcess;
+    *phThread = processInformation.hThread;
+    *phProcess = processInformation.hProcess;
+    return true;
 }

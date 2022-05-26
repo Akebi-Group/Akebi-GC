@@ -438,7 +438,7 @@ namespace cheat::feature
             ImGui::TableHeadersRow();
 
             ImGuiListClipper clipper;
-            clipper.Begin(entities.size());
+            clipper.Begin(static_cast<int>(entities.size()));
             while (clipper.Step())
                 for (int row_n = clipper.DisplayStart; row_n < clipper.DisplayEnd; row_n++)
                 {
@@ -1037,6 +1037,7 @@ namespace cheat::feature
         }
         catch (nlohmann::detail::parse_error& parseError)
         {
+            UNREFERENCED_PARAMETER(parseError);
             LOG_ERROR("Failed to parse json");
         }
         

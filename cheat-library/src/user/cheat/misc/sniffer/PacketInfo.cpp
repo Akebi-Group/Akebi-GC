@@ -21,7 +21,7 @@ namespace sniffer
 
 	uint32_t PacketInfo::id() const
 	{
-		return m_Data.packetID;
+		return m_Data.messageID;
 	}
 
 	size_t PacketInfo::size() const

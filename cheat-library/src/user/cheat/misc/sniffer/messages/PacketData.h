@@ -26,9 +26,9 @@ public:
 
 	bool valid;
 	
-	uint64_t parentID;
+	uint64_t parentPacketID;
 
-	int16_t packetID;
+	int16_t messageID;
 	std::vector<byte> headRawData;
 	std::vector<byte> messageRawData;
 

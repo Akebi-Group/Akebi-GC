@@ -437,6 +437,7 @@ namespace sniffer
 		}
 		catch (const std::regex_error& e)
 		{
+			UNREFERENCED_PARAMETER(e);
 			return false;
 		}
 	}
@@ -465,7 +466,7 @@ namespace sniffer
 		
 		bool removed = false;
 		auto name = fmt::format("Group {}", magic_enum::enum_name(m_Rule));
-		BeginGroupPanel(name.c_str(), ImVec2(-1, 0));
+		ImGui::BeginGroupPanel(name.c_str());
 		{
 			ComboEnum("Rule", &m_Rule);
 			
@@ -498,7 +499,7 @@ namespace sniffer
 				m_Filters.push_back(new Filter());
 
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
 		ImGui::PopID();
 

@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 enc_temp_folder/
+debugger.cpp

@@ -42,6 +42,8 @@ namespace util
 	std::string base64_encode(BYTE const* buf, unsigned int bufLen);
 	std::vector<BYTE> base64_decode(std::string const&);
 
+	int64_t GetTimezoneBias();
+
 
 	template<typename ... Args>
 	std::string string_format(const std::string& format, Args ... args)

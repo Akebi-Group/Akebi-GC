@@ -10435,6 +10435,37 @@ namespace app {
         struct LCCharacterCombat__Fields fields;
     };
 
+    struct __declspec(align(8)) LCAvatarCombat_OMIIMOJOHIP__Fields {
+        uint32_t skillID;
+        struct AvatarSkillExcelConfig* config;
+        struct SafeFloat cdTimer;
+        struct SafeFloat currChargeCount;
+        struct SafeFloat costStamina;
+        bool canHold;
+        bool canTrigger;
+        bool useInAir;
+        struct HashSet_1_System_Int32_* canUseSkillStateWhiteList;
+        int32_t needMonitor;
+        bool isLocked;
+        bool ignoreCDMinusRatio;
+        bool forceCanDoSkill;
+        struct SafeFloat NFNMNLKPNHD;
+        struct SafeFloat EBIABBHAFFD;
+        struct SafeFloat HPDKMHFJFMI;
+        struct SafeFloat IBKPGNDMDBJ;
+        struct SafeFloat GBGBNALDDFM;
+        int32_t skillIndex;
+        int32_t prority;
+        float _costElem_k__BackingField;
+        int32_t _maxChargeCount_k__BackingField;
+    };
+
+    struct LCAvatarCombat_OMIIMOJOHIP {
+        struct LCAvatarCombat_OMIIMOJOHIP__Class* klass;
+        MonitorData* monitor;
+        struct LCAvatarCombat_OMIIMOJOHIP__Fields fields;
+    };
+
     struct LCAvatarCombat__Fields {
         struct LCCharacterCombat__Fields _;
         struct EntityTimer* _targetAtteTimer;
@@ -10517,6 +10548,76 @@ namespace app {
     };
 
 #endif
+
+    struct HumanoidMoveFSM__Fields {
+        struct BaseComponentPlugin__Fields _;
+        struct HumanoidMoveFSMBaseMoveState* _curState;
+        int32_t fallOnGroundFirstFrame;
+        struct Dictionary_2_MoleMole_HumanoidMoveFSM_JJLCCKKCHPD_MoleMole_HumanoidMoveFSMBaseMoveState_* stateMapInfo;
+        struct VCHumanoidMoveData* _moveData;
+        struct VCHumanoidMoveConfig* _moveConfig;
+        struct VCHumanoidMove* _ownerMove;
+        struct Animator* _animator;
+        struct Rigidbody* _rigidbody;
+        struct AnimatorController* _animatorController;
+        void* OnMoveUpdateCallback;
+        void* OnAirUpdateCallback;
+        bool _initSyncWithCurrentTask;
+        bool _behaviourSet;
+        float _sendCombatNotifyTime;
+        bool enterSprintBS;
+        bool _positionRotationChanged_k__BackingField;
+        struct Transform* _transform;
+        struct Vector3 lateTickStartPosition;
+        struct Quaternion lateTickStartRotation;
+        int32_t _layerMaskScene;
+        int32_t _layerMaskDynamicBarrier;
+        int32_t layerMaskDynamicBarrierCheckAuthority;
+        bool ignoreOverallMoveWallProtectionCurrentFrame;
+        bool stopMoveWhenGoupstairs;
+        bool lastStopMoveWhenGoupstairs;
+        float climbGlobalRecovery;
+        bool autoGoUpstair;
+        bool forceDoNotSyncWhenReset;
+        float inSprintTime;
+        int32_t _lastCurrentStateHash;
+        int32_t _lastNextStateHash;
+        bool _firstLatetick;
+        bool _lastInForbiddenToggleMoveState;
+        bool _disableMotion4hiUpdateCurrentFrame;
+        int32_t _flyStateHash;
+        struct VCMoveIKController* _ikComp;
+        struct Transform* _lCalf;
+        struct Transform* _rCalf;
+        void* _weaponStandbyIKParams;
+        void* _normalStandbyIKParams;
+        void* _params;
+        float _lastSkirtBlendParam;
+        float _idealSkirtBlendParam;
+        float _lastIdealSkirtBlendParam;
+        float _lastSkirtWeight;
+        float _idealSkirtWeight;
+        float _lastSkirtPos;
+        float _idealSkirtPos;
+        void* _lastFrameAnimSpeedInfo;
+        void* _currentFrameAnimSpeedInfo;
+        bool _isInSprintCheckInterval;
+        bool _isInMuteSprintInterval;
+        float _timeAfterLastSprint;
+        uint32_t _lastFrameVelocityCheckBits;
+        bool _lastFrameVelocityCheckResult;
+        bool _remoteCheckLightCoreMove;
+        struct Vector3 _remoteCheckLightCoreMoveTarget;
+    };
+
+    struct HumanoidMoveFSM {
+        struct HumanoidMoveFSM__Class* klass;
+        MonitorData* monitor;
+        struct HumanoidMoveFSM__Fields fields;
+    };
+
+
+
     struct SCameraModuleInitialize__VTable {
         VirtualInvokeData Equals;
         VirtualInvokeData Finalize;
@@ -10827,6 +10928,161 @@ namespace app {
         double combatPullingTime;
         struct Nullable_1_Double_ _overrideMinCameraRadius;
         struct Nullable_1_Double_ _overrideMinElevation;
+    };
+
+    struct LCIndicatorPlugin__Fields {
+        struct BaseComponentPlugin__Fields _;
+        void* _timeCheckConditionKeys;
+        void* allConditions;
+        void* _owner;
+        bool unknow;
+        void* _levelGadget;
+        struct GadgetDataItem* _dataItem;
+        void* _tempLateData;
+        void* _configIndicator;
+        void* indicatorDominators;
+        bool _isIndicatorShow;
+        void* _checkTimer;
+    };
+
+    struct LCIndicatorPlugin {
+        struct LCIndicatorPlugin__Class* klass;
+        MonitorData* monitor;
+        struct LCIndicatorPlugin__Fields fields;
+    };
+
+    struct PlayerCookRsp__Fields {
+        struct MessageBase_1__Fields _;
+        int32_t retcode_;
+        struct CookRecipeData_1* recipeData_;
+        void* itemList_;
+        uint32_t qteQuality_;
+        uint32_t cookCount_;
+        void* extralItemList_;
+    };
+
+    struct PlayerCookRsp {
+        struct PlayerCookRsp__Class* klass;
+        MonitorData* monitor;
+        struct PlayerCookRsp__Fields fields;
+    };
+
+    struct MonoCookingQTEPage__Fields {
+        struct MonoUIProxy__Fields _;
+        struct MonoElementSwitch* _elementSwitch;
+        struct Transform* _cookNeedRoot;
+        struct GameObject* _addInfo;
+        struct Text* _addDescText;
+        struct GameObject* _iconState;
+        struct Transform__Array* _foodPanel;
+        struct MonoUIContainer* _makeBtn;
+        struct MonoUIContainer* _autoMakeBtn;
+        struct MonoUIContainer* _returnBtn;
+        struct GameObject* _qtePanel;
+        struct GameObject* _manualQteRoot;
+        struct GameObject* _autoQteRoot;
+        struct MonoCookGotPanel* _cookGotPanel;
+        struct Button* _endBtn;
+        struct RectTransform* _goodAreaTrans;
+        struct SmoothMask* _goodAreaFill;
+        struct RectTransform* _perfectAreaTrans;
+        struct SmoothMask* _perfectAreaFill;
+        struct RectTransform* _pointerTrans;
+        float _qteTime;
+        float _autoQteTime;
+        float _starQteDelay;
+        struct GameObject* _selectNumberRoot;
+        struct GameObject* _grpProficiency;
+        struct Text* _proficiencyText;
+        struct MonoUIContainer* _replaceBtn;
+        struct MonoBagProxySlot* _curRecipeItemSlot;
+        struct Text* _curRecipeFoodNum;
+        struct GameObject* _grpResult;
+        struct GameObject* _bonusAdditionalInfoIcon;
+        struct Text* _additionalInfoText;
+        struct GameObject* _grpJoypadButtons;
+        struct GameObject* _bagSlotPrefab;
+        struct List_1_MoleMole_MonoItemSlot_* _cookNeedList;
+        struct MonoCookAvatarSelect* _avatarPanel;
+        struct MonoAvatarIcon* _avatarIcon;
+        struct Transform* _avatarIconRoot;
+    };
+
+    struct MonoCookingQTEPage {
+        struct MonoCookingQTEPage__Class* klass;
+        MonitorData* monitor;
+        struct MonoCookingQTEPage__Fields fields;
+    };
+
+    struct CookingQtePageContext__Fields {
+        struct BasePageContext__Fields _;
+        struct MonoCookingQTEPage* _pageMono;
+        uint32_t _recipeId;
+        uint32_t _avatarId;
+        float _goodRangeStart;
+        float _goodRangeEnd;
+        float _perfectRangeStart;
+        float _perfectRangeEnd;
+        bool _qteStart;
+        float _qteTime;
+        float _qteBonusRange;
+        bool _isAuto;
+        int32_t _foodKind;
+        uint32_t _oldProficiency;
+        uint32_t _newProficiency;
+        uint32_t _maxProficiency;
+        uint32_t _curProficiency;
+        bool _upProficiencyStart;
+        float _upProficiencyTime;
+        bool _focusOnNeedItem;
+        int32_t _needItemIndex;
+        bool canAutoCook;
+        struct List_1_MoleMole_SimpleItemStruct_* _itemGotList;
+        bool _isAvatarPanelOpen;
+        uint32_t _toSelectAvatarId;
+        int32_t _toSelectAvatarIndex;
+        struct List_1_System_UInt32_* _avatarList;
+    };
+
+    struct CookingQtePageContext {
+        struct CookingQtePageContext__Class* klass;
+        MonitorData* monitor;
+        struct CookingQtePageContext__Fields fields;
+    };
+
+    struct CookRecipeData_1__Fields {
+        struct MessageBase_1__Fields _;
+        uint32_t recipeId_;
+        uint32_t proficiency_;
+    };
+
+    struct CookRecipeData_1 {
+        struct CookRecipeData_1__Class* klass;
+        MonitorData* monitor;
+        struct CookRecipeData_1__Fields fields;
+    };
+
+    struct __declspec(align(8)) CookRecipeExcelConfig__Fields {
+        struct SimpleSafeUInt32 idRawNum;
+        uint32_t _nameTextMapHash;
+        struct SimpleSafeUInt32 rankLevelRawNum;
+        struct String* _icon;
+        uint32_t _descTextMapHash;
+        struct UInt32__Array* _effectDesc;
+        int32_t _foodType;
+        int32_t _cookMethod;
+        bool _isDefaultUnlocked;
+        SimpleSafeUInt32 maxProficiencyRawNum;
+        struct IdCountConfig__Array* _qualityOutputVec;
+        struct IdCountConfig__Array* _inputVec;
+        struct String* _qteParam;
+        struct SimpleSafeUInt32__Array* _qteQualityWeightVec;
+    };
+
+    struct CookRecipeExcelConfig {
+        struct CookRecipeExcelConfig__Class* klass;
+        MonitorData* monitor;
+        struct CookRecipeExcelConfig__Fields fields;
     };
 
 #if !defined(_GHIDRA_) && !defined(_IDA_)

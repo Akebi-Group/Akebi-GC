@@ -31,7 +31,7 @@ namespace cheat::feature
 		NF(f_HotkeyExit, "Hotkeys", "General::FastExit", Hotkey(VK_F12))
 		
     {
-		renderer::SetGlobalFontSize(f_FontSize);
+		renderer::SetGlobalFontSize(static_cast<float>(f_FontSize));
 		f_HotkeyExit.value().PressedEvent += MY_METHOD_HANDLER(Settings::OnExitKeyPressed);
     }
 
@@ -44,7 +44,7 @@ namespace cheat::feature
 	void Settings::DrawMain()
 	{
 
-		BeginGroupPanel("General", ImVec2(-1, 0));
+		ImGui::BeginGroupPanel("General");
 		{
 			ConfigWidget(f_MenuKey, false,
 				"Key to toggle main menu visibility. Cannot be empty.\n"\
@@ -53,12 +53,12 @@ namespace cheat::feature
 			if (ConfigWidget(f_FontSize, 1, 8, 64, "Font size for cheat interface."))
 			{
 				f_FontSize = std::clamp(f_FontSize.value(), 8, 64);
-				renderer::SetGlobalFontSize(f_FontSize);
+				renderer::SetGlobalFontSize(static_cast<float>(f_FontSize));
 			}
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Logging", ImVec2(-1, 0));
+		ImGui::BeginGroupPanel("Logging");
 		{
 			bool consoleChanged = ConfigWidget(f_ConsoleLogging,
 				"Enable console for logging information (changes will take effect after relaunch)");
@@ -75,37 +75,37 @@ namespace cheat::feature
 				Logger::SetLevel(Logger::Level::None, Logger::LoggerType::FileLogger);
 			}
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Status Window", ImVec2(-1, 0));
+		ImGui::BeginGroupPanel("Status Window");
 		{
 			ConfigWidget(f_StatusShow);
 			ConfigWidget(f_StatusMove, "Allow moving of 'Status' window.");
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Info Window", ImVec2(-1, 0));
+		ImGui::BeginGroupPanel("Info Window");
 		{
 			ConfigWidget(f_InfoShow);
 			ConfigWidget(f_InfoMove, "Allow moving of 'Info' window.");
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("FPS indicator", ImVec2(-1, 0));
+		ImGui::BeginGroupPanel("FPS indicator");
 		{
 			ConfigWidget(f_FpsShow);
 			ConfigWidget(f_FpsMove, "Allow moving of 'FPS Indicator' window.");
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Show Notifications", ImVec2(-1, 0));
+		ImGui::BeginGroupPanel("Show Notifications");
 		{
 			ConfigWidget(f_NotificationsShow, "Notifications on the bottom-right corner of the window will be displayed.");
 			ConfigWidget(f_NotificationsDelay, 1,1,10000, "Delay in milliseconds between notifications.");
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 
-		BeginGroupPanel("Fast Exit", ImVec2(-1, 0));
+		ImGui::BeginGroupPanel("Fast Exit");
 		{
 			ConfigWidget("Enabled",
 				f_FastExitEnable,
@@ -120,7 +120,7 @@ namespace cheat::feature
 			if (!f_FastExitEnable)
 				ImGui::EndDisabled();
 		}
-		EndGroupPanel();
+		ImGui::EndGroupPanel();
 	}
 
     Settings& Settings::GetInstance()

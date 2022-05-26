@@ -40,23 +40,23 @@ namespace cheat::feature
             "Mobs within the specified radius will move\nto a specified distance in front of the player.");
 
         bool filtersChanged = false;
-    	BeginGroupPanel("Monsters", ImVec2(-1, 0));
+        ImGui::BeginGroupPanel("Monsters");
         {
             filtersChanged |= ConfigWidget(f_IncludeMonsters, "Include monsters in vacuum.");
             filtersChanged |= ConfigWidget(f_MonsterCommon, "Common enemies."); ImGui::SameLine();
             filtersChanged |= ConfigWidget(f_MonsterElites, "Elite enemies."); ImGui::SameLine();
             filtersChanged |= ConfigWidget(f_MonsterBosses, "World and Trounce boss enemies.");
         }
-    	EndGroupPanel();
+        ImGui::EndGroupPanel();
         
-    	BeginGroupPanel("Animals", ImVec2(-1, 0));
+        ImGui::BeginGroupPanel("Animals");
         {
             filtersChanged |= ConfigWidget(f_IncludeAnimals, "Include animals in vacuum.");
             filtersChanged |= ConfigWidget(f_AnimalDrop, "Animals you need to kill before collecting."); ImGui::SameLine();
             filtersChanged |= ConfigWidget(f_AnimalPickUp, "Animals you can immediately collect."); ImGui::SameLine();
             filtersChanged |= ConfigWidget(f_AnimalNPC, "Animals without mechanics.");
         }
-    	EndGroupPanel();
+        ImGui::EndGroupPanel();
 
         if (filtersChanged)
             UpdateFilters();

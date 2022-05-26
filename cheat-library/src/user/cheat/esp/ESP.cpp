@@ -61,53 +61,54 @@ namespace cheat::feature
 
 	void ESP::DrawMain()
 	{
-		if (BeginGroupPanel("General", ImVec2(-1, 0), true))
+		if (ImGui::BeginGroupPanel("General", true))
 		{
 			ConfigWidget("ESP Enabled", f_Enabled, "Show filtered object through obstacles.");
 			ConfigWidget("Range (m)", f_Range, 1.0f, 1.0f, 200.0f);
 
 			ConfigWidget(f_DrawBoxMode, "Select the mode of box drawing.");
-      ConfigWidget(f_DrawTracerMode, "Select the mode of tracer drawing.");
+			ConfigWidget(f_DrawTracerMode, "Select the mode of tracer drawing.");
       
 			ConfigWidget(f_Fill);
 			ConfigWidget(f_FillTransparency, 0.01f, 0.0f, 1.0f, "Transparency of filled part.");
 
-      if (f_DrawTracerMode.value() == DrawTracerMode::OffscreenArrows &&
-			BeginGroupPanel("Arrow tracer options", ImVec2(-1, 0), true))
-      {
-        ConfigWidget(f_TracerSize, 0.005f, 0.1f, 10.0f, "Size of tracer.");
-        ConfigWidget(f_ArrowRadius, 0.5f, 50.0f, 300.0f, "Radius of arrow.");
-        ConfigWidget(f_OutlineThickness, 0.005f, 0.0f, 10.0f, "Outline thickness of arrow.");
-
-        EndGroupPanel();
-      }
+			if (f_DrawTracerMode.value() == DrawTracerMode::OffscreenArrows)
+			{
+				if (ImGui::BeginGroupPanel("Arrow tracer options", true))
+				{
+					ConfigWidget(f_TracerSize, 0.005f, 0.1f, 10.0f, "Size of tracer.");
+					ConfigWidget(f_ArrowRadius, 0.5f, 50.0f, 300.0f, "Radius of arrow.");
+					ConfigWidget(f_OutlineThickness, 0.005f, 0.0f, 10.0f, "Outline thickness of arrow.");
+				}
+				ImGui::EndGroupPanel();
+			}
       
 			ImGui::Spacing();
 			ConfigWidget(f_DrawName, "Draw name of object.");
 			ConfigWidget(f_DrawDistance, "Draw distance of object.");
 
 			ImGui::Spacing();
-			ConfigWidget(f_FontSize, 0.05f, 1.0f, 100.0f, "Font size of name or distance.");
+			ConfigWidget(f_FontSize, 1, 1, 100, "Font size of name or distance.");
 			ConfigWidget("## Font outline enabled", f_FontOutline); ImGui::SameLine();
 			ConfigWidget("Font outline", f_FontOutlineSize, 0.001f, 0.0f, 10.0f);
 
 			ImGui::Spacing();
-			if (BeginGroupPanel("Global colors", ImVec2(-1, 0), true))
+			if (ImGui::BeginGroupPanel("Global colors", true))
 			{
 				if (ConfigWidget(f_GlobalFontColor, "Color of line, name, or distance text font."))
 					m_FontContrastColor = ImGui::CalcContrastColor(f_GlobalFontColor);
+
 				ConfigWidget(f_GlobalBoxColor, "Color of box font.");
 				ConfigWidget(f_GlobalLineColor, "Color of line font.");
 				ConfigWidget(f_GlobalRectColor, "Color of rectangle font.");
-				EndGroupPanel();
 			}
+			ImGui::EndGroupPanel();
 
 			ConfigWidget(f_MinSize, 0.05f, 0.1f, 200.0f, "Minimum entity size as measured in-world.\n" \
 				"Some entities have either extremely small or no bounds at all.\n" \
 				"This parameter helps filter out entities that don't meet this condition.");
-
-			EndGroupPanel();
 		}
+		ImGui::EndGroupPanel();
 
 		ImGui::Text("How to use item filters:\n\tLMB - Toggle visibility\n\tRMB - Open color picker");
 		ImGui::InputText("Search Filters", &m_Search);
@@ -174,13 +175,10 @@ namespace cheat::feature
 		if (validFilters.empty())
 			return;
 
-		SelectData selData
-		{
-			std::all_of(validFilters.begin(), validFilters.end(), [](const FilterInfo* filter) {  return filter->first.value().m_Enabled; }),
-			false
-		};
+		bool checked = std::all_of(validFilters.begin(), validFilters.end(), [](const FilterInfo* filter) {  return filter->first.value().m_Enabled; });
+		bool changed = false;
 
-		if (BeginGroupPanel(section.c_str(), ImVec2(-1, 0), true, &selData))
+		if (ImGui::BeginSelectableGroupPanel(section.c_str(), checked, changed, true))
 		{
 			for (auto& info : validFilters)
 			{
@@ -207,14 +205,14 @@ namespace cheat::feature
 
 				ImGui::TreePop();
 			}
-			EndGroupPanel();
 		}
+		ImGui::EndSelectableGroupPanel();
 
-		if (selData.changed)
+		if (changed)
 		{
 			for (auto& info : validFilters)
 			{
-				info->first.value().m_Enabled = selData.toggle;
+				info->first.value().m_Enabled = checked;
 				info->first.FireChanged();
 			}
 		}

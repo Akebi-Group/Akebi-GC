@@ -122,7 +122,7 @@ namespace renderer
 		for (int i = 0; i < _fontsCount; i++)
 		{
 			ImGuiIO& io = ImGui::GetIO();
-			auto newFont = io.Fonts->AddFontFromMemoryTTF(_customFontData.data, _customFontData.size, (i + 1) * _fontSizeStep);
+			auto newFont = io.Fonts->AddFontFromMemoryTTF(_customFontData.data, _customFontData.size, static_cast<float>((i + 1) * _fontSizeStep));
 			if (newFont == nullptr)
 				return;
 
@@ -185,8 +185,8 @@ namespace renderer
 		POINT mPos;
 		GetCursorPos(&mPos);
 		ScreenToClient(hWnd, &mPos);
-		ImGui::GetIO().MousePos.x = mPos.x;
-		ImGui::GetIO().MousePos.y = mPos.y;
+		ImGui::GetIO().MousePos.x = static_cast<float>(mPos.x);
+		ImGui::GetIO().MousePos.y = static_cast<float>(mPos.y);
 
 		ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
 
@@ -210,7 +210,7 @@ namespace renderer
 			key = GET_XBUTTON_WPARAM(wParam);
 			break;
 		case WM_KEYUP:
-			key = wParam;
+			key = static_cast<short>(wParam);
 			break;
 		default:
 			keyUpEvent = false;

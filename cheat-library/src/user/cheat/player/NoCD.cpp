@@ -9,6 +9,8 @@ namespace cheat::feature
 	static bool HumanoidMoveFSM_CheckSprintCooldown_Hook(void* __this, MethodInfo* method);
 	static bool LCAvatarCombat_IsEnergyMax_Hook(void* __this, MethodInfo* method);
 	static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t skillID, float cdMultipler, MethodInfo* method);
+	static bool LCAvatarCombat_IsSkillInCD_1(app::LCAvatarCombat* __this, app::LCAvatarCombat_OMIIMOJOHIP* skillInfo, MethodInfo* method);
+
 	static void ActorAbilityPlugin_AddDynamicFloatWithRange_Hook(void* __this, app::String* key, float value, float minValue, float maxValue,
 		bool forceDoAtRemote, MethodInfo* method);
 	 
@@ -16,15 +18,13 @@ namespace cheat::feature
 
     NoCD::NoCD() : Feature(),
         NF(f_AbilityReduce,      "Reduce Skill/Burst Cooldown",  "NoCD", false),
-		NF(f_AbilityReduceValue, "Reduce skill CD value",        "NoCD", 0.1f),
-
+		NF(f_TimerReduce, "Reduce Timer",        "NoCD", 1.f),
 		NF(f_UtimateMaxEnergy,   "Burst max energy",             "NoCD", false),
         NF(f_Sprint,             "No Sprint Cooldown",           "NoCD", false),
 		NF(f_InstantBow,         "Instant bow",                  "NoCD", false)
-
     {
 		HookManager::install(app::LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMax_Hook);
-		HookManager::install(app::LCAvatarCombat_OnSkillStart, LCAvatarCombat_OnSkillStart);
+		HookManager::install(app::LCAvatarCombat_IsSkillInCD_1, LCAvatarCombat_IsSkillInCD_1);
 
 		HookManager::install(app::HumanoidMoveFSM_CheckSprintCooldown, HumanoidMoveFSM_CheckSprintCooldown_Hook);
 		HookManager::install(app::ActorAbilityPlugin_AddDynamicFloatWithRange, ActorAbilityPlugin_AddDynamicFloatWithRange_Hook);
@@ -44,9 +44,9 @@ namespace cheat::feature
 			"(Energy bubble may appear incomplete but still usable.)");
 
 		ConfigWidget("## AbilityReduce", f_AbilityReduce); ImGui::SameLine();
-		ConfigWidget("Reduce Skill/Burst Cooldown", f_AbilityReduceValue, 0.1f, 0.2f, 1.0f, 
+		ConfigWidget("Reduce Skill/Burst Cooldown", f_TimerReduce, 0.05f, 0.0f, 1.0f,
 			"Reduce cooldowns of elemental skills and bursts.\n"\
-			"The greater the value, the greater the cooldown.");
+			"0.0 - no CD, 1.0 - default CD.");
 
     	ConfigWidget(f_Sprint, "Removes delay in-between sprints.");
 
@@ -86,7 +86,7 @@ namespace cheat::feature
     void NoCD::DrawStatus() 
     {
 		  ImGui::Text("Cooldown\n[%s%s%s%s%s]",
-			f_AbilityReduce ? fmt::format("Reduce {:.1f}", f_AbilityReduceValue.value()).c_str() : "",
+			f_AbilityReduce ? fmt::format("Reduce x{:.1f}", f_TimerReduce.value()).c_str() : "",
 			f_AbilityReduce && (f_InstantBow || f_Sprint) ? "|" : "",
 			f_InstantBow ? "Bow" : "",
 			f_InstantBow && f_Sprint ? "|" : "",
@@ -108,19 +108,35 @@ namespace cheat::feature
 		return CALL_ORIGIN(LCAvatarCombat_IsEnergyMax_Hook, __this, method);
 	}
 
-	// Multipler CoolDown Timer | RyujinZX#6666
+	// Multipler CoolDown Timer Old | RyujinZX#6666
 	static bool LCAvatarCombat_OnSkillStart(app::LCAvatarCombat* __this, uint32_t skillID, float cdMultipler, MethodInfo* method) {
 		NoCD& noCD = NoCD::GetInstance();
 		if (noCD.f_AbilityReduce)
 		{
 			if (__this->fields._targetFixTimer->fields._._timer_k__BackingField > 0) {
-				cdMultipler = noCD.f_AbilityReduceValue / 3;
+				cdMultipler = noCD.f_TimerReduce / 3;
 			}
 			else {
-				cdMultipler = noCD.f_AbilityReduceValue / 1;
+				cdMultipler = noCD.f_TimerReduce / 1;
 			}
 		}		
 		return CALL_ORIGIN(LCAvatarCombat_OnSkillStart, __this, skillID, cdMultipler, method);
+	}
+
+	// Timer Speed Up / CoolDown Reduce New | RyujinZX#6666
+	static bool LCAvatarCombat_IsSkillInCD_1(app::LCAvatarCombat* __this, app::LCAvatarCombat_OMIIMOJOHIP* skillInfo, MethodInfo* method) {
+		NoCD& noCD = NoCD::GetInstance();
+		if (noCD.f_AbilityReduce)
+		{
+			auto cdTimer = app::SafeFloat_GetValue(nullptr, skillInfo->fields.cdTimer, nullptr);
+
+			if (cdTimer > noCD.f_TimerReduce * 5.0f)
+			{
+				struct app::SafeFloat MyValueProtect = app::SafeFloat_SetValue(nullptr, noCD.f_TimerReduce * 5.0f, nullptr);
+				skillInfo->fields.cdTimer = MyValueProtect;
+			}
+		}
+		return CALL_ORIGIN(LCAvatarCombat_IsSkillInCD_1, __this, skillInfo, method);
 	}
 
 	// Check sprint cooldown, we just return true if sprint no cooldown enabled.

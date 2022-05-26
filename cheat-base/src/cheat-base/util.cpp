@@ -222,7 +222,7 @@ namespace util
 	}
 
 	std::vector<BYTE> base64_decode(std::string const& encoded_string) {
-		int in_len = encoded_string.size();
+		size_t in_len = encoded_string.size();
 		int i = 0;
 		int j = 0;
 		int in_ = 0;
@@ -233,7 +233,7 @@ namespace util
 			char_array_4[i++] = encoded_string[in_]; in_++;
 			if (i == 4) {
 				for (i = 0; i < 4; i++)
-					char_array_4[i] = base64_chars.find(char_array_4[i]);
+					char_array_4[i] = static_cast<BYTE>(base64_chars.find(char_array_4[i])); // base64_chars len < 255
 
 				char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
 				char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
@@ -250,7 +250,7 @@ namespace util
 				char_array_4[j] = 0;
 
 			for (j = 0; j < 4; j++)
-				char_array_4[j] = base64_chars.find(char_array_4[j]);
+				char_array_4[j] = static_cast<BYTE>(base64_chars.find(char_array_4[j]));
 
 			char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
 			char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
@@ -260,5 +260,14 @@ namespace util
 		}
 
 		return ret;
+	}
+
+	int64_t GetTimezoneBias()
+	{
+		_TIME_ZONE_INFORMATION timezoneInfo{};
+		if (GetTimeZoneInformation(&timezoneInfo) == TIME_ZONE_ID_INVALID)
+			LOG_LAST_ERROR("Failed to get timezone.");
+
+		return static_cast<int64_t>(timezoneInfo.Bias) * 60;
 	}
 }

@@ -57,14 +57,14 @@ namespace cheat::feature
 
         for (auto& fields : multiLineSections)
         {
-	        if (BeginGroupPanel((*fields)[0]->section().c_str(), ImVec2(-1, 0), true))
+	        if (ImGui::BeginGroupPanel((*fields)[0]->section().c_str(), true))
 	        {
 		        for (auto& field : *fields)
 		        {
                     ConfigWidget(*field, nullptr, true);
 		        }
-                EndGroupPanel();
 	        }
+            ImGui::EndGroupPanel();
         }
 
         ImGui::EndChild();

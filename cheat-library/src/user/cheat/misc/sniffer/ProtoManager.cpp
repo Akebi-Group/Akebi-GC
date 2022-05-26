@@ -6,7 +6,7 @@
 namespace sniffer
 {
 
-	static class ErrorCollector : public google::protobuf::compiler::MultiFileErrorCollector
+	class ErrorCollector : public google::protobuf::compiler::MultiFileErrorCollector
 	{
 		// Inherited via MultiFileErrorCollector
 		virtual void AddError(const std::string& filename, int line, int column, const std::string& message) override

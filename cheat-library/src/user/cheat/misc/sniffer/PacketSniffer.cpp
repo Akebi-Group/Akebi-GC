@@ -129,7 +129,7 @@ namespace cheat::feature
 			auto dataSize = modifyData->modifiedData.size();
 			packet->data = new byte[dataSize]();
 			memcpy_s(packet->data, dataSize, modifyData->modifiedData.data(), dataSize);
-			packet->dataLen = dataSize;
+			packet->dataLen = static_cast<uint32_t>(dataSize);
 		}
 		break;
 		case PacketModifyType::Unchanged:
@@ -224,7 +224,7 @@ namespace cheat::feature
 		}
 
 		packetData.valid = true;
-		packetData.packetID = messageId;
+		packetData.messageID = messageId;
 
 		packetData.headRawData = std::vector<byte>((size_t)headSize, 0);
 		memcpy_s(packetData.headRawData.data(), headSize, data + 10, headSize);

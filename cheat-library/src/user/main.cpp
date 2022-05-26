@@ -6,23 +6,16 @@
 #include <cheat/cheat.h>
 #include <cheat-base/cheat/misc/Settings.h>
 
+#include <tlhelp32.h>
 #include <cheat/ILPatternScanner.h>
 #include <resource.h>
 
-bool StubTerminateProcess();
+#ifdef _DEBUG
+#include <cheat/debugger.h>
+#endif
 
 void Run(HMODULE* phModule)
 {
-#ifdef _DEBUG
-	Sleep(10000);
-#else
-	while (GetModuleHandle("UserAssembly.dll") == nullptr)
-	{
-		Sleep(2000);
-	}
-    Sleep(15000);
-#endif
-
 	ResourceLoader::SetModuleHandle(*phModule);
 
 	// Init config
@@ -43,43 +36,26 @@ void Run(HMODULE* phModule)
 		il2cppi_new_console();
 	}
 
-	init_il2cpp();
+#ifdef _DEBUG
+	DebuggerBypassPre();
 
-	if (StubTerminateProcess())
-		LOG_INFO("TerminateProcess stubbed successfully.");
-	else
-		LOG_ERROR("Stub TerminateProcess failed.");
+	LOG_DEBUG("Waiting 10sec for loading game library.");
+	Sleep(10000);
+
+	DebuggerBypassPost();
+#else
+	while (GetModuleHandle("UserAssembly.dll") == nullptr)
+	{
+		LOG_DEBUG("UserAssembly.dll isn't initialized, waiting for 2 sec.");
+		Sleep(2000);
+	}
+	LOG_DEBUG("Waiting 15sec for game initialize.");
+    Sleep(15000);
+#endif
+
+	init_il2cpp();
 
 	cheat::Init();
 
     LOG_DEBUG("Config path is at %s", configPath.c_str());
-    LOG_DEBUG("UserAssembly.dll is at 0x%p", il2cppi_get_base_address());
-    LOG_DEBUG("UnityPlayer.dll is at 0x%p", il2cppi_get_unity_address());
-}
-
-BOOL WINAPI TerminateProcess_Hook(HANDLE hProcessUINT, UINT uExitCode)
-{
-    return TRUE;
-}
-
-bool StubTerminateProcess()
-{
-    HMODULE hKernelBase = GetModuleHandle("kernelbase.dll");
-    if (hKernelBase == NULL)
-    {
-        LOG_LAST_ERROR("Failed to get the kernelbase.dll handle.");
-        return false;
-    }
-
-    FARPROC pTerminateProcess = GetProcAddress(hKernelBase, "TerminateProcess");
-    if (pTerminateProcess == nullptr)
-    {
-        LOG_LAST_ERROR("Getting KernelBase::NtTerminateProcess failed.");
-        return false;
-    }
-    using TerminateProcess_Type = BOOL(*)(HANDLE, UINT);
-    
-    HookManager::install((TerminateProcess_Type)pTerminateProcess, TerminateProcess_Hook);
-    LOG_DEBUG("Terminate process hooked. Origin at 0x%p", HookManager::getOrigin(TerminateProcess_Hook));
-    return true;
 }

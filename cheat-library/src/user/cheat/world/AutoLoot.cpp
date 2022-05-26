@@ -47,7 +47,7 @@ namespace cheat::feature
 			ImGui::TableNextRow();
 			ImGui::TableSetColumnIndex(0);
 
-			BeginGroupPanel("Auto-Pickup", ImVec2(-1, 0));
+			ImGui::BeginGroupPanel("Auto-Pickup");
 			{
 				ConfigWidget("Enabled", f_AutoPickup, "Automatically picks up dropped items.\n" \
 					"Note: Using this with custom range and low delay times is extremely risky.\n" \
@@ -56,9 +56,9 @@ namespace cheat::feature
 				ImGui::SameLine();
 				ImGui::TextColored(ImColor(255, 165, 0, 255), "Read the note!");
 			}
-			EndGroupPanel();
+			ImGui::EndGroupPanel();
 
-			BeginGroupPanel("Custom Pickup Range", ImVec2(-1, 0));
+			ImGui::BeginGroupPanel("Custom Pickup Range");
 			{
 				ConfigWidget("Enabled", f_UseCustomRange, "Enable custom pickup range.\n" \
 					"High values are not recommended, as it is easily detected by the server.\n\n" \
@@ -68,18 +68,18 @@ namespace cheat::feature
 				ImGui::SetNextItemWidth(100.0f);
 				ConfigWidget("Range (m)", f_CustomRange, 0.1f, 0.5f, 40.0f, "Modifies pickup/open range to this value (in meters).");
 			}
-			EndGroupPanel();
+			ImGui::EndGroupPanel();
 
-			BeginGroupPanel("Looting Speed", ImVec2(-1, 0));
+			ImGui::BeginGroupPanel("Looting Speed");
 			{
 				ImGui::SetNextItemWidth(100.0f);
 				ConfigWidget("Delay Time (ms)", f_DelayTime, 1, 0, 1000, "Delay (in ms) between loot/open actions.\n" \
 					"Values under 200ms are unsafe.\nNot used if no auto-functions are on.");
 			}
-			EndGroupPanel();
+			ImGui::EndGroupPanel();
 
 			ImGui::TableSetColumnIndex(1);
-			BeginGroupPanel("Auto-Treasure", ImVec2(-1, 0));
+			ImGui::BeginGroupPanel("Auto-Treasure");
 			{
 				ConfigWidget("Enabled", f_AutoTreasure, "Automatically opens chests and other treasures.\n" \
 					"Note: Using this with custom range and low delay times is extremely risky.\n" \
@@ -95,7 +95,7 @@ namespace cheat::feature
 				ConfigWidget("Others", f_Others, "Book Pages, Spincrystals, etc.");
 				ImGui::Unindent();
 			}
-			EndGroupPanel();
+			ImGui::EndGroupPanel();
 			ImGui::EndTable();
 		}		
     }

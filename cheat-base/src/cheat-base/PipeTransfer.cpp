@@ -53,8 +53,8 @@ void PipeTransfer::ReadBytes(void* buffer, size_t size)
 	if (size == 0 || !IsPipeOpened()) return;
 	
 	DWORD readCount = 0;
-	auto result = ReadFile(m_Pipe, buffer, size, &readCount, nullptr);
-	if (!result || readCount < size)
+	auto result = ReadFile(m_Pipe, buffer, static_cast<DWORD>(size), &readCount, nullptr);
+	if (!result || static_cast<size_t>(readCount) < size)
 	{
 		LOG_LAST_ERROR("Failed read from pipe.");
 		CloseHandle(m_Pipe);
@@ -67,8 +67,8 @@ void PipeTransfer::WriteBytes(void* buffer, size_t size)
 	if (size == 0 || !IsPipeOpened()) return;
 
 	DWORD writenCount = 0;
-	auto result = WriteFile(m_Pipe, buffer, size, &writenCount, nullptr);
-	if (!result || writenCount < size)
+	auto result = WriteFile(m_Pipe, buffer, static_cast<DWORD>(size), &writenCount, nullptr);
+	if (!result || static_cast<size_t>(writenCount) < size)
 	{
 		LOG_LAST_ERROR("Failed write to pipe.");
 		CloseHandle(m_Pipe);

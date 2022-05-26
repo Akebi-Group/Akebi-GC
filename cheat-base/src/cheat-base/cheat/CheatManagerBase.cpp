@@ -113,7 +113,7 @@ namespace cheat
 	void CheatManagerBase::DrawMenuSection(const std::string& sectionName, const std::vector<Feature*>& features) const
 	{
 		if (!sectionName.empty())
-			BeginGroupPanel(sectionName.c_str(), ImVec2(-1, 0));
+			ImGui::BeginGroupPanel(sectionName.c_str());
 
 		for (auto& feature : features)
 		{
@@ -123,7 +123,7 @@ namespace cheat
 		}
 
 		if (!sectionName.empty())
-			EndGroupPanel();
+			ImGui::EndGroupPanel();
 	}
 
 	void CheatManagerBase::DrawProfileGlobalActivities()
@@ -350,7 +350,7 @@ namespace cheat
 			if (!moduleShowAny)
 				continue;
 
-			BeginGroupPanel(moduleName.c_str(), ImVec2(-1, 0));
+			ImGui::BeginGroupPanel(moduleName.c_str());
 
 			for (auto& [sectionName, features] : sections)
 			{
@@ -365,7 +365,7 @@ namespace cheat
 				}
 			}
 
-			EndGroupPanel();
+			ImGui::EndGroupPanel();
 		}
 
 		ImGui::End();
