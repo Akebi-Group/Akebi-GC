@@ -16,8 +16,8 @@ namespace cheat::feature
         NF(f_FastDialog,            "Fast dialog",              "AutoTalk", false),
         NF(f_TimeSpeedup,           "Time Speed",               "AutoTalk", 5.0f)
     {
-        HookManager::install(app::InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_Hook);
-        HookManager::install(app::InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook);
+        HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_Hook);
+        HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook);
     }
 
     const FeatureGUIInfo& DialogSkip::GetGUIInfo() const
@@ -77,7 +77,7 @@ namespace cheat::feature
             return;
 
         if (f_FastDialog)
-            app::Time_set_timeScale(nullptr, f_TimeSpeedup, nullptr);
+            app::Time_set_timeScale(f_TimeSpeedup, nullptr);
 
         bool isImportant = false;
         if (f_ExcludeImportant)
@@ -107,11 +107,11 @@ namespace cheat::feature
 		{
 			int32_t value = 0;
 			auto object = il2cpp_value_box((Il2CppClass*)*app::Int32__TypeInfo, &value);
-			auto notify = app::Notify_CreateNotify_1(nullptr, app::AJAPIFPNFKP__Enum::DialogSelectItemNotify, (app::Object*)object, nullptr);
-			app::TalkDialogContext_OnDialogSelectItem(talkDialog, &notify, nullptr);
+			auto notify = app::Notify_CreateNotify_1(app::MoleMole_NotifyTypes__Enum::DialogSelectItemNotify, (app::Object*)object, nullptr);
+			app::MoleMole_TalkDialogContext_OnDialogSelectItem(talkDialog, &notify, nullptr);
 		}
 		else if (!talkDialog->fields._inSelect)
-			app::InLevelCutScenePageContext_OnFreeClick(context, nullptr);
+			app::MoleMole_InLevelCutScenePageContext_OnFreeClick(context, nullptr);
     }
 
 	static void InLevelCutScenePageContext_UpdateView_Hook(app::InLevelCutScenePageContext* __this, MethodInfo* method)
@@ -126,9 +126,9 @@ namespace cheat::feature
     // Should be a better way to store the pre-dialog speed using Time_get_timeScale.
     static void InLevelCutScenePageContext_ClearView_Hook(app::InLevelCutScenePageContext* __this, MethodInfo* method)
     {
-        float gameSpeed = app::Time_get_timeScale(nullptr, nullptr);
+        float gameSpeed = app::Time_get_timeScale(nullptr);
         if (gameSpeed > 1.0f)
-            app::Time_set_timeScale(nullptr, 1.0f, nullptr);
+            app::Time_set_timeScale(1.0f, nullptr);
         CALL_ORIGIN(InLevelCutScenePageContext_ClearView_Hook, __this, method);
     }
 }

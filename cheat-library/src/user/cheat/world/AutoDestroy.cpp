@@ -20,7 +20,7 @@ namespace cheat::feature
 		NF(f_DestroyDoodads,	"Destroy Doodads",		"AutoDestroy", false),
         NF(f_Range,				"Range",				"AutoDestroy", 10.0f)
     { 
-		HookManager::install(app::LCAbilityElement_ReduceModifierDurability, LCAbilityElement_ReduceModifierDurability_Hook);
+		HookManager::install(app::MoleMole_LCAbilityElement_ReduceModifierDurability, LCAbilityElement_ReduceModifierDurability_Hook);
 	}
 
     const FeatureGUIInfo& AutoDestroy::GetGUIInfo() const

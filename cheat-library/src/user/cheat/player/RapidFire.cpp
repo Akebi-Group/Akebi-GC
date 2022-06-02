@@ -22,7 +22,7 @@ namespace cheat::feature
 		NF(f_MultiTarget,		"Multi-target",			"RapidFire", false),
 		NF(f_MultiTargetRadius, "Multi-target Radius",	"RapidFire", 20.0f)
     {
-		HookManager::install(app::LCBaseCombat_DoHitEntity, LCBaseCombat_DoHitEntity_Hook);
+		HookManager::install(app::MoleMole_LCBaseCombat_DoHitEntity, LCBaseCombat_DoHitEntity_Hook);
     }
 
     const FeatureGUIInfo& RapidFire::GetGUIInfo() const
@@ -121,7 +121,7 @@ namespace cheat::feature
 			return f_Multiplier;
 
 		auto safeHP = baseCombat->fields._combatProperty_k__BackingField->fields.HP;
-		auto HP = app::SafeFloat_GetValue(nullptr, safeHP, nullptr);
+		auto HP = app::MoleMole_SafeFloat_get_Value(safeHP, nullptr);
 		int attackCount = (int)ceil(HP / attackDamage);
 		return std::clamp(attackCount, 1, 200);
 	}
@@ -140,7 +140,7 @@ namespace cheat::feature
 		int countOfAttacks = f_Multiplier;
 		if (f_OnePunch)
 		{
-			app::Formula_CalcAttackResult(targetEntity, combat->fields._combatProperty_k__BackingField,
+			app::MoleMole_Formula_CalcAttackResult(combat->fields._combatProperty_k__BackingField,
 				baseCombat->fields._combatProperty_k__BackingField,
 				attackResult, manager.avatar()->raw(), targetEntity->raw(), nullptr);
 			countOfAttacks = CalcCountToKill(attackResult->fields.damage, targetID);
@@ -162,7 +162,7 @@ namespace cheat::feature
 		while (entity.isGadget())
 		{
 			game::Entity temp = entity;
-			entity = game::Entity(app::GadgetEntity_GetOwnerEntity(reinterpret_cast<app::GadgetEntity*>(entity.raw()), nullptr));
+			entity = game::Entity(app::MoleMole_GadgetEntity_GetOwnerEntity(reinterpret_cast<app::GadgetEntity*>(entity.raw()), nullptr));
 			if (entity.runtimeID() == avatarID)
 				return true;
 		} 

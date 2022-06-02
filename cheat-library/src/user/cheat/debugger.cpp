@@ -2,7 +2,10 @@
 
 void DebuggerBypassPre()
 {
+#ifdef _DEBUG
 	LOG_INFO("You have no implementation for anti-debugger bypass.\n\tSo if you try to attach VS debugger to process - game will crash.");
+#endif
+
 	// Sry, implementation is private for now
 }
 

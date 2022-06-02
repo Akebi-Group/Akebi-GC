@@ -8,29 +8,29 @@
 #include <cheat/game/util.h>
 #include <cheat/game/EntityManager.h>
 
-namespace cheat::feature 
+namespace cheat::feature
 {
-    AutoTreeFarm::AutoTreeFarm() : Feature(),
-        NF(m_Enabled,      "Auto tree farm",  "AutoTreeFarm", false),
-		NF(m_AttackDelay,  "Attack delay",    "AutoTreeFarm", 150),
-		NF(m_RepeatDelay,  "Repeat delay",    "AutoTreeFarm", 500),
-		NF(m_AttackPerTree,"Attack per tree", "AutoTreeFarm", 5),
-        NF(m_Range,        "Range",           "AutoTreeFarm", 15.0f)
-    { 
+	AutoTreeFarm::AutoTreeFarm() : Feature(),
+		NF(m_Enabled, "Auto tree farm", "AutoTreeFarm", false),
+		NF(m_AttackDelay, "Attack delay", "AutoTreeFarm", 150),
+		NF(m_RepeatDelay, "Repeat delay", "AutoTreeFarm", 500),
+		NF(m_AttackPerTree, "Attack per tree", "AutoTreeFarm", 5),
+		NF(m_Range, "Range", "AutoTreeFarm", 15.0f)
+	{
 		events::GameUpdateEvent += MY_METHOD_HANDLER(AutoTreeFarm::OnGameUpdate);
 	}
 
-    const FeatureGUIInfo& AutoTreeFarm::GetGUIInfo() const
-    {
-        static const FeatureGUIInfo info{ "Auto Tree Farm", "World", true };
-        return info;
-    }
+	const FeatureGUIInfo& AutoTreeFarm::GetGUIInfo() const
+	{
+		static const FeatureGUIInfo info{ "Auto Tree Farm", "World", true };
+		return info;
+	}
 
-    void AutoTreeFarm::DrawMain()
-    {
+	void AutoTreeFarm::DrawMain()
+	{
 		ImGui::TextColored(ImColor(255, 165, 0, 255), "Note. This feature is not fully tested detection-wise.\n"
 			"Not recommended for main accounts or used with high values.");
-		
+
 		ConfigWidget("Enabled", m_Enabled, "Automatically attack trees in range.");
 		ConfigWidget("Attack Delay (ms)", m_AttackDelay, 1, 0, 1000, "Delay before attacking the next tree (in ms).");
 		ConfigWidget("Repeat Delay (ms)", m_RepeatDelay, 1, 500, 1000, "Delay before attacking the same tree (in ms).\nValues <500ms will not work.");
@@ -43,32 +43,32 @@ namespace cheat::feature
 
 		ConfigWidget("Range (m)", m_Range, 0.1f, 1.0f, 15.0f);
 		ImGui::TextColored(ImColor(255, 165, 0, 255), "Range is softly limited to ~15m for safety purposes.");
-    }
+	}
 
-    bool AutoTreeFarm::NeedStatusDraw() const
+	bool AutoTreeFarm::NeedStatusDraw() const
 	{
-        return m_Enabled;
-    }
+		return m_Enabled;
+	}
 
-    void AutoTreeFarm::DrawStatus() 
-    { 
-        ImGui::Text("Tree Farm\n[%dms|%dms|%d|%.1fm]", 
+	void AutoTreeFarm::DrawStatus()
+	{
+		ImGui::Text("Tree Farm\n[%dms|%dms|%d|%.1fm]",
 			m_AttackDelay.value(),
 			m_RepeatDelay.value(),
 			m_AttackPerTree.value(),
 			m_Range.value());
-    }
+	}
 
-    AutoTreeFarm& AutoTreeFarm::GetInstance()
-    {
-        static AutoTreeFarm instance;
-        return instance;
-    }
+	AutoTreeFarm& AutoTreeFarm::GetInstance()
+	{
+		static AutoTreeFarm instance;
+		return instance;
+	}
 
 
 	std::unordered_set<app::SceneTreeObject*> GetTreeSet()
 	{
-		auto scenePropManager = GET_SINGLETON(ScenePropManager);
+		auto scenePropManager = GET_SINGLETON(MoleMole_ScenePropManager);
 		if (scenePropManager == nullptr)
 			return {};
 
@@ -126,13 +126,13 @@ namespace cheat::feature
 		static std::unordered_set<app::SceneTreeObject*> s_AttackQueueSet;
 		static uint64_t s_LastAttackTimestamp = 0;
 
-		uint64_t timestamp = app::GetTimestamp(nullptr, nullptr);
+		uint64_t timestamp = app::MoleMole_TimeUtil_get_NowTimeStamp(nullptr);
 		if (!m_Enabled || s_LastAttackTimestamp + m_AttackDelay > timestamp)
 			return;
 
 		auto& manager = game::EntityManager::instance();
-		auto scenePropManager = GET_SINGLETON(ScenePropManager);
-		auto networkManager = GET_SINGLETON(NetworkManager_1);
+		auto scenePropManager = GET_SINGLETON(MoleMole_ScenePropManager);
+		auto networkManager = GET_SINGLETON(MoleMole_NetworkManager);
 		if (networkManager == nullptr || scenePropManager == nullptr)
 			return;
 
@@ -146,29 +146,29 @@ namespace cheat::feature
 				continue;
 
 			auto position = tree->fields._.realBounds.m_Center;
-			if (manager.avatar()->distance(app::WorldShiftManager_GetRelativePosition(nullptr, position, nullptr)) > m_Range)
+			if (manager.avatar()->distance(app::WorldShiftManager_GetRelativePosition(position, nullptr)) > m_Range)
 				continue;
 
 			s_AttackQueueSet.insert(tree);
 			s_AttackQueue.push(tree);
 		}
-		
+
 		while (!s_AttackQueue.empty())
 		{
 			auto tree = s_AttackQueue.front();
 			s_AttackQueue.pop();
 			s_AttackQueueSet.erase(tree);
-			
+
 			if (treeSet.count(tree) == 0)
 				continue;
 
 			auto position = tree->fields._.realBounds.m_Center;
-			if (manager.avatar()->distance(app::WorldShiftManager_GetRelativePosition(nullptr, position, nullptr)) > m_Range)
+			if (manager.avatar()->distance(app::WorldShiftManager_GetRelativePosition(position, nullptr)) > m_Range)
 				continue;
 
-			app::ECGLPBEEEAA__Enum treeType;
+			app::MoleMole_Config_TreeType__Enum treeType;
 			auto pattern = tree->fields._config->fields._._.scenePropPatternName;
-			if (!app::ScenePropManager_GetTreeTypeByPattern(scenePropManager, pattern, &treeType, nullptr))
+			if (!app::MoleMole_ScenePropManager_GetTreeTypeByPattern(scenePropManager, pattern, &treeType, nullptr))
 				continue;
 
 			if (m_AttackPerTree > 0)
@@ -183,7 +183,7 @@ namespace cheat::feature
 			}
 
 			tree->fields._lastTreeDropTimeStamp = timestamp;
-			app::NetworkManager_1_RequestHitTreeDropNotify(networkManager, position, position, treeType, nullptr);
+			app::MoleMole_NetworkManager_RequestHitTreeDropNotify(networkManager, position, position, treeType, nullptr);
 			break;
 		}
 

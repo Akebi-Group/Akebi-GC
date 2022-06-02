@@ -17,7 +17,7 @@
 #include <imgui_internal.h>
 
 // This module is for debug purpose, and... well.. it's shit coded ^)
-namespace cheat::feature 
+namespace cheat::feature
 {
 
     static bool ActorAbilityPlugin_OnEvent_Hook(void* __this, app::BaseEvent* e, MethodInfo* method);
@@ -25,35 +25,35 @@ namespace cheat::feature
     static bool csvFriendly = true;
     static bool includeHeaders = true;
 
-	Debug::Debug() : Feature()
-	{
+    Debug::Debug() : Feature()
+    {
         events::GameUpdateEvent += FUNCTION_HANDLER(OnGameUpdate);
-		HookManager::install(app::ActorAbilityPlugin_OnEvent, ActorAbilityPlugin_OnEvent_Hook);
-		// HookManager::install(app::LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
-		// HookManager::install(app::LuaShellManager_DoString, LuaShellManager_DoString_Hook);
-		// HookManager::install(app::LuaEnv_DoString, LuaEnv_DoString_Hook);
-		// HookManager::install(app::Lua_xlua_pushasciistring, Lua_xlua_pushasciistring_Hook);
+        HookManager::install(app::MoleMole_ActorAbilityPlugin_OnEvent, ActorAbilityPlugin_OnEvent_Hook);
+        // HookManager::install(app::MoleMole_LuaShellManager_ReportLuaShellResult, LuaShellManager_ReportLuaShellResult_Hook);
+        // HookManager::install(app::MoleMole_LuaShellManager_DoString, LuaShellManager_DoString_Hook);
+        // HookManager::install(app::LuaEnv_DoString, LuaEnv_DoString_Hook);
+        // HookManager::install(app::Lua_xlua_pushasciistring, Lua_xlua_pushasciistring_Hook);
 
-		// HookManager::install(app::GameLogin_SendInfo_2, SendInfo_Hook);
-		// LOG_DEBUG("Hooked GameLogin::SendGameInfo. Origin at 0x%p", HookManager::getOrigin(SendInfo_Hook));
-	}
+        // HookManager::install(app::GameLogin_SendInfo_2, SendInfo_Hook);
+        // LOG_DEBUG("Hooked GameLogin::SendGameInfo. Origin at 0x%p", HookManager::getOrigin(SendInfo_Hook));
+    }
 
-	const FeatureGUIInfo& Debug::GetGUIInfo() const
-	{
-		static const FeatureGUIInfo info{ "DebugInfo", "Debug", false };
-		return info;
-	}
+    const FeatureGUIInfo& Debug::GetGUIInfo() const
+    {
+        static const FeatureGUIInfo info{ "DebugInfo", "Debug", false };
+        return info;
+    }
 
-	Debug& Debug::GetInstance()
-	{
-		static Debug instance;
-		return instance;
-	}
+    Debug& Debug::GetInstance()
+    {
+        static Debug instance;
+        return instance;
+    }
 
 
     // Raise when player start game log in (after press a door)
     // Contains information about player system and game integrity
-    static void SendInfo_Hook(app::NetworkManager_1* __this, app::GKOJAICIOPA* info, MethodInfo* method)
+    static void SendInfo_Hook(app::MoleMole_NetworkManager* __this, app::GKOJAICIOPA* info, MethodInfo* method)
     {
         LOG_TRACE("Game sending game info to server.");
         LOG_TRACE("Content: ");
@@ -128,7 +128,7 @@ namespace cheat::feature
             return;
         }
 
-        auto singleton = GET_SINGLETON(MBHLOBDPKEC);
+        auto singleton = GET_SINGLETON(MoleMole_MapModule);
 
         for (const auto& [sceneId, waypoints] : waypointsGrops->pairs())
         {
@@ -152,9 +152,9 @@ namespace cheat::feature
                             ImGui::Text("Object position: %s", il2cppi_to_string(location._pos).c_str());
                             ImGui::Text("_unlocked: %s", location._unlocked ? "true" : "false");
                             ImGui::Text("_groupLimit: %s", location._groupLimit ? "true" : "false");
-                            uint16_t areaId = app::SimpleSafeUInt16_get_Value(nullptr, location.areaIdRawNum, nullptr);
+                            uint16_t areaId = app::MoleMole_SimpleSafeUInt16_get_Value(location.areaIdRawNum, nullptr);
                             ImGui::Text("areaId: %u", areaId);
-                            ImGui::Text("areaUnlocked: %s", app::MapModule_IsAreaUnlock(singleton, sceneId, areaId, nullptr) ? "true" : "false");
+                            ImGui::Text("areaUnlocked: %s", app::MoleMole_MapModule_IsAreaUnlock(singleton, sceneId, areaId, nullptr) ? "true" : "false");
                             ImGui::Text("gadgetIdRawNum: %u", location.gadgetIdRawNum);
                         }
 
@@ -169,7 +169,7 @@ namespace cheat::feature
 
     void DrawManagerData()
     {
-        auto singleton = GET_SINGLETON(MBHLOBDPKEC);
+        auto singleton = GET_SINGLETON(MoleMole_MapModule);
         if (singleton == nullptr)
         {
             ImGui::Text("Manager not initialized.");
@@ -236,10 +236,10 @@ namespace cheat::feature
         auto combat = entity->combat();
         if (combat != nullptr) {
             auto combatProp = combat->fields._combatProperty_k__BackingField;
-            auto maxHP = app::SafeFloat_GetValue(nullptr, combatProp->fields.maxHP, nullptr);
-            auto HP = app::SafeFloat_GetValue(nullptr, combatProp->fields.HP, nullptr);
-            auto isLockHp = combatProp->fields.islockHP == nullptr || app::FixedBoolStack_get_value(combatProp->fields.islockHP, nullptr);
-            auto isInvincible = combatProp->fields.isInvincible == nullptr || app::FixedBoolStack_get_value(combatProp->fields.isInvincible, nullptr);
+            auto maxHP = app::MoleMole_SafeFloat_get_Value(combatProp->fields.maxHP, nullptr);
+            auto HP = app::MoleMole_SafeFloat_get_Value(combatProp->fields.HP, nullptr);
+            auto isLockHp = combatProp->fields.islockHP == nullptr || app::MoleMole_FixedBoolStack_get_value(combatProp->fields.islockHP, nullptr);
+            auto isInvincible = combatProp->fields.isInvincible == nullptr || app::MoleMole_FixedBoolStack_get_value(combatProp->fields.isInvincible, nullptr);
             ImGui::BeginTooltip();
             ImGui::Text("Combat: %s", combat == nullptr ? "No" : "Yes");
             ImGui::Text("Combat Prop: %s", combatProp == nullptr ? "No" : "Yes");
@@ -336,16 +336,16 @@ namespace cheat::feature
         // many cases we want to keep supporting. Ternary is cleaner, but not a big
         // performance hit if we keep a switch statement.
         switch (condition) {
-            case Debug::TeleportCondition::Closest: {
-                // We've already selected this.
-                break;
-            }
-            case Debug::TeleportCondition::Farthest: {
-                target = sortedEntities.back();
-                break;
-            }
+        case Debug::TeleportCondition::Closest: {
+            // We've already selected this.
+            break;
         }
-        
+        case Debug::TeleportCondition::Farthest: {
+            target = sortedEntities.back();
+            break;
+        }
+        }
+
         // Separating this logic to keep it clean and consistent.
         if (target != nullptr)
         {
@@ -500,7 +500,7 @@ namespace cheat::feature
         static bool checkOnlyShells = false;
         static bool showEmptyTypes = false;
         static Debug::EntitySortCondition sortCondition = Debug::EntitySortCondition::Distance;
-        static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyScroll | 
+        static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyScroll |
             ImGuiTabBarFlags_NoCloseWithMiddleMouseButton | ImGuiTabBarFlags_TabListPopupButton;
 
         auto& manager = game::EntityManager::instance();
@@ -529,7 +529,7 @@ namespace cheat::feature
         ImGui::Checkbox("Filter by Radius", &useRadius);
         if (!useRadius)
             ImGui::BeginDisabled();
-            
+
         ImGui::SameLine();
         ImGui::PushItemWidth(200.0);
         ImGui::SliderFloat("Radius", &radius, 0.0f, 100.0f);
@@ -767,23 +767,23 @@ namespace cheat::feature
 
     void DrawPositionInfo()
     {
-        auto avatarPos = app::ActorUtils_GetAvatarPos(nullptr, nullptr);
+        auto avatarPos = app::ActorUtils_GetAvatarPos(nullptr);
         ImGui::Text("Avatar position: %s", il2cppi_to_string(avatarPos).c_str());
 
-        auto relativePos = app::WorldShiftManager_GetRelativePosition(nullptr, avatarPos, nullptr);
+        auto relativePos = app::WorldShiftManager_GetRelativePosition(avatarPos, nullptr);
         ImGui::Text("Relative position: %s", il2cppi_to_string(relativePos).c_str());
 
-        auto levelPos = app::Miscs_GenLevelPos_1(nullptr, avatarPos, nullptr);
+        auto levelPos = app::Miscs_GenLevelPos_1(avatarPos, nullptr);
         ImGui::Text("Level position: %s", il2cppi_to_string(levelPos).c_str());
 
 
         static app::Vector3 teleportPos = {};
         ImGui::InputFloat3("Teleport position", reinterpret_cast<float*>(&teleportPos));
-        
+
         auto& teleport = MapTeleport::GetInstance();
         if (ImGui::Button("Map teleport"))
-            teleport.TeleportTo(app::Vector2 { teleportPos.x, teleportPos.y });
-        
+            teleport.TeleportTo(app::Vector2{ teleportPos.x, teleportPos.y });
+
         ImGui::SameLine();
 
         if (ImGui::Button("World teleport"))
@@ -791,7 +791,7 @@ namespace cheat::feature
 
         if (ImGui::TreeNode("Ground pos info"))
         {
-            auto groundNormal = app::Miscs_CalcCurrentGroundNorm(nullptr, avatarPos, nullptr);
+            auto groundNormal = app::Miscs_CalcCurrentGroundNorm(avatarPos, nullptr);
             ImGui::Text("Ground normal: %s", il2cppi_to_string(groundNormal).c_str());
 
             static app::Vector3 pos{};
@@ -807,7 +807,7 @@ namespace cheat::feature
             static float length = 1000;
             ImGui::DragFloat("Raycast length", &length, 1.0f, -2000.0f, 2000.0f);
 
-            ImGui::Text("All: %f", app::Miscs_CalcCurrentGroundHeight_1(nullptr, avatarPos.x, avatarPos.z, avatarPos.y, length, 0xFFFFFFFF, nullptr));
+            ImGui::Text("All: %f", app::Miscs_CalcCurrentGroundHeight_1(avatarPos.x, avatarPos.z, avatarPos.y, length, 0xFFFFFFFF, nullptr));
 
             ImGui::TreePop();
         }
@@ -819,7 +819,7 @@ namespace cheat::feature
         ImGui::SameLine();
         if (ImGui::Button("Copy All Info"))
         {
-            auto text = il2cppi_to_string(avatarPos) + "\n" + il2cppi_to_string(relativePos) + "\n" + il2cppi_to_string(levelPos) + "\n" + il2cppi_to_string(app::Miscs_CalcCurrentGroundNorm(nullptr, avatarPos, nullptr));
+            auto text = il2cppi_to_string(avatarPos) + "\n" + il2cppi_to_string(relativePos) + "\n" + il2cppi_to_string(levelPos) + "\n" + il2cppi_to_string(app::Miscs_CalcCurrentGroundNorm(avatarPos, nullptr));
             ImGui::SetClipboardText(text.c_str());
         }
         ImGui::SameLine();
@@ -833,7 +833,7 @@ namespace cheat::feature
             for (int i = 0; i < 10; i++)
                 name += std::to_string(rand() % 10);
             text = "\"name\":\"" + name + "\"," + text;
-            text = "{" + text + "}";            
+            text = "{" + text + "}";
             ImGui::SetClipboardText(text.c_str());
         }
 
@@ -841,27 +841,27 @@ namespace cheat::feature
 
     void DrawMapManager()
     {
-		auto mapManager = GET_SINGLETON(MapManager);
+        auto mapManager = GET_SINGLETON(MoleMole_MapManager);
         if (mapManager == nullptr)
             return;
 
         int temp = mapManager->fields.playerSceneID;
         ImGui::InputInt("Player scene id", &temp);
 
-		temp = mapManager->fields.mapSceneID;
-		ImGui::InputInt("Map scene id", &temp);
+        temp = mapManager->fields.mapSceneID;
+        ImGui::InputInt("Map scene id", &temp);
     }
 
     void DrawImGuiFocusTest()
     {
-		ImGui::Text("Is any item active: %s", ImGui::IsAnyItemActive() ? "true" : "false");
-		ImGui::Text("Is any item focused: %s", ImGui::IsAnyItemFocused() ? "true" : "false");
+        ImGui::Text("Is any item active: %s", ImGui::IsAnyItemActive() ? "true" : "false");
+        ImGui::Text("Is any item focused: %s", ImGui::IsAnyItemFocused() ? "true" : "false");
 
-		ImGui::Button("Test");
-		auto hk = Hotkey();
-		int temp = 0;
-		InputHotkey("Test hotkey", &hk, false);
-		ImGui::InputInt("Test input", &temp);
+        ImGui::Button("Test");
+        auto hk = Hotkey();
+        int temp = 0;
+        InputHotkey("Test hotkey", &hk, false);
+        ImGui::InputInt("Test input", &temp);
     }
 
     std::map<std::string, std::string> chestNames;
@@ -908,7 +908,7 @@ namespace cheat::feature
             app::GadgetState__Enum chestState = static_cast<app::GadgetState__Enum>(ownerData.gadgetState);
             ImGui::Text("Is ability locked: %s", pluginData._isLockByAbility ? "true" : "false");
             ImGui::Text("State: %s", magic_enum::enum_name(chestState).data());
-            
+
             bool added = chestNames.count(entityName) > 0;
 
             if (tempNames.count(entityName) == 0)
@@ -947,12 +947,12 @@ namespace cheat::feature
             ImGui::InputTextMultiline("Dict", &textStr);
             ImGui::TreePop();
         }
-		
-	}
+
+    }
 
     void DrawScenePropManager()
     {
-        auto scenePropManager = GET_SINGLETON(ScenePropManager);
+        auto scenePropManager = GET_SINGLETON(MoleMole_ScenePropManager);
         if (scenePropManager == nullptr)
         {
             ImGui::Text("Scene prop manager not loaded.");
@@ -967,7 +967,7 @@ namespace cheat::feature
         }
 
         ImGui::Text("Prop count: %d", scenePropDict->count);
-        
+
         auto& manager = game::EntityManager::instance();
         for (auto& [id, propObject] : scenePropDict->pairs())
         {
@@ -979,20 +979,20 @@ namespace cheat::feature
             auto config = tree->fields._config->fields;
 
             auto pattern = config._._.scenePropPatternName;
-            app::ECGLPBEEEAA__Enum value;
-            bool result = app::ScenePropManager_GetTreeTypeByPattern(scenePropManager, pattern, &value, nullptr);
+            app::MoleMole_Config_TreeType__Enum value;
+            bool result = app::MoleMole_ScenePropManager_GetTreeTypeByPattern(scenePropManager, pattern, &value, nullptr);
             if (!result)
                 continue;
 
             ImGui::Text("Tree at %s, type: %s, distance %0.3f", il2cppi_to_string(pos).c_str(), magic_enum::enum_name(value).data(),
-                manager.avatar()->distance(app::WorldShiftManager_GetRelativePosition(nullptr, pos, nullptr)));
+                manager.avatar()->distance(app::WorldShiftManager_GetRelativePosition(pos, nullptr)));
         }
     }
 
     class ItemFilter : game::IEntityFilter
     {
     public:
-        ItemFilter() : ItemFilter(app::EntityType__Enum_1::None, "") 
+        ItemFilter() : ItemFilter(app::EntityType__Enum_1::None, "")
         {}
 
         ItemFilter(app::EntityType__Enum_1 type, const std::string& name) : m_Type(type), m_Name(name)
@@ -1033,18 +1033,18 @@ namespace cheat::feature
 
         nlohmann::json jRoot;
         try {
-            jRoot =nlohmann::json::parse(fs);
+            jRoot = nlohmann::json::parse(fs);
         }
         catch (nlohmann::detail::parse_error& parseError)
         {
             UNREFERENCED_PARAMETER(parseError);
             LOG_ERROR("Failed to parse json");
         }
-        
+
         for (auto& [key, value] : jRoot["filters"].items())
             simpleFilters[key] = ItemFilter(value["type"], value["name"]);
 
-		for (auto& value : jRoot["excluded"])
+        for (auto& value : jRoot["excluded"])
             removedItems.push_back(ItemFilter(value["type"], value["name"]));
     }
 
@@ -1098,20 +1098,20 @@ namespace cheat::feature
             ImGui::InputText("## Name", &keyText);
             ImGui::SameLine();
 
-			ImGui::InputText("## ItemName", &filter.m_Name);
-			ImGui::SameLine();
-            
+            ImGui::InputText("## ItemName", &filter.m_Name);
+            ImGui::SameLine();
+
             std::string typeName = std::string(magic_enum::enum_name(filter.m_Type));
-			ImGui::InputText("## ItemType", &typeName);
+            ImGui::InputText("## ItemType", &typeName);
 
             ImGui::PopItemWidth();
             ImGui::PopID();
         }
     }
 
-	void Debug::DrawExternal()
-	{
-		//auto draw = ImGui::GetBackgroundDrawList();
+    void Debug::DrawExternal()
+    {
+        //auto draw = ImGui::GetBackgroundDrawList();
 
         //std::string fpsString = fmt::format("{:.1f}/{:.1f}", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         //draw->AddText(ImVec2(100, 100), ImColor(0, 0, 0), fpsString.c_str());
@@ -1136,14 +1136,14 @@ namespace cheat::feature
                 }
             }
 
-			for (auto& filter : removedItems)
-			{
-				if (executor.ApplyFilter(entity, reinterpret_cast<game::IEntityFilter*>(&filter)))
-				{
-					unexplored = false;
-					break;
-				}
-			}
+            for (auto& filter : removedItems)
+            {
+                if (executor.ApplyFilter(entity, reinterpret_cast<game::IEntityFilter*>(&filter)))
+                {
+                    unexplored = false;
+                    break;
+                }
+            }
 
             if (!unexplored)
                 continue;
@@ -1169,11 +1169,11 @@ namespace cheat::feature
                     updated = true;
                 }
             }
-			else if (selectedEntity != nullptr && ImGui::IsKeyPressed(ImGuiKey_R, false))
-			{
-			    removedItems.push_back(ItemFilter(selectedEntity->type(), selectedEntity->name()));
-			    updated = true;
-			}
+            else if (selectedEntity != nullptr && ImGui::IsKeyPressed(ImGuiKey_R, false))
+            {
+                removedItems.push_back(ItemFilter(selectedEntity->type(), selectedEntity->name()));
+                updated = true;
+            }
 
             if (selectedEntity != nullptr && ImGui::IsKeyPressed(ImGuiKey_T, false))
             {
@@ -1189,8 +1189,8 @@ namespace cheat::feature
             ImGui::Begin("Input name", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
             ImGui::PushItemWidth(500);
             ImGui::InputText("Section", &tempSectionName);
-			if (!ImGui::IsAnyItemActive() && !ImGui::IsMouseClicked(0))
-				ImGui::SetKeyboardFocusHere(0);
+            if (!ImGui::IsAnyItemActive() && !ImGui::IsMouseClicked(0))
+                ImGui::SetKeyboardFocusHere(0);
             ImGui::InputText("Name", &tempName);
             ImGui::PopItemWidth();
             ImGui::End();
@@ -1203,21 +1203,21 @@ namespace cheat::feature
                 updated = true;
             }
 
-			if (ImGui::IsKeyPressed(ImGuiKey_Escape, false))
-			{
+            if (ImGui::IsKeyPressed(ImGuiKey_Escape, false))
+            {
                 renderer::SetInputLock(this, false);
-				addingFilter = false;
-			}
+                addingFilter = false;
+            }
         }
 
         if (updated)
             FiltetItemPickerSave();
-	}
+    }
 
 
     void DrawFPSGraph()
     {
-        static float values[120] = {0};
+        static float values[120] = { 0 };
         static int values_offset = 0;
         values[values_offset++] = ImGui::GetIO().Framerate;
         if (values_offset >= IM_ARRAYSIZE(values))
@@ -1232,43 +1232,43 @@ namespace cheat::feature
     }
 
     void Debug::DrawMain()
-	{
-		if (ImGui::CollapsingHeader("Entity Manager", ImGuiTreeNodeFlags_None))
-			DrawEntitiesData();
+    {
+        if (ImGui::CollapsingHeader("Entity Manager", ImGuiTreeNodeFlags_None))
+            DrawEntitiesData();
 
-		if (ImGui::CollapsingHeader("Position", ImGuiTreeNodeFlags_None))
-		{
-			DrawMapManager();
-			DrawPositionInfo();
-		}
+        if (ImGui::CollapsingHeader("Position", ImGuiTreeNodeFlags_None))
+        {
+            DrawMapManager();
+            DrawPositionInfo();
+        }
 
         //if (ImGui::CollapsingHeader("Filter item picker"))
         //    DrawFilterItemPicker();
 
-		//if (ImGui::CollapsingHeader("Chest plugin", ImGuiTreeNodeFlags_None))
-		//	DrawChestPlugin();
+        //if (ImGui::CollapsingHeader("Chest plugin", ImGuiTreeNodeFlags_None))
+        //	DrawChestPlugin();
 
-		//if (ImGui::CollapsingHeader("Interaction manager", ImGuiTreeNodeFlags_None))
-		//	DrawInteractionManagerInfo();
+        //if (ImGui::CollapsingHeader("Interaction manager", ImGuiTreeNodeFlags_None))
+        //	DrawInteractionManagerInfo();
 
-		if (ImGui::CollapsingHeader("Map Manager", ImGuiTreeNodeFlags_None))
-			DrawManagerData();
+        if (ImGui::CollapsingHeader("Map Manager", ImGuiTreeNodeFlags_None))
+            DrawManagerData();
         if (ImGui::CollapsingHeader("FPS Graph", ImGuiTreeNodeFlags_None))
             DrawFPSGraph();
-	}
+    }
 
-	bool Debug::NeedInfoDraw() const
-	{
+    bool Debug::NeedInfoDraw() const
+    {
         return showNotWritten && notWrittenChests.size() > 0;
-	}
+    }
 
-	void Debug::DrawInfo()
-	{
+    void Debug::DrawInfo()
+    {
         for (auto& name : notWrittenChests)
         {
             ImGui::Text("%s", name.c_str());
         }
-	}
+    }
 
 
 

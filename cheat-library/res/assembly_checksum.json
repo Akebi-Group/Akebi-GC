@@ -1,13 +1,13 @@
 {
-  "game_version": "2.6",
+  "game_version": "2.7",
   "modules": {
     "UnityPlayer.dll": {
-      "checksum": 1499808152269523874,
-      "timestamp": 132918960850629156
+      "checksum": 17900298344514688789,
+      "timestamp": 132967628640000000
     },
     "UserAssembly.dll": {
-      "checksum": 6469164240778644427,
-      "timestamp": 132918960789354191
+      "checksum": 7306786341503590701,
+      "timestamp": 132967628640000000
     }
   }
 }

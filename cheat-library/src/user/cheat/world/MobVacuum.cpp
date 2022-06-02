@@ -178,14 +178,14 @@ namespace cheat::feature
             uint32_t entityId = entity->runtimeID();
             app::Vector3 entityRelPos = positions->count(entityId) ? (*positions)[entityId] : entity->relativePosition();
             app::Vector3 newPosition = {};
-            if (app::Vector3_Distance(nullptr, entityRelPos, targetPos, nullptr) < 0.1)
+            if (app::Vector3_Distance(entityRelPos, targetPos, nullptr) < 0.1)
             {
                 newPosition = targetPos;
             }
             else
             {
                 app::Vector3 dir = GetVectorDirection(entityRelPos, targetPos);
-                float deltaTime = app::Time_get_deltaTime(nullptr, nullptr);
+                float deltaTime = app::Time_get_deltaTime(nullptr);
                 newPosition = entityRelPos + dir * f_Speed * deltaTime;
             }
 
@@ -213,7 +213,7 @@ namespace cheat::feature
 
         app::Vector3 targetPos = CalcMobVacTargetPos();
         app::Vector3 entityPos = entity->relativePosition();
-        if (app::Vector3_Distance(nullptr, targetPos, entityPos, nullptr) < 0.2)
+        if (app::Vector3_Distance(targetPos, entityPos, nullptr) < 0.2)
             return;
 
         app::Vector3 dir = GetVectorDirection(targetPos, entityPos);

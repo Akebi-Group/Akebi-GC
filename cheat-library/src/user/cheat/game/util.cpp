@@ -8,7 +8,7 @@ namespace cheat::game
 {
 	std::vector<WaypointInfo> GetUnlockedWaypoints(uint32_t targetSceneId)
 	{
-		auto mapModule = GET_SINGLETON(MBHLOBDPKEC);
+		auto mapModule = GET_SINGLETON(MoleMole_MapModule);
 		if (mapModule == nullptr)
 			return {};
 
@@ -29,8 +29,8 @@ namespace cheat::game
 					continue;
 
 				auto& config = waypoint.config->fields;
-				uint16_t areaId = app::SimpleSafeUInt16_get_Value(nullptr, config.areaIdRawNum, nullptr);
-				bool isAreaUnlocked = app::MapModule_IsAreaUnlock(mapModule, sceneId, areaId, nullptr);
+				uint16_t areaId = app::MoleMole_SimpleSafeUInt16_get_Value(config.areaIdRawNum, nullptr);
+				bool isAreaUnlocked = app::MoleMole_MapModule_IsAreaUnlock(mapModule, sceneId, areaId, nullptr);
 
 				if (waypoint.isUnlocked && isAreaUnlocked && !config._unlocked && !waypoint.isGroupLimit && !waypoint.isModelHidden)
 					result.push_back(WaypointInfo{ sceneId, waypointId, waypoint.config->fields._tranPos, (app::MapModule_ScenePointData*)&waypoint });
@@ -45,7 +45,7 @@ namespace cheat::game
 		float minDistance = -1;
 		WaypointInfo result{};
 		for (const auto& info : GetUnlockedWaypoints(targetSceneId)) {
-			float distance = app::Vector3_Distance(nullptr, position, info.position, nullptr);
+			float distance = app::Vector3_Distance(position, info.position, nullptr);
 			if (minDistance < 0 || distance < minDistance)
 			{
 				minDistance = distance;
@@ -57,7 +57,7 @@ namespace cheat::game
 
 	uint32_t GetCurrentPlayerSceneID()
 	{
-		auto playerModule = GET_SINGLETON(PlayerModule);
+		auto playerModule = GET_SINGLETON(MoleMole_PlayerModule);
 		if (playerModule == nullptr)
 			return 0;
 
@@ -66,7 +66,7 @@ namespace cheat::game
 
 	uint32_t GetCurrentMapSceneID()
 	{
-		auto mapManager = GET_SINGLETON(MapManager);
+		auto mapManager = GET_SINGLETON(MoleMole_MapManager);
 		if (mapManager == nullptr)
 			return 0;
 
@@ -118,7 +118,7 @@ namespace cheat::game
 
 	app::AccountDataItem* GetAccountData()
 	{
-		auto playerModule = GET_SINGLETON(PlayerModule);
+		auto playerModule = GET_SINGLETON(MoleMole_PlayerModule);
 		if (playerModule == nullptr || playerModule->fields._accountData_k__BackingField == nullptr)
 			return nullptr;
 

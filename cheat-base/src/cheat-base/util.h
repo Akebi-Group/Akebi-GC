@@ -32,6 +32,7 @@ namespace util
 	std::optional<std::string> SelectDirectory(const char* title);
 	std::optional<std::string> GetOrSelectPath(CSimpleIni& ini, const char* section, const char* name, const char* friendName, const char* filter);
 
+	void OpenURL(const char* url);
 	std::string GetLastErrorAsString(DWORD errorId = 0);
 	int64_t GetCurrentTimeMillisec();
 

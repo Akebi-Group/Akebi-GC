@@ -1,5 +1,7 @@
 <h1 align="center">Akebi GC</h1>
 The great software for some game that exploiting anime girls (and boys).
+
+In first week after 2.7 update cheat can be unstable. Please create issue, if you catch a crash after updating to 2.7.
 <hr>
 
 <h1 align="center">Getting Started</h1>

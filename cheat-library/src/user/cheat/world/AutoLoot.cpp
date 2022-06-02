@@ -27,9 +27,9 @@ namespace cheat::feature
 		toBeLootedItems(), nextLootTime(0)
     {
 		// Auto loot
-		HookManager::install(app::LCSelectPickup_AddInteeBtnByID, LCSelectPickup_AddInteeBtnByID_Hook);
-		HookManager::install(app::LCSelectPickup_IsInPosition, LCSelectPickup_IsInPosition_Hook);
-		HookManager::install(app::LCSelectPickup_IsOutPosition, LCSelectPickup_IsOutPosition_Hook);
+		HookManager::install(app::MoleMole_LCSelectPickup_AddInteeBtnByID, LCSelectPickup_AddInteeBtnByID_Hook);
+		HookManager::install(app::MoleMole_LCSelectPickup_IsInPosition, LCSelectPickup_IsInPosition_Hook);
+		HookManager::install(app::MoleMole_LCSelectPickup_IsOutPosition, LCSelectPickup_IsOutPosition_Hook);
 
 		events::GameUpdateEvent += MY_METHOD_HANDLER(AutoLoot::OnGameUpdate);
 	}
@@ -128,14 +128,14 @@ namespace cheat::feature
 		if (!f_AutoPickup)
 			return false;
 
-		auto itemModule = GET_SINGLETON(ItemModule);
+		auto itemModule = GET_SINGLETON(MoleMole_ItemModule);
 		if (itemModule == nullptr)
 			return false;
 
 		auto entityId = entity->fields._runtimeID_k__BackingField;
 		if (f_DelayTime == 0)
 		{
-			app::ItemModule_PickItem(itemModule, entityId, nullptr);
+			app::MoleMole_ItemModule_PickItem(itemModule, entityId, nullptr);
 			return true;
 		}
 
@@ -149,7 +149,7 @@ namespace cheat::feature
 		if (currentTime < nextLootTime)
 			return;
 
-		auto entityManager = GET_SINGLETON(EntityManager);
+		auto entityManager = GET_SINGLETON(MoleMole_EntityManager);
 		if (entityManager == nullptr)
 			return;
 
@@ -199,15 +199,15 @@ namespace cheat::feature
 		if (!entityId)
 			return;
 
-		auto itemModule = GET_SINGLETON(ItemModule);
+		auto itemModule = GET_SINGLETON(MoleMole_ItemModule);
 		if (itemModule == nullptr)
 			return;
 
-		auto entity = app::EntityManager_GetValidEntity(entityManager, *entityId, nullptr);
+		auto entity = app::MoleMole_EntityManager_GetValidEntity(entityManager, *entityId, nullptr);
 		if (entity == nullptr)
 			return;
 
-		app::ItemModule_PickItem(itemModule, *entityId, nullptr);
+		app::MoleMole_ItemModule_PickItem(itemModule, *entityId, nullptr);
 		nextLootTime = currentTime + (int)f_DelayTime;
 	}
 

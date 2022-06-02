@@ -11,7 +11,7 @@ namespace cheat::feature
     ChestIndicator::ChestIndicator() : Feature(),
         NF(f_Enabled, "Show Chest Indicator", "ShowChest", false)
     {
-        HookManager::install(app::LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck);
+        HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck);
     }
 
     const FeatureGUIInfo& ChestIndicator::GetGUIInfo() const
@@ -48,7 +48,7 @@ namespace cheat::feature
             if (__this->fields._dataItem != nullptr)
             {
                 // Base Chest not found, try improve
-                app::LCIndicatorPlugin_ShowIcon(__this, nullptr);
+                app::MoleMole_LCIndicatorPlugin_ShowIcon(__this, nullptr);
             }
         }
         return CALL_ORIGIN(IndicatorPlugin_DoCheck, __this, method);

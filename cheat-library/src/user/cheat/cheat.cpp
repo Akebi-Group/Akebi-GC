@@ -127,7 +127,7 @@ namespace cheat
 
 		static uint32_t _lastUserID = 0;
 
-		auto playerModule = GET_SINGLETON(PlayerModule);
+		auto playerModule = GET_SINGLETON(MoleMole_PlayerModule);
 		if (playerModule == nullptr || playerModule->fields._accountData_k__BackingField == nullptr)
 			return;
 
@@ -148,7 +148,7 @@ namespace cheat
 		CALL_ORIGIN(GameManager_Update_Hook, __this, method);
 	}
 
-	static void LevelSyncCombatPlugin_RequestSceneEntityMoveReq_Hook(app::BKFGGJFIIKC* __this, uint32_t entityId, app::MotionInfo* syncInfo,
+	static void LevelSyncCombatPlugin_RequestSceneEntityMoveReq_Hook(app::LevelSyncCombatPlugin* __this, uint32_t entityId, app::MotionInfo* syncInfo,
 		bool isReliable, uint32_t relseq, MethodInfo* method)
 	{
 		events::MoveSyncEvent(entityId, syncInfo);
@@ -158,7 +158,7 @@ namespace cheat
 	static void InstallEventHooks() 
 	{
 		HookManager::install(app::GameManager_Update, GameManager_Update_Hook);
-		HookManager::install(app::LevelSyncCombatPlugin_RequestSceneEntityMoveReq, LevelSyncCombatPlugin_RequestSceneEntityMoveReq_Hook);
+		HookManager::install(app::MoleMole_LevelSyncCombatPlugin_RequestSceneEntityMoveReq, LevelSyncCombatPlugin_RequestSceneEntityMoveReq_Hook);
 	}
 
 }

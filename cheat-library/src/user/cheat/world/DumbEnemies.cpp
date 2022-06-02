@@ -10,7 +10,7 @@ namespace cheat::feature
     DumbEnemies::DumbEnemies() : Feature(),
         NF(f_Enabled, "Dumb Enemies", "DumbEnemies", false)
     {
-		HookManager::install(app::VCMonsterAIController_TryDoSkill, VCMonsterAIController_TryDoSkill_Hook);
+		HookManager::install(app::MoleMole_VCMonsterAIController_TryDoSkill, VCMonsterAIController_TryDoSkill_Hook);
     }
 
     const FeatureGUIInfo& DumbEnemies::GetGUIInfo() const

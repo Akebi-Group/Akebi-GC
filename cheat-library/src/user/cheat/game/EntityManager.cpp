@@ -16,11 +16,11 @@ namespace cheat::game
 
 	std::vector<app::BaseEntity*> EntityManager::rawEntities()
 	{
-		auto entityManager = GET_SINGLETON(EntityManager);
+		auto entityManager = GET_SINGLETON(MoleMole_EntityManager);
 		if (entityManager == nullptr)
 			return {};
 
-		auto entities = TO_UNI_LIST(app::EntityManager_GetEntities(entityManager, nullptr), app::BaseEntity*);
+		auto entities = TO_UNI_LIST(app::MoleMole_EntityManager_GetEntities(entityManager, nullptr), app::BaseEntity*);
 		if (entities == nullptr)
 			return {};
 
@@ -29,7 +29,7 @@ namespace cheat::game
 
 		for (const auto& entity : *entities)
 		{
-			if (entity != nullptr && app::BaseEntity_IsActive(entity, nullptr))
+			if (entity != nullptr && app::MoleMole_BaseEntity_IsActive(entity, nullptr))
 				aliveEntities.push_back(entity);
 		}
 		return aliveEntities;
@@ -73,11 +73,11 @@ namespace cheat::game
 
 	cheat::game::Entity* EntityManager::entity(uint32_t runtimeID, bool unsafe)
 	{
-		auto entityManager = GET_SINGLETON(EntityManager);
+		auto entityManager = GET_SINGLETON(MoleMole_EntityManager);
 		if (entityManager == nullptr)
 			return nullptr;
 
-		auto rawEntity = app::EntityManager_GetValidEntity(entityManager, runtimeID, nullptr);
+		auto rawEntity = app::MoleMole_EntityManager_GetValidEntity(entityManager, runtimeID, nullptr);
 		if (unsafe)
 			return new Entity(rawEntity);
 
@@ -86,18 +86,18 @@ namespace cheat::game
 
 	cheat::game::Entity* EntityManager::avatar()
 	{
-		auto entityManager = GET_SINGLETON(EntityManager);
+		auto entityManager = GET_SINGLETON(MoleMole_EntityManager);
 		if (entityManager == nullptr)
 			return s_EmptyEntity;
 
-		auto avatarRaw = app::EntityManager_GetCurrentAvatar(entityManager, nullptr);
+		auto avatarRaw = app::MoleMole_EntityManager_GetLocalAvatarEntity(entityManager, nullptr);
 		if (m_AvatarEntity.raw() != avatarRaw)
 			m_AvatarEntity = Entity(avatarRaw);
 
 		return &m_AvatarEntity;
 	}
 
-	bool EntityManager_RemoveEntity_Hook(app::EntityManager* __this, app::BaseEntity* entity, uint32_t specifiedRuntimeID, MethodInfo* method)
+	bool EntityManager_RemoveEntity_Hook(app::MoleMole_EntityManager* __this, app::BaseEntity* entity, uint32_t specifiedRuntimeID, MethodInfo* method)
 	{
 		EntityManager::instance().OnRawEntityDestroy(entity);
 		return CALL_ORIGIN(EntityManager_RemoveEntity_Hook, __this, entity, specifiedRuntimeID, method);
@@ -121,12 +121,12 @@ namespace cheat::game
 
 	EntityManager::EntityManager() : m_AvatarEntity(nullptr)
 	{
-		HookManager::install(app::EntityManager_RemoveEntity, EntityManager_RemoveEntity_Hook);
+		HookManager::install(app::MoleMole_EntityManager_RemoveEntity, EntityManager_RemoveEntity_Hook);
 	}
 
 	cheat::game::Entity* EntityManager::entity(app::BaseEntity* rawEntity)
 	{
-		if (rawEntity == nullptr || !app::BaseEntity_IsActive(rawEntity, nullptr))
+		if (rawEntity == nullptr || !app::MoleMole_BaseEntity_IsActive(rawEntity, nullptr))
 			return s_EmptyEntity;
 
 		std::lock_guard<std::mutex> lock(m_EntityCacheLock);
@@ -142,7 +142,7 @@ namespace cheat::game
 			entityDestroyEvent(entry.first);
 		}
 
-		if (app::BaseEntity_get_rootGameObject(rawEntity, nullptr) == nullptr)
+		if (app::MoleMole_BaseEntity_get_rootGameObject(rawEntity, nullptr) == nullptr)
 			return s_EmptyEntity;
 
 		Entity* ent = new Entity(rawEntity);
@@ -158,11 +158,11 @@ namespace cheat::game
 
 	app::CameraEntity* EntityManager::mainCamera()
 	{
-		auto entityManager = GET_SINGLETON(EntityManager);
+		auto entityManager = GET_SINGLETON(MoleMole_EntityManager);
 		if (entityManager == nullptr)
 			return nullptr;
 
-		auto cameraEntity = app::EntityManager_GetMainCameraEntity(entityManager, nullptr);
+		auto cameraEntity = app::MoleMole_EntityManager_GetMainCameraEntity(entityManager, nullptr);
 		return cameraEntity;
 	}
 }

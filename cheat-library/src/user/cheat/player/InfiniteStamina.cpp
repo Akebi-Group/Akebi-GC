@@ -11,7 +11,7 @@ namespace cheat::feature
         NF(f_Enabled, "Infinite stamina", "InfiniteStamina", false),
         NF(f_PacketReplacement, "Move sync packet replacement", "InfiniteStamina", false)
     {
-		HookManager::install(app::DataItem_HandleNormalProp, DataItem_HandleNormalProp_Hook);
+		HookManager::install(app::MoleMole_DataItem_HandleNormalProp, DataItem_HandleNormalProp_Hook);
 
 		events::MoveSyncEvent += MY_METHOD_HANDLER(InfiniteStamina::OnMoveSync);
     }

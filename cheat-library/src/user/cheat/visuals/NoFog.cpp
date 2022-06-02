@@ -44,7 +44,7 @@ namespace cheat::feature
     {
 		if (_prevEnabledState != f_Enabled)
 		{
-			app::RenderSettings_set_fog(nullptr, !f_Enabled, nullptr);
+			app::RenderSettings_set_fog(!f_Enabled, nullptr);
 			_prevEnabledState = f_Enabled;
 		}
     }

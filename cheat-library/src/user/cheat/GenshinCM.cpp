@@ -15,13 +15,13 @@ cheat::GenshinCM& cheat::GenshinCM::instance()
 
 void cheat::GenshinCM::CursorSetVisibility(bool visibility)
 {
-	app::Cursor_set_visible(nullptr, visibility, nullptr);
-	app::Cursor_set_lockState(nullptr, visibility ? app::CursorLockMode__Enum::None : app::CursorLockMode__Enum::Locked, nullptr);
+	app::Cursor_set_visible(visibility, nullptr);
+	app::Cursor_set_lockState(visibility ? app::CursorLockMode__Enum::None : app::CursorLockMode__Enum::Locked, nullptr);
 }
 
 bool cheat::GenshinCM::CursorGetVisibility()
 {
-	return app::Cursor_get_visible(nullptr, nullptr);
+	return app::Cursor_get_visible(nullptr);
 }
 
 cheat::GenshinCM::GenshinCM() :

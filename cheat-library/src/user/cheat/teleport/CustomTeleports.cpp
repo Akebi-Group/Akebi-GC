@@ -30,7 +30,7 @@ namespace cheat::feature
         static std::string teleportName;
         ImGui::InputText("Teleport name", &teleportName);
         static std::vector<std::pair<std::string, app::Vector3>> teleports;
-        app::Vector3 pos = app::ActorUtils_GetAvatarPos(nullptr, nullptr);
+        app::Vector3 pos = app::ActorUtils_GetAvatarPos(nullptr);
         if (ImGui::Button("Add teleport"))
         {
             // check if already added

@@ -343,6 +343,7 @@ uintptr_t ILPatternScanner::FindFunctionEntry(uintptr_t address)
 
 void ILPatternScanner::LoadMethodPointers()
 {
+	/* Outdated. Need update to version 2.7
 	auto info = GetMetadataInfo();
 
 #define LOAD_METHOD_POINTERS(countField, field) LOG_DEBUG( #field ": %d", info->codeRegistration->##countField); \
@@ -359,6 +360,7 @@ void ILPatternScanner::LoadMethodPointers()
 
 	std::sort(m_MethodPointers.begin(), m_MethodPointers.end());
 	LOG_DEBUG("Loaded %llu method pointers.", m_MethodPointers.size());
+	*/
 }
 
 template<typename T>
@@ -369,6 +371,7 @@ static T MetadataOffset(void* metadata, size_t sectionOffset, size_t itemIndex)
 
 const MethodInfo* ILPatternScanner::GetMethodInfoFromIndex(uint32_t methodIndex)
 {
+	/* Outdated. Need update to version 2.7
 	SET_API_FUNC_P(Il2CppGenericMethod*, GetGenericMethodFromIndex, (uint32_t index), "40 53 48 83 EC 20 48 8B 05 ?? ?? ?? ?? 48 63");
 
 	GET_FUNC_BY_XREF(MethodInfo*, GetMethod, (const Il2CppGenericMethod * gmethod), "E8 ?? ?? ?? ?? 48 8B C8 0F B7 FE", 1);
@@ -383,6 +386,8 @@ const MethodInfo* ILPatternScanner::GetMethodInfoFromIndex(uint32_t methodIndex)
 		return GetMethod(GetGenericMethodFromIndex(index));
 	else
 		return GetMethodInfoFromMethodDefinitionIndex(index);
+		*/
+	return nullptr;
 }
 
 std::string ILPatternScanner::ComputeGenericParamsPrefix(const Il2CppGenericInst* inst)
@@ -466,6 +471,7 @@ std::string ILPatternScanner::ComputeInspectorMethodName(const MethodInfo* metho
 
 void ILPatternScanner::LoadUsage()
 {
+	/* Outdated. Need update to version 2.7.
 	SET_API_FUNC_P(Il2CppClass*, GetTypeInfoFromTypeIndex, (uint32_t index), "48 83 EC 28 83 F9 FF 75");
 
 	auto info = GetMetadataInfo();
@@ -533,7 +539,7 @@ void ILPatternScanner::LoadUsage()
 			}
 		}
 	}
-	LoadMetadata();
+	LoadMetadata();*/
 }
 
 void ILPatternScanner::LoadMetadata()

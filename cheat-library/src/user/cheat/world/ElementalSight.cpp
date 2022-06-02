@@ -10,7 +10,7 @@ namespace cheat::feature
     ElementalSight::ElementalSight() : Feature(),
         NF(f_Enabled, "Permanent Elemental Sight", "ElementalSight", false)
     {
-        HookManager::install(app::LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_Hook);
+        HookManager::install(app::MoleMole_LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_Hook);
     }
 
     const FeatureGUIInfo& ElementalSight::GetGUIInfo() const
@@ -45,7 +45,7 @@ namespace cheat::feature
     {
         ElementalSight& ElementalSight = ElementalSight::GetInstance();
         if (ElementalSight.f_Enabled)
-            __this->fields.elementalSightActivated = true;
+            __this->fields._triggerElementView = true;
         CALL_ORIGIN(LevelSceneElementViewPlugin_Tick_Hook, __this, inDeltaTime, method);
     }
 }

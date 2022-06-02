@@ -26,12 +26,12 @@ namespace cheat::feature::esp::render
 
 		s_Camera = nullptr;
 
-		auto loadingManager = GET_SINGLETON(LoadingManager);
-		if (loadingManager == nullptr || !app::LoadingManager_IsLoaded(loadingManager, nullptr))
+		auto loadingManager = GET_SINGLETON(MoleMole_LoadingManager);
+		if (loadingManager == nullptr || !app::MoleMole_LoadingManager_IsLoaded(loadingManager, nullptr))
 			return;
 
 		SAFE_BEGIN();
-		auto camera = app::Camera_get_main(nullptr, nullptr);
+		auto camera = app::Camera_get_main(nullptr);
 		if (camera == nullptr)
 			return;
 
@@ -58,8 +58,8 @@ namespace cheat::feature::esp::render
 		if (pixelWidth == 0 || pixelHeight == 0)
 			return;
 
-		auto screenWidth = app::Screen_get_width(nullptr, nullptr);
-		auto screenHeight = app::Screen_get_height(nullptr, nullptr);
+		auto screenWidth = app::Screen_get_width(nullptr);
+		auto screenHeight = app::Screen_get_height(nullptr);
 
 		if (screenWidth == 0 || screenHeight == 0)
 			return;
@@ -88,7 +88,7 @@ namespace cheat::feature::esp::render
 			screenPos.y *= s_ResolutionScale.y;
 		}
 
-		screenPos.y = app::Screen_get_height(nullptr, nullptr) - screenPos.y;
+		screenPos.y = app::Screen_get_height(nullptr) - screenPos.y;
 		return screenPos;
 	}
 
@@ -141,7 +141,7 @@ namespace cheat::feature::esp::render
 
 		// Sometimes occurs access violation in UnityPlayer.dll
 		// Callow: Have no idea what to do with it unless just catch exception
-		auto bounds = app::Utils_1_GetBounds(nullptr, gameObject, nullptr);
+		auto bounds = app::Utils_4_GetBounds(gameObject, nullptr);
 		if (bounds.m_Extents.x < esp.f_MinSize &&
 			bounds.m_Extents.y < esp.f_MinSize &&
 			bounds.m_Extents.z < esp.f_MinSize)
@@ -216,7 +216,7 @@ namespace cheat::feature::esp::render
 
 		}
 
-		auto screenHeight = app::Screen_get_height(nullptr, nullptr);
+		auto screenHeight = app::Screen_get_height(nullptr);
 
 #define FIX_Y(field) boxScreen.##field##.y = screenHeight - boxScreen.##field##.y
 
@@ -263,7 +263,7 @@ namespace cheat::feature::esp::render
 			boxRect.yMax *= s_ResolutionScale.y;
 		}
 
-		auto screenHeight = app::Screen_get_height(nullptr, nullptr);
+		auto screenHeight = app::Screen_get_height(nullptr);
 		boxRect.yMin = screenHeight - boxRect.yMin;
 		boxRect.yMax = screenHeight - boxRect.yMax;
 		return boxRect;

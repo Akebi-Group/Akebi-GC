@@ -24,8 +24,8 @@ namespace cheat::feature
 	{
 		sniffer::MessageManager::Connect("genshin_packet_pipe");
 
-		HookManager::install(app::KcpNative_kcp_client_send_packet, KcpNative_kcp_client_send_packet_Hook);
-		HookManager::install(app::KcpClient_TryDequeueEvent, KcpClient_TryDequeueEvent_Hook);
+		HookManager::install(app::Kcp_KcpNative_kcp_client_send_packet, KcpNative_kcp_client_send_packet_Hook);
+		HookManager::install(app::MoleMole_KcpClient_TryDequeueEvent, KcpClient_TryDequeueEvent_Hook);
 	}
 
 	const FeatureGUIInfo& PacketSniffer::GetGUIInfo() const
@@ -183,7 +183,7 @@ namespace cheat::feature
 		byteArray->max_length = length;
 		memcpy_s(byteArray->vector, length, content, length);
 
-		app::Packet_XorEncrypt(nullptr, &byteArray, length, nullptr);
+		app::MoleMole_Packet_XorEncrypt(&byteArray, length, nullptr);
 
 		auto result = new char[length];
 		memcpy_s(result, length, byteArray->vector, length);
@@ -249,13 +249,13 @@ namespace cheat::feature
 		return sniffer.OnPacketIO(evt->_evt.packet, PacketIOType::Receive);
 	}
 
-	int32_t PacketSniffer::KcpNative_kcp_client_send_packet_Hook(void* __this, void* kcp_client, app::KcpPacket_1* packet, MethodInfo* method)
+	int32_t PacketSniffer::KcpNative_kcp_client_send_packet_Hook(void* kcp_client, app::KcpPacket_1* packet, MethodInfo* method)
 	{
 		auto& sniffer = GetInstance();
 		if (!sniffer.OnPacketIO(packet, PacketIOType::Send))
 			return 0;
 
-		return CALL_ORIGIN(KcpNative_kcp_client_send_packet_Hook, __this, kcp_client, packet, method);
+		return CALL_ORIGIN(KcpNative_kcp_client_send_packet_Hook, kcp_client, packet, method);
 	}
 }
 

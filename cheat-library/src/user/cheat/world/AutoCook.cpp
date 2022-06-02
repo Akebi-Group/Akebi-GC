@@ -6,8 +6,8 @@
 
 namespace cheat::feature
 {
-    static void PlayerModule_RequestPlayerCook(app::PlayerModule* __this, uint32_t recipeId, uint32_t avatarId, uint32_t qteQuality, uint32_t count, MethodInfo* method); 
-    static void PlayerModule_OnPlayerCookRsp(app::PlayerModule* __this, app::PlayerCookRsp* rsp, MethodInfo* method);
+    static void PlayerModule_RequestPlayerCook(app::MoleMole_PlayerModule* __this, uint32_t recipeId, uint32_t avatarId, uint32_t qteQuality, uint32_t count, MethodInfo* method); 
+    static void PlayerModule_OnPlayerCookRsp(app::MoleMole_PlayerModule* __this, app::PlayerCookRsp* rsp, MethodInfo* method);
 
     static void CookingQtePageContext_UpdateProficiency(app::CookingQtePageContext* __this, MethodInfo* method);
     static void CookingQtePageContext_SetProficiencyInfo(app::CookingQtePageContext* __this, MethodInfo* method);
@@ -18,9 +18,9 @@ namespace cheat::feature
         NF(f_Count, "Count Item", "AutoCook", 1),
         NF(f_Quality, "Quality", "AutoCook", 1)
     {
-        HookManager::install(app::PlayerModule_RequestPlayerCook, PlayerModule_RequestPlayerCook);
-        HookManager::install(app::PlayerModule_OnPlayerCookRsp, PlayerModule_OnPlayerCookRsp); 
-        HookManager::install(app::CookingQtePageContext_UpdateProficiency, CookingQtePageContext_UpdateProficiency);
+        HookManager::install(app::MoleMole_PlayerModule_RequestPlayerCook, PlayerModule_RequestPlayerCook);
+        HookManager::install(app::MoleMole_PlayerModule_OnPlayerCookRsp, PlayerModule_OnPlayerCookRsp); 
+        HookManager::install(app::MoleMole_CookingQtePageContext_UpdateProficiency, CookingQtePageContext_UpdateProficiency);
         HookManager::install(app::CookRecipeExcelConfig_get_maxProficiency, CookRecipeExcelConfig_get_maxProficiency);
     }
 
@@ -57,7 +57,7 @@ namespace cheat::feature
 
     // Auto Cooking | RyujinZX#6666
 
-    static void PlayerModule_RequestPlayerCook(app::PlayerModule* __this, uint32_t recipeId, uint32_t avatarId, uint32_t qteQuality, uint32_t count, MethodInfo* method)
+    static void PlayerModule_RequestPlayerCook(app::MoleMole_PlayerModule* __this, uint32_t recipeId, uint32_t avatarId, uint32_t qteQuality, uint32_t count, MethodInfo* method)
     {
         AutoCook& autoCook = AutoCook::GetInstance();
         if (autoCook.f_Enabled)
@@ -69,7 +69,7 @@ namespace cheat::feature
         return CALL_ORIGIN(PlayerModule_RequestPlayerCook, __this, recipeId, avatarId, qteQuality, count, method);
     }
 
-    static void PlayerModule_OnPlayerCookRsp(app::PlayerModule* __this, app::PlayerCookRsp* rsp, MethodInfo* method) { 
+    static void PlayerModule_OnPlayerCookRsp(app::MoleMole_PlayerModule* __this, app::PlayerCookRsp* rsp, MethodInfo* method) { 
         AutoCook& autoCook = AutoCook::GetInstance();
         if (autoCook.f_Enabled)
         {
@@ -99,7 +99,7 @@ namespace cheat::feature
         AutoCook& autoCook = AutoCook::GetInstance();
         if (autoCook.f_Enabled)
         {
-            uint32_t maxCount = app::SimpleSafeUInt32_get_Value(nullptr, __this->fields.maxProficiencyRawNum, nullptr);
+            uint32_t maxCount = app::MoleMole_SimpleSafeUInt32_get_Value(__this->fields.maxProficiencyRawNum, nullptr);
             autoCook.CookCount = maxCount;
         }
         return CALL_ORIGIN(CookRecipeExcelConfig_get_maxProficiency, __this, method);

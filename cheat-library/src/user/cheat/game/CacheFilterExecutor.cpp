@@ -24,7 +24,7 @@ namespace cheat::game
 			entityFilters[filter] = { false, 0 };
 
 		auto& entry = entityFilters[filter];
-		auto timestamp = app::GetTimestamp(nullptr, nullptr);
+		auto timestamp = app::MoleMole_TimeUtil_get_NowTimeStamp(nullptr);
 		if (entry.second + m_LifeTime > timestamp)
 			return entry.first;
 

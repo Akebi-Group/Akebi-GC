@@ -6,13 +6,13 @@
 
 namespace cheat::feature 
 {
-    static bool Miscs_CheckTargetAttackable_Hook(void* __this, app::BaseEntity* attacker, app::BaseEntity* target, MethodInfo* method);
+    static bool Miscs_CheckTargetAttackable_Hook(app::BaseEntity* attacker, app::BaseEntity* target, MethodInfo* method);
     static void VCHumanoidMove_NotifyLandVelocity_Hook(app::VCHumanoidMove* __this, app::Vector3 velocity, float reachMaxDownVelocityTime, MethodInfo* method);
 
     GodMode::GodMode() : Feature(),
         NFEX(f_Enabled, "God mode", "m_GodMode", "Player", false, false)
     {
-		// HookManager::install(app::LCBaseCombat_FireBeingHitEvent, LCBaseCombat_FireBeingHitEvent_Hook);
+		// HookManager::install(app::MoleMole_LCBaseCombat_FireBeingHitEvent, LCBaseCombat_FireBeingHitEvent_Hook);
 		HookManager::install(app::VCHumanoidMove_NotifyLandVelocity, VCHumanoidMove_NotifyLandVelocity_Hook);
 		HookManager::install(app::Miscs_CheckTargetAttackable, Miscs_CheckTargetAttackable_Hook);
     }
@@ -47,7 +47,7 @@ namespace cheat::feature
     }
 
 	// Attack immunity (return false when target is avatar, that mean avatar entity isn't attackable)
-	static bool Miscs_CheckTargetAttackable_Hook(void* __this, app::BaseEntity* attacker, app::BaseEntity* target, MethodInfo* method)
+	static bool Miscs_CheckTargetAttackable_Hook(app::BaseEntity* attacker, app::BaseEntity* target, MethodInfo* method)
 	{
         auto& gm = GodMode::GetInstance();
         auto& manager = game::EntityManager::instance();
@@ -55,7 +55,7 @@ namespace cheat::feature
 		if (gm.f_Enabled && entity->isAvatar())
 			return false;
 
-		return CALL_ORIGIN(Miscs_CheckTargetAttackable_Hook, __this, attacker, target, method);
+		return CALL_ORIGIN(Miscs_CheckTargetAttackable_Hook, attacker, target, method);
 	}
 
 	// Raised when avatar fall on ground.

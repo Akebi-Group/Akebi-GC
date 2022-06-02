@@ -63,6 +63,12 @@ struct EventCore
 {
     using TMyHandlerPtr = typename TypeHelper<TParams...>::TEventHandlerPtr;
 
+    EventCore() {}
+    EventCore(const EventCore<TParams...>& other) : handlers(other.handlers) {}
+    EventCore(EventCore<TParams...>&& other) : handlers(std::move(handlers)) {}
+    EventCore<TParams...>& operator=(const EventCore<TParams...>& other) { handlers = other.handlers; return *this; }
+    EventCore<TParams...>& operator=(EventCore<TParams...>&& other) { handlers = std::move(other.handlers); return *this; }
+
     std::list<TMyHandlerPtr> handlers;
     mutable std::shared_mutex coreMutex;
 };
@@ -124,6 +130,11 @@ class TEvent : public IEvent<TParams...>
         TEvent() :
             m_core()
         {
+        }
+
+        TEvent(const TEvent& other) : m_core(other.m_core), m_handlerRunners(other.m_handlerRunners)
+        {
+
         }
 
         virtual void operator()( TParams... params )

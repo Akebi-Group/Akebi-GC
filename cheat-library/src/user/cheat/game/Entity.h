@@ -53,7 +53,7 @@ namespace cheat::game
 
 			SAFE_BEGIN();
 
-			auto logicComponentsRaw = app::BaseEntity_GetAllLogicComponents(m_RawEntity, nullptr);
+			auto logicComponentsRaw = app::MoleMole_BaseEntity_GetAllLogicComponents(m_RawEntity, nullptr);
 			auto logicComponents = TO_UNI_LIST(logicComponentsRaw, app::BaseComponent*);
 			if (logicComponents == nullptr)
 				return nullptr;

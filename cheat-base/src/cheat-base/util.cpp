@@ -3,6 +3,7 @@
 #include "util.h"
 
 #include <Windows.h>
+#include <shellapi.h>
 #include <commdlg.h>
 #include <shtypes.h>
 #include <shobjidl_core.h>
@@ -269,5 +270,10 @@ namespace util
 			LOG_LAST_ERROR("Failed to get timezone.");
 
 		return static_cast<int64_t>(timezoneInfo.Bias) * 60;
+	}
+
+	void OpenURL(const char* url)
+	{
+		ShellExecute(nullptr, nullptr, url, nullptr, nullptr, SW_SHOW);
 	}
 }

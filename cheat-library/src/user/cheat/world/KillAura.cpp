@@ -23,7 +23,7 @@ namespace cheat::feature
         NF(f_RepeatDelay,  "Repeat delay time (in ms)", "KillAura", 1000)
     { 
 		events::GameUpdateEvent += MY_METHOD_HANDLER(KillAura::OnGameUpdate);
-		HookManager::install(app::BaseMoveSyncPlugin_ConvertSyncTaskToMotionInfo, BaseMoveSyncPlugin_ConvertSyncTaskToMotionInfo_Hook);
+		HookManager::install(app::MoleMole_BaseMoveSyncPlugin_ConvertSyncTaskToMotionInfo, BaseMoveSyncPlugin_ConvertSyncTaskToMotionInfo_Hook);
 	}
 
     const FeatureGUIInfo& KillAura::GetGUIInfo() const
@@ -84,8 +84,8 @@ namespace cheat::feature
 		if (!f_Enabled || !f_DamageMode)
 			return;
 
-		auto eventManager = GET_SINGLETON(EventManager);
-		if (eventManager == nullptr || *app::CreateCrashEvent__MethodInfo == nullptr)
+		auto eventManager = GET_SINGLETON(MoleMole_EventManager);
+		if (eventManager == nullptr || *app::MoleMole_EventHelper_Allocate_103__MethodInfo == nullptr)
 			return;
 
 		auto currentTime = util::GetCurrentTimeMillisec();
@@ -112,10 +112,10 @@ namespace cheat::feature
 			if (combatProp == nullptr)
 				continue;
 
-			auto maxHP = app::SafeFloat_GetValue(nullptr, combatProp->fields.maxHP, nullptr);
-			auto isLockHp = combatProp->fields.islockHP == nullptr || app::FixedBoolStack_get_value(combatProp->fields.islockHP, nullptr);
-			auto isInvincible = combatProp->fields.isInvincible == nullptr || app::FixedBoolStack_get_value(combatProp->fields.isInvincible, nullptr);
-			auto HP = app::SafeFloat_GetValue(nullptr, combatProp->fields.HP, nullptr);
+			auto maxHP = app::MoleMole_SafeFloat_get_Value(combatProp->fields.maxHP, nullptr);
+			auto isLockHp = combatProp->fields.islockHP == nullptr || app::MoleMole_FixedBoolStack_get_value(combatProp->fields.islockHP, nullptr);
+			auto isInvincible = combatProp->fields.isInvincible == nullptr || app::MoleMole_FixedBoolStack_get_value(combatProp->fields.isInvincible, nullptr);
+			auto HP = app::MoleMole_SafeFloat_get_Value(combatProp->fields.HP, nullptr);
 			if (maxHP < 10 || HP < 2 || isLockHp || isInvincible)
 				continue;
 
@@ -151,15 +151,15 @@ namespace cheat::feature
 		attackSet.erase(monster->runtimeID());
 
 		auto combat = monster->combat();
-		auto maxHP = app::SafeFloat_GetValue(nullptr, combat->fields._combatProperty_k__BackingField->fields.maxHP, nullptr);
+		auto maxHP = app::MoleMole_SafeFloat_get_Value(combat->fields._combatProperty_k__BackingField->fields.maxHP, nullptr);
 
-		auto crashEvt = app::CreateCrashEvent(nullptr, *app::CreateCrashEvent__MethodInfo);
-		app::EvtCrash_Init(crashEvt, monster->runtimeID(), nullptr);
+		auto crashEvt = app::MoleMole_EventHelper_Allocate_103(*app::MoleMole_EventHelper_Allocate_103__MethodInfo);
+		app::MoleMole_EvtCrash_Init(crashEvt, monster->runtimeID(), nullptr);
 		crashEvt->fields.maxHp = maxHP;
 		crashEvt->fields.velChange = 1000;
 		crashEvt->fields.hitPos = monster->absolutePosition();
 
-		app::EventManager_FireEvent(eventManager, reinterpret_cast<app::BaseEvent*>(crashEvt), false, nullptr);
+		app::MoleMole_EventManager_FireEvent(eventManager, reinterpret_cast<app::BaseEvent*>(crashEvt), false, nullptr);
 
 		monsterRepeatTimeMap[monster->runtimeID()] = currentTime + (int)f_RepeatDelay + distribution(generator);
 

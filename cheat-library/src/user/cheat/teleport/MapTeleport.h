@@ -22,16 +22,6 @@ namespace cheat::feature
 
 		void TeleportTo(app::Vector2 mapPosition);
 
-		void OnGetTargetPos(app::Vector3& position);
-
-		void OnCheckTeleportDistance(bool needTransByServer);
-
-		void OnPerformPlayerTransmit(app::Vector3& position);
-
-		void OnSetAvatarPosition(app::Vector3& position);
-
-		void OnGameUpdate();
-
 		const FeatureGUIInfo& GetGUIInfo() const override;
 		void DrawMain() override;
 		
@@ -46,6 +36,22 @@ namespace cheat::feature
 			uint32_t waypointId = 0;
 		};
 		TeleportTaskInfo taskInfo;
+
+		void OnGetTargetPos(app::Vector3& position);
+		bool IsNeedTransByServer(bool originResult, app::Vector3& position);
+		void OnPerformPlayerTransmit(app::Vector3& position);
+		void OnSetAvatarPosition(app::Vector3& position);
+		void OnGameUpdate();
+
+		// Map client interactions
+		static void InLevelMapPageContext_OnMapClicked_Hook(app::InLevelMapPageContext* __this, app::Vector2 screenPos, MethodInfo* method);
+		static void InLevelMapPageContext_OnMarkClicked_Hook(app::InLevelMapPageContext* __this, app::MonoMapMark* mark, MethodInfo* method);
+
+		// Teleporting
+		static bool LoadingManager_NeedTransByServer_Hook(app::MoleMole_LoadingManager* __this, uint32_t sceneId, app::Vector3 position, MethodInfo* method);
+		static void LoadingManager_PerformPlayerTransmit_Hook(app::MoleMole_LoadingManager* __this, app::Vector3 position, app::EnterType__Enum someEnum,
+			uint32_t someUint1, app::EvtTransmitAvatar_EvtTransmitAvatar_TransmitType__Enum teleportType, uint32_t someUint2, MethodInfo* method);
+		static void MoleMole_BaseEntity_SetAbsolutePosition_Hook(app::BaseEntity* __this, app::Vector3 position, bool someBool, MethodInfo* method);
 
 		MapTeleport();
 	};

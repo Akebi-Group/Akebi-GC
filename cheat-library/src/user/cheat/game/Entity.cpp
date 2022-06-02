@@ -14,7 +14,7 @@ namespace cheat::game
 	app::String* GetRawName(game::Entity* entity)
 	{
 		SAFE_BEGIN();
-		return app::BaseEntity_ToStringRelease(entity->raw(), nullptr);
+		return app::MoleMole_BaseEntity_ToStringRelease(entity->raw(), nullptr);
 		SAFE_ERROR();
 		return nullptr;
 		SAFE_END();
@@ -61,7 +61,7 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return {};
 
-		return app::BaseEntity_GetRelativePosition(m_RawEntity, nullptr);
+		return app::MoleMole_BaseEntity_GetRelativePosition(m_RawEntity, nullptr);
 	}
 
 	app::Vector3 Entity::absolutePosition()
@@ -69,7 +69,7 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return {};
 
-		return app::BaseEntity_GetAbsolutePosition(m_RawEntity, nullptr);
+		return app::MoleMole_BaseEntity_GetAbsolutePosition(m_RawEntity, nullptr);
 	}
 	
 	app::Vector2 Entity::levelPosition()
@@ -77,7 +77,7 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return {};
 
-		return app::Miscs_GenLevelPos_1(nullptr, absolutePosition(), nullptr);
+		return app::Miscs_GenLevelPos_1(absolutePosition(), nullptr);
 	}
 
 	float Entity::distance(Entity* entity)
@@ -93,7 +93,7 @@ namespace cheat::game
 		if (rawEntity == nullptr)
 			return 10000;
 
-		auto point = app::BaseEntity_GetRelativePosition(rawEntity, nullptr);
+		auto point = app::MoleMole_BaseEntity_GetRelativePosition(rawEntity, nullptr);
 		return distance(point);
 	}
 
@@ -102,7 +102,7 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return 10000;
 
-		auto dist = app::Vector3_Distance(nullptr, relativePosition(), point, nullptr);
+		auto dist = app::Vector3_Distance(relativePosition(), point, nullptr);
 		return dist;
 	}
 
@@ -111,7 +111,7 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return 10000;
 
-		return app::Vector2_Distance(nullptr, levelPosition(), levelPoint, nullptr);
+		return app::Vector2_Distance(levelPosition(), levelPoint, nullptr);
 	}
 
 	bool Entity::isGadget()
@@ -149,7 +149,7 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return;
 
-		app::BaseEntity_SetRelativePosition(m_RawEntity, value, true, nullptr);
+		app::MoleMole_BaseEntity_SetRelativePosition(m_RawEntity, value, true, nullptr);
 	}
 
 	void Entity::setAbsolutePosition(const app::Vector3& value)
@@ -157,15 +157,15 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return;
 
-		app::BaseEntity_SetAbsolutePosition(m_RawEntity, value, true, nullptr);
+		app::MoleMole_BaseEntity_SetAbsolutePosition(m_RawEntity, value, true, nullptr);
 	}
 
 	bool Entity::isLoaded()
 	{
-		if (m_RawEntity == nullptr || !app::BaseEntity_IsActive(m_RawEntity, nullptr))
+		if (m_RawEntity == nullptr || !app::MoleMole_BaseEntity_IsActive(m_RawEntity, nullptr))
 			return false;
 
-		m_IsLoaded = m_IsLoaded || app::BaseEntity_get_rootGameObject(m_RawEntity, nullptr);
+		m_IsLoaded = m_IsLoaded || app::MoleMole_BaseEntity_get_rootGameObject(m_RawEntity, nullptr);
 		return m_IsLoaded;
 	}
 
@@ -175,7 +175,7 @@ namespace cheat::game
 			return nullptr;
 
 		SAFE_BEGIN();
-		return app::BaseEntity_GetMoveComponent_1(m_RawEntity, *app::BaseEntity_GetMoveComponent_1__MethodInfo);
+		return app::MoleMole_BaseEntity_GetMoveComponent_1(m_RawEntity, *app::MoleMole_BaseEntity_GetMoveComponent_1__MethodInfo);
 		SAFE_ERROR();
 		return nullptr;
 		SAFE_END();
@@ -187,7 +187,7 @@ namespace cheat::game
 			return nullptr;
 		
 		SAFE_BEGIN();
-		return app::BaseEntity_GetBaseCombat(m_RawEntity, *app::BaseEntity_GetBaseCombat__MethodInfo);
+		return app::MoleMole_BaseEntity_GetLogicCombatComponent_1(m_RawEntity, *app::MoleMole_BaseEntity_GetLogicCombatComponent_1__MethodInfo);
 		SAFE_ERROR();
 		return nullptr;
 		SAFE_END();
@@ -199,7 +199,7 @@ namespace cheat::game
 			return nullptr;
 
 		SAFE_BEGIN();
-		return app::BaseEntity_GetRigidbody(m_RawEntity, nullptr);
+		return app::MoleMole_BaseEntity_GetRigidbody(m_RawEntity, nullptr);
 		SAFE_ERROR();
 		return nullptr;
 		SAFE_END();
@@ -211,7 +211,7 @@ namespace cheat::game
 			return nullptr;
 
 		SAFE_BEGIN();
-		return app::BaseEntity_get_gameObject(m_RawEntity, nullptr);
+		return app::MoleMole_BaseEntity_get_gameObject(m_RawEntity, nullptr);
 		SAFE_ERROR();
 		return nullptr;
 		SAFE_END();
@@ -222,7 +222,7 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return {};
 
-		return app::BaseEntity_GetForward(m_RawEntity, nullptr);
+		return app::MoleMole_BaseEntity_GetForward(m_RawEntity, nullptr);
 	}
 
 	app::Vector3 Entity::back()
@@ -235,7 +235,7 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return {};
 
-		return app::BaseEntity_GetRight(m_RawEntity, nullptr);
+		return app::MoleMole_BaseEntity_GetRight(m_RawEntity, nullptr);
 	}
 
 	app::Vector3 Entity::left()
@@ -248,7 +248,7 @@ namespace cheat::game
 		if (m_RawEntity == nullptr)
 			return {};
 
-		return app::BaseEntity_GetUp(m_RawEntity, nullptr);
+		return app::MoleMole_BaseEntity_GetUp(m_RawEntity, nullptr);
 	}
 
 	app::Vector3 Entity::down()

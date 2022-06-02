@@ -9,10 +9,7 @@
 #include <tlhelp32.h>
 #include <cheat/ILPatternScanner.h>
 #include <resource.h>
-
-#ifdef _DEBUG
 #include <cheat/debugger.h>
-#endif
 
 void Run(HMODULE* phModule)
 {
@@ -36,13 +33,11 @@ void Run(HMODULE* phModule)
 		il2cppi_new_console();
 	}
 
-#ifdef _DEBUG
 	DebuggerBypassPre();
 
+#ifdef _DEBUG
 	LOG_DEBUG("Waiting 10sec for loading game library.");
 	Sleep(10000);
-
-	DebuggerBypassPost();
 #else
 	while (GetModuleHandle("UserAssembly.dll") == nullptr)
 	{
@@ -52,6 +47,8 @@ void Run(HMODULE* phModule)
 	LOG_DEBUG("Waiting 15sec for game initialize.");
     Sleep(15000);
 #endif
+	
+	DebuggerBypassPost();
 
 	init_il2cpp();
 

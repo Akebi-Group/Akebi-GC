@@ -47,15 +47,15 @@ namespace cheat::feature
         static int _originFPS = 30;
         if (_lastEnabledStatus && !f_Enabled)
         {
-            app::Application_set_targetFrameRate(nullptr, _originFPS, nullptr);
+            app::Application_set_targetFrameRate(_originFPS, nullptr);
         }
         else if (!_lastEnabledStatus && f_Enabled)
         {
-            _originFPS = app::Application_get_targetFrameRate(nullptr, nullptr);
+            _originFPS = app::Application_get_targetFrameRate(nullptr);
         }
         _lastEnabledStatus = f_Enabled;
 
         if (f_Enabled)
-			app::Application_set_targetFrameRate(nullptr, f_Fps, nullptr);
+			app::Application_set_targetFrameRate(f_Fps, nullptr);
     }
 }

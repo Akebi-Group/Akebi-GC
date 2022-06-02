@@ -24,7 +24,7 @@ namespace cheat::feature
 	{
 		for (int i = 0; i < 4; i++) {
 			LOG_TRACE("Emulating call of RecordUserData with type %d", i);
-			app::Application_RecordUserData(nullptr, i, nullptr);
+			app::Application_RecordUserData(i, nullptr);
 		}
 
 		// if (m_Enabled) {
