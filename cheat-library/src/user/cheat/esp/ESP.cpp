@@ -29,6 +29,7 @@ namespace cheat::feature
 		NF(f_ArrowRadius, "Arrow Radius", "ESP", 100.0f),
 		NF(f_OutlineThickness, "Outline Thickness", "ESP", 1.0f),
 		NF(f_TracerSize, "Tracer Size", "ESP", 1.0f),
+		NF(f_MiddleScreenTracer, "Middle Screen Tracer", "ESP", false),
         NF(f_DrawDistance, "Draw Distance", "ESP", false),
         NF(f_DrawName, "Draw Name", "ESP", false),
 
@@ -71,6 +72,7 @@ namespace cheat::feature
       
 			ConfigWidget(f_Fill);
 			ConfigWidget(f_FillTransparency, 0.01f, 0.0f, 1.0f, "Transparency of filled part.");
+			ConfigWidget(f_MiddleScreenTracer, "Draw tracer from middle part of the screen.");
 
 			if (f_DrawTracerMode.value() == DrawTracerMode::OffscreenArrows)
 			{
@@ -460,11 +462,15 @@ namespace cheat::feature
 		ADD_FILTER_FIELD(featured, TimeTrialChallenge);
 
 		ADD_FILTER_FIELD(guide, CampfireTorch);
+		ADD_FILTER_FIELD(guide, DayNightSwitchingMechanism);
+		ADD_FILTER_FIELD(guide, EnkanomiyaPhaseGate);
 		ADD_FILTER_FIELD(guide, MysteriousCarvings);
 		ADD_FILTER_FIELD(guide, PhaseGate);
+		ADD_FILTER_FIELD(guide, PlacesofEssenceWorship);
 		ADD_FILTER_FIELD(guide, Pot);
 		ADD_FILTER_FIELD(guide, RuinBrazier);
 		ADD_FILTER_FIELD(guide, Stormstone);
+		ADD_FILTER_FIELD(guide, TriangularMechanism);
 
 		ADD_FILTER_FIELD(living, BakeDanuki);
 		ADD_FILTER_FIELD(living, BirdEgg);
@@ -643,6 +649,7 @@ namespace cheat::feature
 		ADD_FILTER_FIELD(puzzle, OozingConcretions);
 		ADD_FILTER_FIELD(puzzle, PirateHelm);
 		ADD_FILTER_FIELD(puzzle, PressurePlate);
+		ADD_FILTER_FIELD(puzzle, SealLocations);
 		ADD_FILTER_FIELD(puzzle, Seelie);
 		ADD_FILTER_FIELD(puzzle, SeelieLamp);
 		ADD_FILTER_FIELD(puzzle, SmallRockPile);

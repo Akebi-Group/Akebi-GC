@@ -3818,8 +3818,20 @@ namespace app {
         void* m_CachedPtr;
     };
 
+    struct Object_1 {
+        struct Object_1__Class* klass;
+        MonitorData* monitor;
+        struct Object_1__Fields fields;
+    };
+
     struct Component_1__Fields {
         struct Object_1__Fields _;
+    };
+
+    struct Component_1 {
+        struct Component_1__Class* klass;
+        MonitorData* monitor;
+        struct Component_1__Fields fields;
     };
 
     struct Transform__Fields {
@@ -4490,6 +4502,11 @@ namespace app {
         void* m_Corners;
     };
 
+   /*struct MaskableGraphic {
+        struct MaskableGraphic__Class* klass;
+        MonitorData* monitor;
+        struct MaskableGraphic__Fields fields;
+    };*/
 
     struct Text__Fields {
         struct MaskableGraphic__Fields _;
@@ -11335,6 +11352,293 @@ namespace app {
         struct CookRecipeExcelConfig__Class* klass;
         MonitorData* monitor;
         struct CookRecipeExcelConfig__Fields fields;
+    };
+
+    struct CriwareMediaPlayer__Fields {
+        struct MonoBehaviour__Fields _;
+        struct FDNEMKPLJJP* _eventCallback_k__BackingField;
+        struct AspectRatioFitter* _parentAspectRatioFitter;
+        struct AspectRatioFitter* _aspectRatioFitter;
+        struct Image_1* _image;
+        struct Text* _text;
+        struct CriManaMovieControllerForUI* _controllerForUI;
+        struct CriWareInitializer* _criwareInitializer;
+        struct CriWareErrorHandler* _criwareErrorHandler;
+        struct VideoSubtitles* _videoSubtitles;
+        int32_t _lastStatus; // Player_Status__Enum
+        struct Action_1_String_* _onStartPlay;
+        struct Action_1_String_* _onFinishPlay;
+        struct Action_1_String_* _onError;
+        struct Action* _onClose;
+        struct String* _videoRuntimePath;
+        bool _useSubtitle;
+        struct String* _subtitleRuntimePath;
+        struct String* _stat;
+        int32_t _audioTrack;
+        int32_t KBIMMFBKMJE; // KIPKAJKIFKJ__Enum
+        uint64_t _encryptKey;
+        bool _audioEncrypted;
+    };
+
+    struct CriwareMediaPlayer {
+        struct CriwareMediaPlayer__Class* klass;
+        MonitorData* monitor;
+        struct CriwareMediaPlayer__Fields fields;
+    };
+
+    struct Sprite__Fields {
+        struct Object_1__Fields _;
+    };
+
+    struct Sprite {
+        struct Sprite__Class* klass;
+        MonitorData* monitor;
+        struct Sprite__Fields fields;
+    };
+
+    struct Texture__Fields {
+        struct Object_1__Fields _;
+    };
+
+    struct Texture2D__Fields {
+        struct Texture__Fields _;
+    };
+
+    struct Texture2D {
+        struct Texture2D__Class* klass;
+        MonitorData* monitor;
+        struct Texture2D__Fields fields;
+    };
+
+     
+  
+
+    struct Image_1__Fields {
+        struct MaskableGraphic__Fields _;
+        struct Sprite* m_CachedSprite;
+        struct Sprite* m_Sprite;
+        struct Sprite* m_OverrideSprite;
+        int32_t m_Type;
+        bool m_PreserveAspect;
+        bool m_FillCenter;
+        int32_t m_FillMethod;
+        float m_FillAmount;
+        bool m_FillClockwise;
+        int32_t m_FillOrigin;
+        float m_AlphaHitTestMinimumThreshold;
+        bool m_Tracked;
+    };
+
+    struct Image_1 {
+        struct Image_1__Class* klass;
+        MonitorData* monitor;
+        struct Image_1__Fields fields;
+    };
+
+    struct MonoInLevelPlayerProfilePage__Fields {
+        struct MonoUIProxy__Fields _;
+        struct Text* _playerName;
+        struct Text* _playerLv;
+        struct Text* _playerExp;
+        struct Slider_1* _playerExpSlider;
+        struct Text* _playerID;
+        struct Text* _playerCost;
+        struct Text* _playerInfo;
+        struct Text* _playerNum;
+        struct Image_1* playerIconImage;
+        struct Text* _playerWorldLv;
+        struct Text* _playerBirthday;
+        struct Text* _playerSignature;
+        struct Text* _playerNoSignature;
+        struct RectTransform* _playerSignatureRect;
+        struct Image_1* _nameCardPic;
+        struct Button_1* _closeButton;
+        struct MonoElementSwitch* _elementSwitch;
+        struct MihoyoGridLayoutGroup* _menuEntryLayout;
+        struct MonoReusableList* _entryList;
+        struct List_1_MoleMole_PaimonEntryConfig_* _entryConfigs;
+        struct MonoUIContainer* _playerLevelBtn;
+        struct Vector3 _offsetPos;
+        float transDuration;
+        float transLerpRatio;
+        int32_t lerpPattern;
+        struct MonoUIContainer* _photographBtn;
+        struct MonoUIContainer* _bulletinBtn;
+        struct MonoUIContainer* _mailBtn;
+        struct MonoUIContainer* _timeBtn;
+        struct MonoUIContainer* _settingBtn;
+        struct Button_1* _iconBtn;
+        struct MonoUIContainer* _editBtn;
+        struct RectTransform* _editPanel;
+        struct Button_1* _editReturnBtn;
+        struct MonoUIContainer* _editHeadPortraitBtn;
+        struct MonoUIContainer* _editNameCardBtn;
+        struct MonoUIContainer* _editSignatureBtn;
+        struct MonoUIContainer* _editNameBtn;
+        struct MonoUIContainer* _editCopyUidBtn;
+        struct MonoUIContainer* _editBirthdayBtn;
+        struct MonoUIContainer* _editProfileBtn;
+        struct MonoUIContainer* _worldLvInfoBtn;
+        struct MonoUIContainer* _playerLvInfoBtn;
+        struct Button_1* _copyBtn;
+        struct RectTransform* _copyText;
+        struct RectTransform* _ps4OnlineID;
+        struct Text* _ps4OnlineIDText;
+        struct GameObject* _upArrowIcon;
+        struct GameObject* _downArrowIcon;
+        float _redpointsCheckUpperOffset;
+        float _redpointsCheckLowerOffset;
+        struct String* _animStateAllowPaimonResponsePS5MicBlowEvent;
+        float _thresholdDiscardPS5MicBlowEvent;
+        float _thresholdPaimonResponsePS5MicBlowEventContinuely;
+        struct MonoPS5MicBlowEventHandlerBase* _ps5MicBlowEventHandler;
+    };
+
+    struct MonoInLevelPlayerProfilePage {
+        struct MonoInLevelPlayerProfilePage__Class* klass;
+        MonitorData* monitor;
+        struct MonoInLevelPlayerProfilePage__Fields fields;
+    };
+
+    struct MonoFriendInformationDialog__Fields {
+        struct MonoUIProxy__Fields _;
+        struct MonoElementSwitch* _elementSwitch;
+        struct Text* _playerUID;
+        struct Image_1* _icon;
+        struct Text* _nickname;
+        struct Text* _remarkname;
+        struct Text* _playerLevel;
+        struct Text* _worldLevel;
+        struct Text* _signature;
+        struct RectTransform* _signatureRect;
+        struct Button_1* _returnBtn;
+        struct MonoUIContainer* _ps4ID;
+        struct RectTransform* _blockChatImg;
+        struct RectTransform* _joypadBtnGroup;
+        struct Image_1* _cardImg;
+        struct Button_1* _signatureBtn;
+        struct RectTransform* _editPanel;
+        struct Button_1* _editReturnBtn;
+        struct MonoGridScroller* _editScroller;
+        struct Text* _achievementTxt;
+        struct Text* _towerTxt;
+        struct Text* _towerNoDataTxt;
+        struct Text* _toggleTxt;
+        struct GameObject* _iconHide;
+        struct GameObject* _avatarEmptyGrp;
+        struct GameObject* _toggleGrp;
+        struct MonoGridScroller* _avatarScroller;
+        struct MonoUIContainer* _toggle;
+        struct MonoUIContainer* _mainPageBtn;
+        struct GameObject* _achievementGrp;
+        struct GameObject* _avatarGrp;
+        struct MonoUIContainer* _nameCardBtn;
+        struct GameObject* _nameCardGrp;
+        struct MonoGridScroller* _nameCardScroller;
+        struct GameObject* _nameCardEmptyGrp;
+    };
+
+    struct MonoFriendInformationDialog {
+        struct MonoFriendInformationDialog__Class* klass;
+        MonitorData* monitor;
+        struct MonoFriendInformationDialog__Fields fields;
+    };
+
+    struct Color32 {
+        int32_t rgba;
+        uint8_t r;
+        uint8_t g;
+        uint8_t b;
+        uint8_t a;
+    };
+
+    enum class PrimitiveType__Enum : int32_t {
+        Sphere = 0x00000000,
+        Capsule = 0x00000001,
+        Cylinder = 0x00000002,
+        Cube = 0x00000003,
+        Plane = 0x00000004,
+        Quad = 0x00000005,
+    };
+
+    enum class BrowserNative_ContextMenuOrigin__Enum : int32_t {
+        Editable = 0x00000002,
+        Image = 0x00000004,
+        Selection = 0x00000008,
+        Other = 0x00000001,
+    };
+
+    enum class Browser_NewWindowAction__Enum : int32_t {
+        Ignore = 0x00000001,
+        Redirect = 0x00000002,
+        NewBrowser = 0x00000003,
+        NewWindow = 0x00000004,
+    };
+
+    struct Browser__Fields {
+        struct MonoBehaviour__Fields _;
+        bool offScreen;
+        struct IBrowserUI* _uiHandler;
+        bool uiHandlerAssigned;
+        struct String* _url;
+        int32_t _width;
+        int32_t _height;
+        bool generateMipmap;
+        struct Color32 baseColor;
+        float _zoom;
+        struct Action_2_String_String_* onConsoleMessage;
+        BrowserNative_ContextMenuOrigin__Enum allowContextMenuOn;
+        Browser_NewWindowAction__Enum newWindowAction;
+        struct INewWindowHandler* _NewWindowHandler_k__BackingField;
+        bool _EnableRendering_k__BackingField;
+        bool _EnableInput_k__BackingField;
+        struct CookieManager* _CookieManager_k__BackingField;
+        int32_t browserId;
+        int32_t unsafeBrowserId;
+        bool browserIdRequested;
+        struct Texture2D* texture;
+        struct Action_1_UnityEngine_Texture2D_* afterResize;
+        bool textureIsOurs;
+        bool forceNextRender;
+        bool isPopup;
+        struct List_1_System_Action_* thingsToDo;
+        struct List_1_System_Action_* onloadActions;
+        struct List_1_System_Object_* thingsToRemember;
+        int32_t nextCallbackId;
+        struct Dictionary_2_System_Int32_ZenFulcrum_EmbeddedBrowser_Browser_JSResultFunc_* registeredCallbacks;
+        struct BrowserNative_ReadyFunc* onNativeReady;
+        struct Action_1_ZenFulcrum_EmbeddedBrowser_JSONNode_* onLoad;
+        struct Action_1_ZenFulcrum_EmbeddedBrowser_JSONNode_* onFetch;
+        struct Action_1_ZenFulcrum_EmbeddedBrowser_JSONNode_* onFetchError;
+        struct Action_1_ZenFulcrum_EmbeddedBrowser_JSONNode_* onCertError;
+        struct Action* onSadTab;
+        struct Action* onTextureUpdated;
+        struct Action* onNavStateChange;
+        struct Action_2_Int32_ZenFulcrum_EmbeddedBrowser_JSONNode_* onDownloadStarted;
+        struct Action_2_Int32_ZenFulcrum_EmbeddedBrowser_JSONNode_* onDownloadStatus;
+        struct Action_3_String_Boolean_String_* onNodeFocus;
+        struct Action_1_ZenFulcrum_EmbeddedBrowser_JSONNode_* onUniWebviewMsgReceive;
+        struct Action_1_ZenFulcrum_EmbeddedBrowser_JSONNode_* onBeforeNavigationMsgReceive;
+        struct Action_2_Boolean_Boolean_* onBrowserFocus;
+        struct BrowserFocusState* focusState;
+        struct BrowserInput* browserInput;
+        struct Browser* overlay;
+        bool skipNextLoad;
+        bool loadPending;
+        struct BrowserNavState* navState;
+        bool newWindowHandlerSet;
+        struct INewWindowHandler* newWindowHandler;
+        struct DialogHandler* dialogHandler;
+        struct Action* pageReplacer;
+        float pageReplacerPriority;
+        struct List_1_System_Action_* thingsToDoClone;
+        struct Color32__Array* colorBuffer;
+    };
+
+    struct Browser {
+        struct Browser__Class* klass;
+        MonitorData* monitor;
+        struct Browser__Fields fields;
     };
 
 #if !defined(_GHIDRA_) && !defined(_IDA_)

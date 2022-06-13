@@ -38,6 +38,7 @@ namespace cheat::feature
 		config::Field<float> f_ArrowRadius;
 		config::Field<float> f_OutlineThickness;
 		config::Field<float> f_TracerSize;
+		config::Field<bool> f_MiddleScreenTracer;
 
 		config::Field<int> f_FontSize;
 		config::Field<bool> f_FontOutline;

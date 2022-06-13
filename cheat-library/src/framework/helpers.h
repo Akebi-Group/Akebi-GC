@@ -46,7 +46,7 @@ struct UniLinkListNode
 };
 
 template<class ElementT>
-struct UniLinkList 
+struct UniLinkList
 {
     void* klass;
     MonitorData* monitor;
@@ -127,15 +127,15 @@ struct __declspec(align(8)) UniDict {
     MonitorData* monitor;
     void* buckets;
     UniArray<UniDictEntry<KeyT, ValT>>* entries;
-	int32_t count;
-	int32_t version;
-	int32_t freeList;
-	int32_t freeCount;
-	void* comparer;
+    int32_t count;
+    int32_t version;
+    int32_t freeList;
+    int32_t freeCount;
+    void* comparer;
     void* keys;
     void* values;
 
-    std::vector<std::pair<KeyT, ValT>> pairs() 
+    std::vector<std::pair<KeyT, ValT>> pairs()
     {
         auto pairs = std::vector<std::pair<KeyT, ValT>>();
 
@@ -153,8 +153,8 @@ struct __declspec(align(8)) UniDict {
                 break;
 
             if (entry.hashCode > 0)
-				pairs.push_back({ entry.key, entry.value });
-            
+                pairs.push_back({ entry.key, entry.value });
+
             index++;
         }
 
@@ -165,11 +165,11 @@ struct __declspec(align(8)) UniDict {
 template<class T>
 T* CastTo(void* pObject, void* pClass)
 {
-	auto object = reinterpret_cast<app::Object*>(pObject);
-	if (object == nullptr || object->klass == nullptr || object->klass != pClass)
-		return nullptr;
+    auto object = reinterpret_cast<app::Object*>(pObject);
+    if (object == nullptr || object->klass == nullptr || object->klass != pClass)
+        return nullptr;
 
-	return reinterpret_cast<T*>(object);
+    return reinterpret_cast<T*>(object);
 }
 
 inline app::Vector3 operator + (const app::Vector3& A, const app::Vector3& B)
@@ -204,12 +204,12 @@ inline app::Vector3 operator / (const app::Vector3& A, const float k)
 
 inline app::Vector3 operator - (const app::Vector3& A)
 {
-    return { -A.x, -A.y, -A.z};
+    return { -A.x, -A.y, -A.z };
 }
 
 inline app::Vector2 operator + (const app::Vector2& A, const float k)
 {
-	return { A.x + k, A.y + k};
+    return { A.x + k, A.y + k };
 }
 
 inline app::Vector2 operator - (const app::Vector2& A, const app::Vector2& B)
@@ -219,46 +219,46 @@ inline app::Vector2 operator - (const app::Vector2& A, const app::Vector2& B)
 
 inline app::Vector2 operator - (const app::Vector2& A, const float k)
 {
-	return { A.x - k, A.y - k};
+    return { A.x - k, A.y - k };
 }
 
 inline app::Vector2 operator + (const app::Vector2& A, const app::Vector2& B)
 {
-	return { A.x + B.x, A.y + B.y };
+    return { A.x + B.x, A.y + B.y };
 }
 
 inline app::Vector2 operator * (const app::Vector2& A, const float k)
 {
-	return { A.x * k, A.y * k };
+    return { A.x * k, A.y * k };
 }
 
 inline app::Vector2 operator * (const app::Vector2& A, const app::Vector2& B)
 {
-	return { A.x * B.x, A.y * B.y };
+    return { A.x * B.x, A.y * B.y };
 }
 
 inline app::Vector2 operator / (const app::Vector2& A, const float k)
 {
-	return { A.x / k, A.y / k };
+    return { A.x / k, A.y / k };
 }
 
 inline app::Vector2 operator - (const app::Vector2& A)
 {
-	return { -A.x, -A.y };
+    return { -A.x, -A.y };
 }
 
-inline float GetVectorMagnitude(const app::Vector3& A) 
+inline float GetVectorMagnitude(const app::Vector3& A)
 {
     return sqrtf(A.x * A.x + A.y * A.y + A.z * A.z);
 }
 
-inline app::Vector3 GetVectorDirection(const app::Vector3& from, const app::Vector3& to) 
+inline app::Vector3 GetVectorDirection(const app::Vector3& from, const app::Vector3& to)
 {
     auto dirRaw = to - from;
     return dirRaw / GetVectorMagnitude(dirRaw);
 }
 
-inline bool IsVectorZero(const app::Vector3& vector) 
+inline bool IsVectorZero(const app::Vector3& vector)
 {
     return vector.x == 0 && vector.y == 0 && vector.z == 0;
 }
@@ -282,7 +282,7 @@ std::string il2cppi_to_string(app::String* str);
 std::string il2cppi_to_string(app::Vector vec);
 std::string il2cppi_to_string(app::Vector2 vec);
 std::string il2cppi_to_string(app::Vector3 vec);
-
+app::String* string_to_il2cppi(std::string input);
 std::string to_hex_string(app::Byte__Array* barray, int length);
 #endif
 
@@ -292,6 +292,6 @@ template<typename T> bool il2cppi_is_initialized(T* metadataItem) {
     return *metadataItem != 0;
 #else
     // Metadata >=27 (Unity 2020.2)
-    return !((uintptr_t) *metadataItem & 1);
+    return !((uintptr_t)*metadataItem & 1);
 #endif
 }

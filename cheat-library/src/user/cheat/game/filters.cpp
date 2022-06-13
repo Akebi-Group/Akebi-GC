@@ -47,11 +47,15 @@ namespace cheat::game::filters
 	namespace guide
 	{
 		SimpleFilter CampfireTorch = { app::EntityType__Enum_1::Gadget, "_FireBasin" };
+		SimpleFilter DayNightSwitchingMechanism = { app::EntityType__Enum_1::Field, "_CircleConsole" };
+		SimpleFilter EnkanomiyaPhaseGate = { app::EntityType__Enum_1::Gadget, "_Singularity" };
 		SimpleFilter MysteriousCarvings = { app::EntityType__Enum_1::Gadget, "_ReginStatue" };
 		SimpleFilter PhaseGate = { app::EntityType__Enum_1::Field, "_TeleportHighway" };
+		SimpleFilter PlacesofEssenceWorship = { app::EntityType__Enum_1::Field, "_EnergySource" };
 		SimpleFilter Pot = { app::EntityType__Enum_1::Gadget, "_Cooking_" };
 		SimpleFilter RuinBrazier = { app::EntityType__Enum_1::Gadget, "_AncientHeatSource" };
 		SimpleFilter Stormstone = { app::EntityType__Enum_1::Gadget, "_ReginLamp" };
+		SimpleFilter TriangularMechanism = { app::EntityType__Enum_1::Field, "_TuningFork" };
 	}
 
 	namespace living
@@ -137,7 +141,7 @@ namespace cheat::game::filters
 		SimpleFilter Tartaglia = { app::EntityType__Enum_1::Monster, "_Tartaglia" };
 		SimpleFilter Azhdaha = { app::EntityType__Enum_1::Monster, "_Dahaka" };
 		SimpleFilter Signora = { app::EntityType__Enum_1::Monster, "_LaSignora" };
-		SimpleFilter Shogun = { app::EntityType__Enum_1::Monster, "_Shougan" };
+		SimpleFilter Shogun = { app::EntityType__Enum_1::Monster, "_Shougun" };
 		SimpleFilter EyeOfTheStorm = { app::EntityType__Enum_1::Monster, "_Elemental_Wind" };
 		SimpleFilter ElectroHypostasis = { app::EntityType__Enum_1::Monster, "_Effigy_Electric" };
 		SimpleFilter AnemoHypostasis = { app::EntityType__Enum_1::Monster, "_Effigy_Wind" };
@@ -241,6 +245,7 @@ namespace cheat::game::filters
 		SimpleFilter OozingConcretions = { app::EntityType__Enum_1::Gadget, "_AbyssCoreLv" };
 		SimpleFilter PirateHelm = { app::EntityType__Enum_1::Field, "_PirateHelm" };
 		WhitelistFilter PressurePlate = { std::vector<app::EntityType__Enum_1> {app::EntityType__Enum_1::Field, app::EntityType__Enum_1::Gadget }, std::vector<std::string> {"Gear_Gravity", "_LitPathPlate" } };
+		SimpleFilter SealLocations = { app::EntityType__Enum_1::Gadget, "_RunesKey" };
 		SimpleFilter SeelieLamp = { app::EntityType__Enum_1::Field, "Gear_SeeliaLamp" };
 		SimpleFilter Seelie = { app::EntityType__Enum_1::Platform, "Gear_Seelie" };
 		SimpleFilter SmallRockPile = { app::EntityType__Enum_1::Gadget, "_StonePile_01" };

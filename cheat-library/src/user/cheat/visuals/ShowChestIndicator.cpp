@@ -9,7 +9,7 @@ namespace cheat::feature
     static bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this, MethodInfo* method);
 
     ChestIndicator::ChestIndicator() : Feature(),
-        NF(f_Enabled, "Show Chest Indicator", "ShowChest", false)
+        NFEX(f_Enabled, "Show Chest Indicator", "ChestIndicator", "Visuals", false, false)
     {
         HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck);
     }

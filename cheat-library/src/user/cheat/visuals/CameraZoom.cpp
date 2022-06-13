@@ -9,8 +9,8 @@ namespace cheat::feature
     static void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data, MethodInfo* method);
 
     CameraZoom::CameraZoom() : Feature(),
-        NFEX(f_Enabled, "Camera Zoom", "CameraZoom", "Visuals", false, false),
-        NF(f_Zoom, "Zoom", "CameraZoom", 200)
+        NF(f_Enabled, "Camera Zoom", "Visuals::CameraZoom", false),
+        NF(f_Zoom, "Zoom", "Visuals::CameraZoom", 200)
     {
         HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook);
     }

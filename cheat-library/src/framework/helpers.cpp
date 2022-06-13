@@ -14,32 +14,32 @@
 
 uintptr_t il2cpp_get_mono_base_address()
 {
-	static HMODULE hMono = GetModuleHandle("mono.dll");
+    static HMODULE hMono = GetModuleHandle("mono.dll");
 
-	if (hMono != NULL)
-		return (uintptr_t)hMono;
+    if (hMono != NULL)
+        return (uintptr_t)hMono;
 
-	HMODULE hModules[1024] = {};
+    HMODULE hModules[1024] = {};
 
-	DWORD cbNeeded = 0;
-	BOOL result = EnumProcessModules(GetCurrentProcess(), hModules, sizeof(hModules), &cbNeeded);
-	if (result == FALSE)
-		return NULL;
+    DWORD cbNeeded = 0;
+    BOOL result = EnumProcessModules(GetCurrentProcess(), hModules, sizeof(hModules), &cbNeeded);
+    if (result == FALSE)
+        return NULL;
 
-	for (int i = 0; i < (cbNeeded / sizeof(HMODULE)); i++)
-	{
-		if (hModules[i] == NULL)
-			continue;
+    for (int i = 0; i < (cbNeeded / sizeof(HMODULE)); i++)
+    {
+        if (hModules[i] == NULL)
+            continue;
 
-		if (GetProcAddress(hModules[i], "il2cpp_thread_attach") != NULL)
-			return (uintptr_t)hModules[i];
-	}
+        if (GetProcAddress(hModules[i], "il2cpp_thread_attach") != NULL)
+            return (uintptr_t)hModules[i];
+    }
 
     return 0;
 }
 
 uintptr_t il2cppi_get_base_address() {
-    return (uintptr_t) GetModuleHandleW(L"UserAssembly.dll");
+    return (uintptr_t)GetModuleHandleW(L"UserAssembly.dll");
 }
 
 uintptr_t il2cppi_get_unity_address() {
@@ -49,13 +49,13 @@ uintptr_t il2cppi_get_unity_address() {
 // Helper function to open a new console window and redirect stdout there
 void il2cppi_new_console() {
     AllocConsole();
-    freopen_s((FILE**) stdout, "CONOUT$", "w", stdout);
-    freopen_s((FILE**) stderr, "CONOUT$", "w", stderr);
+    freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
+    freopen_s((FILE**)stderr, "CONOUT$", "w", stderr);
 }
 
 void il2cppi_close_console() {
     fclose(stdout);
-    fclose(stderr);  
+    fclose(stderr);
     FreeConsole();
 }
 
@@ -84,6 +84,11 @@ std::string il2cppi_to_string(app::String* str) {
         return std::string("<nullptr>");
     return il2cppi_to_string(reinterpret_cast<Il2CppString*>(str));
 }
+
+app::String* string_to_il2cppi(std::string input) {
+    return app::Marshal_PtrToStringAnsi((void*)input.c_str(), nullptr);
+}
+
 
 std::string to_hex_string(app::Byte__Array* barray, int length) {
     if (barray == nullptr)

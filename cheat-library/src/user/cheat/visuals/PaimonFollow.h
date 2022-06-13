@@ -1,33 +1,26 @@
 #pragma once
 #include <cheat-base/cheat/Feature.h>
 #include <cheat-base/config/config.h>
+#include <cheat-base/thread-safe.h>
 
 namespace cheat::feature
 {
-
-	class AutoCook : public Feature
+	class PaimonFollow : public Feature
 	{
 	public:
 		config::Field<config::Toggle<Hotkey>> f_Enabled;
-		config::Field<config::Toggle<Hotkey>> f_FastProficiency;
-
-		config::Field<int> f_CountField;
-		config::Field<int> f_QualityField;
-
-		int CookFoodMaxNum; // Maximum quantity at a time
-		int CookCount; 
-
-		static AutoCook& GetInstance();
-
+		static PaimonFollow& GetInstance();
 		const FeatureGUIInfo& GetGUIInfo() const override;
 		void DrawMain() override;
 
 		virtual bool NeedStatusDraw() const override;
 		void DrawStatus() override;
-
 	private:
-		
-		AutoCook();
+		SafeQueue<uint32_t> toBeUpdate;
+		SafeValue<int64_t> nextUpdate;
+		int f_DelayUpdate = 100.f;
+
+		void OnGameUpdate();
+		PaimonFollow();
 	};
 }
-

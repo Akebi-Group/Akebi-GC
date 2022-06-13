@@ -50,9 +50,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\user\cheat\teleport\CustomTeleports.h" />
+    <ClInclude Include="src\user\cheat\visuals\Browser.h" />
     <ClInclude Include="src\user\cheat\visuals\CameraZoom.h" />
     <ClInclude Include="src\user\cheat\visuals\FPSUnlock.h" />
+    <ClInclude Include="src\user\cheat\visuals\HideUI.h" />
     <ClInclude Include="src\user\cheat\visuals\NoFog.h" />
+    <ClInclude Include="src\user\cheat\visuals\PaimonFollow.h" />
+    <ClInclude Include="src\user\cheat\visuals\ProfileChanger.h" />
     <ClInclude Include="src\user\cheat\visuals\ShowChestIndicator.h" />
     <ClInclude Include="src\user\cheat\world\AutoCook.h" />
     <ClInclude Include="src\user\cheat\world\AutoFish.h" />
@@ -160,9 +164,13 @@
     </ClCompile>
     <ClCompile Include="src\user\cheat\teleport\CustomTeleports.cpp" />
     <ClCompile Include="src\user\cheat\GenshinCM.cpp" />
+    <ClCompile Include="src\user\cheat\visuals\Browser.cpp" />
     <ClCompile Include="src\user\cheat\visuals\CameraZoom.cpp" />
     <ClCompile Include="src\user\cheat\visuals\FPSUnlock.cpp" />
+    <ClCompile Include="src\user\cheat\visuals\HideUI.cpp" />
     <ClCompile Include="src\user\cheat\visuals\NoFog.cpp" />
+    <ClCompile Include="src\user\cheat\visuals\PaimonFollow.cpp" />
+    <ClCompile Include="src\user\cheat\visuals\ProfileChanger.cpp" />
     <ClCompile Include="src\user\cheat\visuals\ShowChestIndicator.cpp" />
     <ClCompile Include="src\user\cheat\world\AutoCook.cpp" />
     <ClCompile Include="src\user\cheat\world\AutoFish.cpp" />

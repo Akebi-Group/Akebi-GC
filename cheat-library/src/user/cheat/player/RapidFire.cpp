@@ -183,6 +183,17 @@ namespace cheat::feature
 		return attackerID == avatarID || IsAvatarOwner(attacker);
 	}
 
+	bool IsValidByFilter(game::Entity* entity)
+	{
+		if (game::filters::combined::OrganicTargets.IsValid(entity) ||
+			game::filters::combined::Ores.IsValid(entity) ||
+			game::filters::puzzle::Geogranum.IsValid(entity) ||
+			game::filters::puzzle::LargeRockPile.IsValid(entity) ||
+			game::filters::puzzle::SmallRockPile.IsValid(entity))
+			return true;
+		return false;
+	}
+
 	// Raises when any entity do hit event.
 	// Just recall attack few times (regulating by combatProp)
 	// It's not tested well, so, I think, anticheat can detect it.
@@ -196,22 +207,28 @@ namespace cheat::feature
 
 		auto& manager = game::EntityManager::instance();
 		auto originalTarget = manager.entity(targetID);
-		if (!game::filters::combined::OrganicTargets.IsValid(originalTarget))
+		if (!IsValidByFilter(originalTarget))
 			return CALL_ORIGIN(LCBaseCombat_DoHitEntity_Hook, __this, targetID, attackResult, ignoreCheckCanBeHitInMP, method);
 
 		std::vector<cheat::game::Entity*> validEntities;
 		validEntities.push_back(originalTarget);
-		
+
 		if (rapidFire.f_MultiTarget)
 		{
-			auto filteredEntities = manager.entities(game::filters::combined::Monsters);
+			auto filteredEntities = manager.entities();
 			for (const auto& entity : filteredEntities) {
 				auto distance = originalTarget->distance(entity);
+
+				if (entity->runtimeID() == manager.avatar()->runtimeID())
+					continue;
 
 				if (entity->runtimeID() == targetID)
 					continue;
 
 				if (distance > rapidFire.f_MultiTargetRadius)
+					continue;
+
+				if (!IsValidByFilter(entity))
 					continue;
 
 				validEntities.push_back(entity);
