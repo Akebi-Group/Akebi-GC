@@ -207,7 +207,7 @@ namespace renderer
 			key = VK_MBUTTON;
 			break;
 		case WM_XBUTTONUP:
-			key = GET_XBUTTON_WPARAM(wParam);
+			key = GET_XBUTTON_WPARAM(wParam) == XBUTTON1 ? VK_XBUTTON1 : VK_XBUTTON2;
 			break;
 		case WM_KEYUP:
 			key = static_cast<short>(wParam);

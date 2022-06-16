@@ -8,7 +8,7 @@ namespace cheat::feature
 	class HideUI : public Feature
 	{
 	public:
-		config::Field<bool> f_Enabled;
+		config::Field<config::Toggle<Hotkey>> f_Enabled;
 
 		static HideUI& GetInstance();
 

@@ -9214,6 +9214,16 @@ namespace app {
         Il2CppClass_1 _1;
     };
 
+    struct Canvas__Fields {
+        struct Behaviour__Fields _;
+    };
+
+    struct Canvas {
+        struct Canvas__Class* klass;
+        MonitorData* monitor;
+        struct Canvas__Fields fields;
+    };
+
     struct __declspec(align(8)) UIManager__Fields {
         struct LinkedList_1_MoleMole_BaseContext_* _inputContextList;
         struct HashSet_1_MoleMole_BaseContext_* _inputContextSet;
@@ -9221,7 +9231,7 @@ namespace app {
         struct HashSet_1_MoleMole_BaseContext_* BCPDECEFFMF;
         struct UIPlatformConfig* platformConfig;
         uint32_t _curProfileHandle;
-        void* _sceneCanvas;
+        struct Canvas* _sceneCanvas;
         struct Camera* _uiCamera;
     };
 

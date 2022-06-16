@@ -45,7 +45,7 @@ namespace cheat
 
 		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiCond_FirstUseEver);
 
-		if (!ImGui::Begin("CCGenshin (By Callow)"))
+		if (!ImGui::Begin("Akebi-GC"))
 		{
 			ImGui::End();
 			return;

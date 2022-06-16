@@ -1544,13 +1544,14 @@ namespace cheat::feature
 
 	static ImCircle GetMinimapCircle()
 	{
+		static app::Rect mapRect = {};
 		if (_monoMiniMap == nullptr)
 			return {};
 
 		UPDATE_DELAY_VAR(ImCircle, _miniMapCircle, 2000);
 
 		auto uiManager = GET_SINGLETON(MoleMole_UIManager);
-		if (uiManager == nullptr || uiManager->fields._sceneCanvas == nullptr)
+		if (uiManager == nullptr || uiManager->fields._sceneCanvas == nullptr || uiManager->fields._uiCamera == nullptr)
 			return {};
 
 		auto back = _monoMiniMap->fields._grpMapBack;
@@ -1560,13 +1561,16 @@ namespace cheat::feature
 		auto mapPos = app::Transform_get_position(reinterpret_cast<app::Transform*>(back), nullptr);
 		auto center = app::Camera_WorldToScreenPoint(uiManager->fields._uiCamera, mapPos, nullptr);
 		center.y = app::Screen_get_height(nullptr) - center.y;
+	 
+		if (mapRect.m_Width == 0)
+			mapRect = app::RectTransform_get_rect(back, nullptr);
 
-		auto mapRect = app::RectTransform_get_rect(back, nullptr);
 		float scaleFactor = app::Canvas_get_scaleFactor(uiManager->fields._sceneCanvas, nullptr);
-		_miniMapCircle = {
-			ImVec2(center.x, center.y),
-			(mapRect.m_Width * scaleFactor) / 2
-		};
+		if (scaleFactor != 0)
+			_miniMapCircle = {
+				ImVec2(center.x, center.y),
+				(mapRect.m_Width * scaleFactor) / 2
+			};
 
 		return _miniMapCircle;
 	}

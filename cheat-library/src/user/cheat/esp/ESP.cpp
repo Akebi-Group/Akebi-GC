@@ -582,7 +582,6 @@ namespace cheat::feature
 		ADD_FILTER_FIELD(monster, Samachurl);
 		ADD_FILTER_FIELD(monster, SangonomiyaCohort);
 		ADD_FILTER_FIELD(monster, ShadowyHusk);
-		ADD_FILTER_FIELD(monster, ShadowyHusk);
 		ADD_FILTER_FIELD(monster, ShogunateInfantry);
 		ADD_FILTER_FIELD(monster, Slime);
 		ADD_FILTER_FIELD(monster, Specter);

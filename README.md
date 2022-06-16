@@ -1,9 +1,8 @@
 <h1 align="center">Akebi GC</h1>
 The great software for some game that exploiting anime girls (and boys).
 
-In first week after 2.7 update cheat can be unstable. Please create issue, if you catch a crash after updating to 2.7.
+We opened [Discord server](https://discord.gg/MmV8hNZB9S)
 <hr>
-
 <h1 align="center">Getting Started</h1>
 
 ### Building from source
@@ -93,11 +92,6 @@ As well as setting up **`cheat-library`** as startup project.
   <summary>Auto Talk</summary>
   <img src="https://github.com/CallowBlack/gif-demos/blob/main/genshin-cheat/auto-talk-demo.gif"/>
 </details>
-
-<h1 align="center">Roadmap</h1>
-
-- [ ] Cutscene Skipping
-- [ ] Create database for chests, oculi, etc.
 
 <h1 align="center">Contributing</h1>
 

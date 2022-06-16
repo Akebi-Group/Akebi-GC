@@ -5,8 +5,6 @@
 #include <cheat/events.h>
 #include <misc/cpp/imgui_stdlib.h>
 
-#include <cheat/esp/ESPRender.h>
-
 namespace cheat::feature
 {
     app::GameObject* planeObject = nullptr;
@@ -55,17 +53,21 @@ namespace cheat::feature
             return;
 
         if (f_Enabled) {
-            if (planeObject == nullptr) {
+            auto entityRoot = app::GameObject_Find(string_to_il2cppi("EntityRoot/AvatarRoot/"), nullptr);
+            if (!app::GameObject_get_active(entityRoot, nullptr))
+                return;
 
+            if (planeObject == nullptr) {
                 auto PrimitiveType = app::PrimitiveType__Enum::Plane;
                 planeObject = app::GameObject_CreatePrimitive(PrimitiveType, nullptr);
 
                 app::Transform* planeObject_Transform = app::GameObject_get_transform(planeObject, nullptr);
-                app::Quaternion planeObject_Transform_Quaternion = { 0.5, 0.5, -0.5, 0.5};
+                app::Quaternion planeObject_Transform_Quaternion = { 0.5, 0.5, -0.5, 0.5 };
+
                 auto avatarPos = app::ActorUtils_GetAvatarPos(nullptr);
                 auto relativePos = app::WorldShiftManager_GetRelativePosition(avatarPos, nullptr);
                 app::Vector3 planeObject_Transform_Vector3 = { relativePos.x, relativePos.y + 3, relativePos.z };
-                app::Vector3 planeObject_Transform_Scale = { 1, 1, 1};
+                app::Vector3 planeObject_Transform_Scale = { 1, 1, 1 };
 
                 app::Transform_set_localPosition(planeObject_Transform, planeObject_Transform_Vector3, nullptr);
                 app::Transform_set_localScale(planeObject_Transform, planeObject_Transform_Scale, nullptr);
@@ -86,8 +88,7 @@ namespace cheat::feature
             }
         }
         else {
-            if (planeObject != nullptr && BrowserComponents != nullptr)
-            {
+            if (planeObject != nullptr && BrowserComponents != nullptr) {
                 app::Object_1_DestroyImmediate_1(reinterpret_cast<app::Object_1*>(planeObject), nullptr);
                 app::Object_1_DestroyImmediate_1(reinterpret_cast<app::Object_1*>(BrowserComponents), nullptr);
                 planeObject = nullptr;
