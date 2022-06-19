@@ -107,6 +107,7 @@ namespace cheat::game::filters
 		SimpleFilter ScarletQuartz = { app::EntityType__Enum_1::GatherObject, "_OreDulinsBlood" };
 		SimpleFilter StarSilver = { app::EntityType__Enum_1::GatherObject, "_OreMoonMeteor" };
 		SimpleFilter WhiteIronChunk = { app::EntityType__Enum_1::GatherObject, "_OreMetal" };
+		SimpleFilter DunlinsTooth = { app::EntityType__Enum_1::GatherObject, "_DunlinsTooth" };
 	}
 
 	namespace monster
@@ -231,6 +232,7 @@ namespace cheat::game::filters
 		WhitelistFilter CubeDevices = { std::vector<app::EntityType__Enum_1> {app::EntityType__Enum_1::Gadget, app::EntityType__Enum_1::Platform }, std::vector<std::string> {"_ElecStone", "_ElecSwitch" }};
 		SimpleFilter EightStoneTablets = { app::EntityType__Enum_1::Gadget, "_HistoryBoard" };
 		SimpleFilter ElectricConduction = { app::EntityType__Enum_1::Gear, "_ElectricPowerSource" };
+		SimpleFilter RelayStone = { app::EntityType__Enum_1::Worktop, "_ElectricTransfer_" };
 		WhitelistFilter ElectroSeelie = { std::vector<app::EntityType__Enum_1> {app::EntityType__Enum_1::Field, app::EntityType__Enum_1::Platform }, std::vector<std::string> {"_ElectricSeelie"} };
 		SimpleFilter ElementalMonument = { app::EntityType__Enum_1::Gear, "_ElemTablet" };
 		SimpleFilter FloatingAnemoSlime = { app::EntityType__Enum_1::Platform, "_WindSlime" };

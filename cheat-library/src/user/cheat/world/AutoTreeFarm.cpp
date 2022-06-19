@@ -116,12 +116,48 @@ namespace cheat::feature
 		}
 	};
 
+	template <typename KeyT, typename ValT, uint32_t Size, class /*forward*/ _Hasher = std::hash<KeyT>>
+	class lra_map {
+		using key_value_pair = std::pair<KeyT, ValT>;
+		using list_iterator = typename std::list<key_value_pair>::iterator;
 
+	public:
+		void put(const KeyT& key, const ValT& val) {
+			auto it = elem_map.find(key);
+			// if element already in the map, don't modify it.
+			if (it != elem_map.end())
+				return;
+
+			items_list.push_front(key_value_pair(key, val));
+			elem_map[key] = items_list.begin();
+
+			if (Size < elem_map.size()) {
+				{
+					const KeyT& last_key = items_list.back().first;
+					elem_map.erase(last_key);
+				}
+				items_list.pop_back();
+			}
+		}
+
+		ValT& get(const KeyT& key) {
+			auto it = elem_map.find(key);
+			if (it == elem_map.end())
+				throw std::runtime_error("Tried to access key not present in map");
+			return it->second->second;
+		}
+
+		bool exists(const KeyT& key) const {
+			return elem_map.find(key) != elem_map.end();
+		}
+	protected:
+		std::list<key_value_pair> items_list;
+		std::unordered_map<KeyT, list_iterator, _Hasher> elem_map;
+	};
 
 	void AutoTreeFarm::OnGameUpdate()
 	{
-		static std::unordered_map<Vector3d, uint32_t, hash_fn> s_AttackCountMap;
-
+		static lra_map<Vector3d, uint32_t, 10, hash_fn> s_AttackCountMap;
 		static std::queue<app::SceneTreeObject*> s_AttackQueue;
 		static std::unordered_set<app::SceneTreeObject*> s_AttackQueueSet;
 		static uint64_t s_LastAttackTimestamp = 0;
@@ -142,7 +178,7 @@ namespace cheat::feature
 			if (s_AttackQueueSet.count(tree) > 0)
 				continue;
 
-			if (tree->fields._lastTreeDropTimeStamp + m_RepeatDelay > timestamp)
+			if (s_LastAttackTimestamp + m_RepeatDelay > timestamp)
 				continue;
 
 			auto position = tree->fields._.realBounds.m_Center;
@@ -173,22 +209,20 @@ namespace cheat::feature
 
 			if (m_AttackPerTree > 0)
 			{
-				if (s_AttackCountMap.count(position) == 0)
-					s_AttackCountMap[position] = 0;
+				if (!s_AttackCountMap.exists(position))
+					s_AttackCountMap.put(position, 0);
 
-				auto& attackCount = s_AttackCountMap[position];
+				auto& attackCount = s_AttackCountMap.get(position);
 				attackCount++;
+
 				if (attackCount > static_cast<uint32_t>(m_AttackPerTree))
 					continue;
 			}
 
-			tree->fields._lastTreeDropTimeStamp = timestamp;
+			s_LastAttackTimestamp = timestamp;
 			app::MoleMole_NetworkManager_RequestHitTreeDropNotify(networkManager, position, position, treeType, nullptr);
 			break;
 		}
-
-		if (s_AttackCountMap.size() > 1000)
-			s_AttackCountMap.clear();
 	}
 }
 
