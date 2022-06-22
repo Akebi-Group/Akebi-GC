@@ -52,6 +52,7 @@ namespace cheat::feature
 				return;
 
 			selectedIndex = -1;
+			UpdateIndexName();
 			teleports.push_back({ teleportName, pos });
 
 			auto dir = std::filesystem::current_path();
@@ -69,6 +70,8 @@ namespace cheat::feature
 		if (ImGui::Button("Reload"))
 		{
 			selectedIndex = -1;
+			UpdateIndexName();
+			checkedIndices.clear();
 			auto dir = std::filesystem::current_path();
 			dir /= "teleports";
 			auto result = std::filesystem::directory_iterator(dir);
@@ -102,6 +105,7 @@ namespace cheat::feature
 		if (ImGui::Button("Load from JSON"))
 		{
 			selectedIndex = -1;
+			UpdateIndexName();
 			auto dir = std::filesystem::current_path();
 			dir /= "teleports";
 			LOG_INFO("Defined dir");
@@ -182,7 +186,9 @@ namespace cheat::feature
 					if (allChecked) {
 						selectedIndex = -1;
 						if (!searchIndices.empty()) {
-							checkedIndices.erase(searchIndices.begin(), searchIndices.end());
+							for (const auto& i : searchIndices) {
+								checkedIndices.erase(i);
+							}
 						}
 						else {
 							checkedIndices.clear();
