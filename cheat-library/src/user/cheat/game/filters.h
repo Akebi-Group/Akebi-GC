@@ -6,6 +6,10 @@
 
 namespace cheat::game::filters
 {
+	namespace Avatar
+	{
+		extern SimpleFilter Avatar;
+	}
 	namespace collection
 	{
 		extern SimpleFilter Book;
@@ -178,6 +182,11 @@ namespace cheat::game::filters
 		extern SimpleFilter MaguuKenki;
 		extern SimpleFilter Cicin;
 		extern SimpleFilter Beisht;
+	}
+
+	namespace Npc
+	{
+		extern SimpleFilter Npc;	
 	}
 
 	namespace plant

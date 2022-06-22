@@ -4,6 +4,10 @@
 
 namespace cheat::game::filters
 {
+	namespace Avatar
+	{
+		SimpleFilter Avatar = { app::EntityType__Enum_1::Avatar, "_" };
+	}
 	namespace collection
 	{
 		SimpleFilter Book = { app::EntityType__Enum_1::GatherObject, "SkillObj_EmptyGadget" };
@@ -180,6 +184,12 @@ namespace cheat::game::filters
 		SimpleFilter MaguuKenki = { app::EntityType__Enum_1::Monster, "_Ningyo" };
 		SimpleFilter Cicin = { app::EntityType__Enum_1::Monster, "_Cicin" };
 		SimpleFilter Beisht = { app::EntityType__Enum_1::Monster, "_Eldritch" };
+	}
+
+	namespace Npc
+	{
+		SimpleFilter Npc = { app::EntityType__Enum_1::NPC,
+			std::vector<std::string> { "_Liyue", "_Mengde", "_Inazuma", "_Coop", "_Quest", "_Enkanomiya", "_Animal", "_Guide" }};
 	}
 
 	namespace plant
