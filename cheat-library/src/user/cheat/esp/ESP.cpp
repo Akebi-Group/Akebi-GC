@@ -472,6 +472,8 @@ namespace cheat::feature
 		ADD_FILTER_FIELD(guide, Stormstone);
 		ADD_FILTER_FIELD(guide, TriangularMechanism);
 
+		ADD_FILTER_FIELD(living, Avatar_teammate);
+		ADD_FILTER_FIELD(living, Avatar_own);
 		ADD_FILTER_FIELD(living, BakeDanuki);
 		ADD_FILTER_FIELD(living, BirdEgg);
 		ADD_FILTER_FIELD(living, Boar);
@@ -493,6 +495,7 @@ namespace cheat::feature
 		ADD_FILTER_FIELD(living, LizardTail);
 		ADD_FILTER_FIELD(living, LucklightFly);
 		ADD_FILTER_FIELD(living, LuminescentSpine);
+		ADD_FILTER_FIELD(living, Npc);
 		ADD_FILTER_FIELD(living, Onikabuto);
 		ADD_FILTER_FIELD(living, Pigeon);
 		ADD_FILTER_FIELD(living, Salamander);

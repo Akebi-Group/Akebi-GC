@@ -63,6 +63,8 @@ namespace cheat::game::filters
 
 	namespace living
 	{
+		extern SimpleFilter Avatar_own;
+		extern SimpleFilter Avatar_teammate;
 		extern SimpleFilter BirdEgg;
 		extern SimpleFilter ButterflyWings;
 		extern SimpleFilter Crab;
@@ -81,6 +83,7 @@ namespace cheat::game::filters
 		extern SimpleFilter Crane;
 		extern SimpleFilter Falcon;
 		extern SimpleFilter LucklightFly;
+		extern SimpleFilter Npc;
 		extern SimpleFilter Salamander;
 		extern SimpleFilter Pigeon;
 		extern SimpleFilter Crow;

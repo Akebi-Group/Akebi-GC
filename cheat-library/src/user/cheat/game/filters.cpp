@@ -60,6 +60,8 @@ namespace cheat::game::filters
 
 	namespace living
 	{
+		SimpleFilter Avatar_teammate = { app::EntityType__Enum_1::Avatar, "authority :False" };
+		SimpleFilter Avatar_own = { app::EntityType__Enum_1::Avatar, "authority :True" };
 		SimpleFilter BirdEgg = { app::EntityType__Enum_1::GatherObject, "BirdEgg" };
 		SimpleFilter ButterflyWings = { app::EntityType__Enum_1::EnvAnimal, "Butterfly" };
 		SimpleFilter Crab = { app::EntityType__Enum_1::EnvAnimal, "Crab" };
@@ -75,6 +77,8 @@ namespace cheat::game::filters
 		SimpleFilter Boar = { app::EntityType__Enum_1::Monster, "Boar" };
 		SimpleFilter Fox = { app::EntityType__Enum_1::Monster, "Fox" };
 		SimpleFilter Squirrel = { app::EntityType__Enum_1::Monster, "Squirrel" };
+		SimpleFilter Npc = { app::EntityType__Enum_1::NPC,
+			std::vector<std::string> { "_Liyue", "_Mengde", "_Inazuma", "_Coop", "_Quest", "_Enkanomiya", "_Animal", "_Guide", "_Homeworld" } };
 		SimpleFilter Crane = { app::EntityType__Enum_1::Monster, "Crane" };
 		SimpleFilter Falcon = { app::EntityType__Enum_1::Monster, "Falcon" };
 		SimpleFilter LucklightFly = { app::EntityType__Enum_1::EnvAnimal, "Boltbug_" };

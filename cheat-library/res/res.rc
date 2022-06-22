@@ -668,6 +668,10 @@ ARCHAICSTONE            PNG                     "icons\\ArchaicStone.png"
 
 ARTIFACT                PNG                     "icons\\Artifact.png"
 
+AVATAR_OWN              PNG                     "icons\\Avatar.png"
+
+AVATAR_TEAMMATE         PNG                     "icons\\Avatar.png"
+
 BAKEDANUKI              PNG                     "icons\\BakeDanuki.png"
 
 BAMBOOSEGMENT           PNG                     "icons\\BambooSegment.png"
@@ -973,6 +977,8 @@ NAKUWEED                PNG                     "icons\\NakuWeed.png"
 NOBUSHI                 PNG                     "icons\\Nobushi.png"
 
 NOCTILUCOUSJADE         PNG                     "icons\\NoctilucousJade.png"
+
+NPC                     PNG                     "icons\\Npc.png"
 
 OCEANCRAB               PNG                     "icons\\OceanCrab.png"
 
