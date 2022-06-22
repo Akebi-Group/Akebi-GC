@@ -231,6 +231,18 @@
     <ClInclude Include="vendor\imgui\backends\imgui_impl_win32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\cheat-base\singleton\Singleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cheat-base\singleton\SingletonManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cheat-base\inject\manual-map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cheat-base\inject\load-library.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cheat-base\util.cpp">
@@ -315,6 +327,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="vendor\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cheat-base\inject\manual-map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cheat-base\inject\load-library.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -511,7 +511,7 @@ namespace cheat::feature
 		ADD_FILTER_FIELD(mineral, NoctilucousJade);
 		ADD_FILTER_FIELD(mineral, MagicalCrystalChunk);
 		ADD_FILTER_FIELD(mineral, ScarletQuartz);
-		ADD_FILTER_FIELD(mineral, StarSilver);
+		ADD_FILTER_FIELD(mineral, Starsilver);
 		ADD_FILTER_FIELD(mineral, WhiteIronChunk);
 		ADD_FILTER_FIELD(mineral, DunlinsTooth);
 

@@ -13,13 +13,13 @@ namespace cheat::feature
 		static Browser& GetInstance();
 		const FeatureGUIInfo& GetGUIInfo() const override;
 		void DrawMain() override;
-		virtual bool NeedStatusDraw() const override;
+		bool NeedStatusDraw() const override;
 		void DrawStatus() override;
 
 	private:
 		SafeQueue<uint32_t> toBeUpdate;
 		SafeValue<int64_t> nextUpdate;
-		int f_DelayUpdate = 20.f;
+		int f_DelayUpdate = 20;
 		void OnGameUpdate();
 		Browser();
 	};

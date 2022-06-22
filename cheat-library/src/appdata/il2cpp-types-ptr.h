@@ -12,6 +12,7 @@ DO_TYPEDEF(0x0967B508, Int32);
 // v 2.7
 DO_TYPEDEF(0x0968AD88, LCChestPlugin);
 DO_TYPEDEF(0x09688FD8, SceneTreeObject);
+DO_TYPEDEF(0x0969D1F8, MoleMole_ActorModifier);
 
 //// v 2.6
 //DO_SINGLETONEDEF(0x0B3442D8, Singleton_1_MoleMole_MapModule_);

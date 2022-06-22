@@ -105,7 +105,7 @@ namespace cheat::game::filters
 		extern SimpleFilter NoctilucousJade;
 		extern SimpleFilter MagicalCrystalChunk;
 		extern SimpleFilter ScarletQuartz;
-		extern SimpleFilter StarSilver;
+		extern SimpleFilter Starsilver;
 		extern SimpleFilter WhiteIronChunk;
 		extern SimpleFilter DunlinsTooth;
 	}

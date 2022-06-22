@@ -1777,7 +1777,7 @@ namespace cheat::feature
 		INIT_FILTER(mineral, IronChunk);
 		INIT_FILTER(mineral, NoctilucousJade);
 		INIT_FILTER(mineral, MagicalCrystalChunk);
-		INIT_FILTER(mineral, StarSilver);
+		INIT_FILTER(mineral, Starsilver);
 		INIT_FILTER(mineral, WhiteIronChunk);
 		//INIT_FILTER(monster, AbyssMage);
 		//INIT_FILTER(monster, FatuiAgent);

@@ -48,13 +48,7 @@
     <ClInclude Include="src\framework\pch-il2cpp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\user\cheat\misc\sniffer\PacketInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\user\cheat\misc\sniffer\PacketSniffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\user\cheat\misc\sniffer\ProtoManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\user\cheat\misc\Debug.h">
@@ -195,12 +189,6 @@
     <ClInclude Include="src\user\cheat\visuals\CameraZoom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\user\cheat\misc\sniffer\SnifferWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\user\cheat\misc\sniffer\PacketParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\user\cheat\misc\sniffer\messages\MessageBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -225,6 +213,9 @@
     <ClInclude Include="src\user\cheat\world\AutoCook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\user\cheat\world\FakeTime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\user\cheat\visuals\ProfileChanger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -235,6 +226,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\user\cheat\visuals\Browser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\user\cheat\world\MusicEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\user\cheat\visuals\EnablePeaking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -255,13 +252,7 @@
     <ClCompile Include="src\framework\pch-il2cpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\user\cheat\misc\sniffer\PacketInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\user\cheat\misc\sniffer\PacketSniffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\user\cheat\misc\sniffer\ProtoManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\user\cheat\misc\Debug.cpp">
@@ -390,12 +381,6 @@
     <ClCompile Include="src\user\cheat\visuals\CameraZoom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\user\cheat\misc\sniffer\SnifferWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\user\cheat\misc\sniffer\PacketParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\user\cheat\misc\sniffer\messages\MessageBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -420,6 +405,9 @@
     <ClCompile Include="src\user\cheat\debugger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\user\cheat\world\FakeTime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\user\cheat\visuals\ProfileChanger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -430,6 +418,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\user\cheat\visuals\Browser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\cheat\world\MusicEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\cheat\visuals\EnablePeaking.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

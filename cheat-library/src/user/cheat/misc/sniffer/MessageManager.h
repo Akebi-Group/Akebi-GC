@@ -45,6 +45,9 @@ namespace sniffer
 			while (true)
 			{
 				auto messagePtr = ReceiveMessage();
+				if (messagePtr == nullptr)
+					return {};
+
 				if (GetMessageIDByType<TMessage>() != messagePtr->messageID())
 				{
 					delete messagePtr;

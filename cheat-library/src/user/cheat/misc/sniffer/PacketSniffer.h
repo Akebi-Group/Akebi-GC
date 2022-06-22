@@ -12,41 +12,25 @@
 
 #include "MessageManager.h"
 
-#ifdef _PACKET_SNIFFER
-#include "PacketParser.h"
-#include "PacketInfo.h"
-#endif
-
 namespace cheat::feature 
 {
 	
 	class PacketSniffer : public Feature
     {
 	public:
-		config::Field<bool> m_CapturingEnabled;
-		config::Field<bool> m_ManipulationEnabled;
-		config::Field<bool> m_PipeEnabled;
-
-#ifdef _PACKET_SNIFFER
-		config::Field<std::string> m_ProtoDirPath;
-		config::Field<std::string> m_ProtoIDFilePath;
-#endif
+		config::Field<bool> f_CaptureEnabled;
+		config::Field<bool> f_ManipulationEnabled;
+		config::Field<std::string> f_PipeName;
 
 		static PacketSniffer& GetInstance();
 
 		const FeatureGUIInfo& GetGUIInfo() const override;
 		void DrawMain() override;
 
-		void DrawExternal() final;
-
 	private:
-#ifdef _PACKET_SNIFFER
-		sniffer::PacketParser m_PacketParser;
-#endif
 		PacketSniffer();
-		PacketData ParseRawPacketData(char* encryptedData, uint32_t length);
-		bool OnCapturingChanged();
 
+		PacketData ParseRawPacketData(char* encryptedData, uint32_t length);
 		static char* EncryptXor(void* content, uint32_t length);
 		static bool KcpClient_TryDequeueEvent_Hook(void* __this, app::ClientKcpEvent* evt, MethodInfo* method);
 		static int32_t KcpNative_kcp_client_send_packet_Hook(void* kcp_client, app::KcpPacket_1* packet, MethodInfo* method);

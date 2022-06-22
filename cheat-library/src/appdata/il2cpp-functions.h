@@ -42,7 +42,8 @@ DO_APP_FUNC(0x016189E0, void, MoleMole_DataItem_HandleNormalProp, (DataItem* __t
 // God mode
 DO_APP_FUNC(0x027DB100, void, VCHumanoidMove_NotifyLandVelocity, (VCHumanoidMove* __this, Vector3 velocity, float reachMaxDownVelocityTime, MethodInfo* method));
 DO_APP_FUNC(0x036889B0, bool, Miscs_CheckTargetAttackable, (BaseEntity* attackerEntity, BaseEntity* targetEntity, MethodInfo* method));
-// DO_APP_FUNC(0x00D0CA90, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (LCBaseCombat* __this, uint32_t attackeeRuntimeID, AttackResult* attackResult, MethodInfo* method));
+DO_APP_FUNC(0x00D0CA90, void, MoleMole_LCBaseCombat_FireBeingHitEvent, (LCBaseCombat* __this, uint32_t attackeeRuntimeID, AttackResult* attackResult, MethodInfo* method));
+DO_APP_FUNC(0x02383880, bool, MoleMole_ActorAbilityPlugin_HanlderModifierThinkTimerUp, (ActorAbilityPlugin* __this, float delay, Object* arg, MethodInfo* method));
 
 
 // Cooldown cheats
@@ -138,6 +139,7 @@ DO_APP_FUNC(0x0292C7F0, void, MoleMole_FishingModule_onFishChosenNotify, (void* 
 
 // Visuals
 DO_APP_FUNC(0x013FC090, void, MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, (SCameraModuleInitialize* __this, double deltaTime, CameraShareData* data, MethodInfo* method));
+DO_APP_FUNC(0x01B8DC20, void, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, (MoleMole_VCBaseSetDitherValue* __this, float value, MethodInfo* method));
 
 // Chest Indicator | RyujinZX#6666
 DO_APP_FUNC(0x04C9B450, bool, MoleMole_LCIndicatorPlugin_DoCheck, (LCIndicatorPlugin* __this, MethodInfo* method));
@@ -163,26 +165,31 @@ DO_APP_FUNC(0x0662F720, void, GameObject_set_active, (GameObject* __this, bool v
 DO_APP_FUNC(0x065546E0, Transform*, Transform_GetChild, (Transform* __this, int32_t index, MethodInfo* method));
 DO_APP_FUNC(0x0652EA10, Component_1*, Component_1_GetComponent_1, (Component_1* __this, String* type, MethodInfo* method));
 DO_APP_FUNC(0x0662F520, void, GameObject_SetActive, (GameObject* __this, bool value, MethodInfo* method));
-
-// Browser
 DO_APP_FUNC(0x0662F100, GameObject*, GameObject_CreatePrimitive, (PrimitiveType__Enum type, MethodInfo* method));
 DO_APP_FUNC(0x0662F700, Transform*, GameObject_get_transform, (GameObject* __this, MethodInfo* method));
 DO_APP_FUNC(0x06555EF0, void, Transform_set_localRotation, (Transform* __this, Quaternion value, MethodInfo* method));
 DO_APP_FUNC(0x065548E0, void, Transform_set_localScale, (Transform* __this, Vector3 value, MethodInfo* method));
 DO_APP_FUNC(0x06555EE0, void, Transform_set_localPosition, (Transform* __this, Vector3 value, MethodInfo* method));
 DO_APP_FUNC(0x0662F090, Component_1*, GameObject_AddComponentInternal, (GameObject* __this, String* className, MethodInfo* method));
-DO_APP_FUNC(0x064296D0, void, Browser_Show, (Browser* __this, MethodInfo* method));
-DO_APP_FUNC(0x06427060, void, Browser_Hide, (Browser* __this, MethodInfo* method));
-DO_APP_FUNC(0x00C21580, void, Browser_set_EnableRendering, (Browser* __this, bool value, MethodInfo* method));
-DO_APP_FUNC(0x0642C5D0, void, Browser_set_Url, (Browser* __this, String* value, MethodInfo* method));
-DO_APP_FUNC(0x064273E0, void, Browser_LoadURL, (Browser* __this, String* url, bool force, MethodInfo* method));
-DO_APP_FUNC(0x06427610, void, Browser_OnDestroy, (Browser* __this, MethodInfo* method));
-DO_APP_FUNC(0x0642A200, void, Browser_Update, (Browser* __this, MethodInfo* method));
-DO_APP_FUNC(0x06427100, void, Browser_LateUpdate, (Browser* __this, MethodInfo* method));
-DO_APP_FUNC(0x06429770, void, Browser_Stop, (Browser* __this, MethodInfo* method));
-DO_APP_FUNC(0x06550910, void, Object_1_Destroy_1, (Object_1* obj, MethodInfo* method));
 DO_APP_FUNC(0x0662F0A0, Component_1*, GameObject_AddComponent, (GameObject* __this, Type* componentType, MethodInfo* method));
 DO_APP_FUNC(0x065508C0, void, Object_1_DestroyImmediate_1, (Object_1* obj, MethodInfo* method));
+DO_APP_FUNC(0x06550C00, Object_1*, Object_1_Instantiate_2, (Object_1* original, MethodInfo* method));
+DO_APP_FUNC(0x041B0BB0, Object*, Object_1_Instantiate_5, (Object* original, MethodInfo* method));
+DO_APP_FUNC(0x041B0BB0, GameObject*, Object_1_Instantiate_11, (GameObject* original, MethodInfo* method));
+
+
+// Music game event
+DO_APP_FUNC(0x00FFE490, void, MusicGamePlayComponent_OnPlayerUpdate, (MusicGamePlayComponent* __this, MethodInfo* method));
+DO_APP_FUNC(0x00FFE600, void, MusicGamePlayComponent_OnStart, (MusicGamePlayComponent* __this, BeatMapData* beatMapData, MusicMetaInfo* musicMetaInfo, MethodInfo* method));
+DO_APP_FUNC(0x00FFE310, void, MusicGamePlayComponent_OnMiss, (MusicGamePlayComponent* __this, MethodInfo* method));
+DO_APP_FUNC(0x00FFEE40, void, MusicGamePlayComponent_set_combo, (MusicGamePlayComponent* __this, uint32_t value, MethodInfo* method));
+DO_APP_FUNC(0x00FFF050, void, MusicGamePlayComponent_set_score, (MusicGamePlayComponent* __this, float value, MethodInfo* method));
+DO_APP_FUNC(0x01B5AEB0, void, MusicGamePlayComponent_set_maxCombo, (MusicGamePlayComponent* __this, uint32_t value, MethodInfo* method));
+DO_APP_FUNC(0x02C749E0, void, MusicGamePlayComponent_set_perfectCnt, (MusicGamePlayComponent* __this, uint32_t value, MethodInfo* method));
+DO_APP_FUNC(0x035C4E50, void, MusicGamePlayComponent_set_greatCnt, (MusicGamePlayComponent* __this, uint32_t value, MethodInfo* method));
+DO_APP_FUNC(0x017A31C0, void, MusicGamePlayComponent_set_missCnt, (MusicGamePlayComponent* __this, uint32_t value, MethodInfo* method));
+DO_APP_FUNC(0x00FFDE90, void, MusicGamePlayComponent_OnHit, (MusicGamePlayComponent* __this, float score, MethodInfo* method));
+
 
 // Utility
 DO_APP_FUNC(0x03551B60, String*, Text_get_text, (Text* __this, MethodInfo* method));
@@ -310,6 +317,9 @@ DO_APP_FUNC(0x066309A0, Vector3, Quaternion_get_eulerAngles, (Quaternion__Boxed*
 DO_APP_FUNC(0x06555C70, Quaternion, Transform_get_rotation, (Transform* __this, MethodInfo* method));
 DO_APP_FUNC(0x06552F50, Rect, RectTransform_get_rect, (RectTransform* __this, MethodInfo* method));
 DO_APP_FUNC(0x06677BD0, float, Canvas_get_scaleFactor, (/*Canvas**/void* __this, MethodInfo* method));
+
+
+DO_APP_FUNC(0x00935700, void, LevelTimeManager_SetInternalTimeOfDay, (/*LevelTimeManager**/void* __this, float inHours, bool force, bool refreshEnviroTime, MethodInfo* method));
 
 
 // Singletons

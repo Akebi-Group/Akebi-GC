@@ -12,6 +12,7 @@ namespace cheat::feature
 		config::Field<config::Toggle<Hotkey>> f_AutoPickup;
 		config::Field<config::Toggle<Hotkey>> f_AutoTreasure;
 		config::Field<config::Toggle<Hotkey>> f_UseCustomRange;
+		config::Field<config::Toggle<Hotkey>> f_PickupFilter;
 
 		config::Field<int> f_DelayTime;
 		config::Field<float> f_CustomRange;
@@ -21,6 +22,10 @@ namespace cheat::feature
 		config::Field<bool> f_Investigate;
 		config::Field<bool> f_QuestInteract;
 		config::Field<bool> f_Others;
+		
+		config::Field<bool> f_PickupFilter_Animals;
+		config::Field<bool> f_PickupFilter_DropItems;
+		config::Field<bool> f_PickupFilter_Resources;
 
 		static AutoLoot& GetInstance();
 

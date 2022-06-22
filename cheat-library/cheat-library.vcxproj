@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\user\cheat\world\FakeTime.h" />
     <ClInclude Include="src\user\cheat\debugger.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -40,18 +41,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="src\user\cheat\misc\sniffer\PacketParser.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="src\user\cheat\GenshinCM.h" />
-    <ClInclude Include="src\user\cheat\misc\sniffer\SnifferWindow.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="src\user\cheat\teleport\CustomTeleports.h" />
     <ClInclude Include="src\user\cheat\visuals\Browser.h" />
     <ClInclude Include="src\user\cheat\visuals\CameraZoom.h" />
+    <ClInclude Include="src\user\cheat\visuals\EnablePeaking.h" />
     <ClInclude Include="src\user\cheat\visuals\FPSUnlock.h" />
     <ClInclude Include="src\user\cheat\visuals\HideUI.h" />
     <ClInclude Include="src\user\cheat\visuals\NoFog.h" />
@@ -93,16 +87,8 @@
     <ClInclude Include="src\user\cheat\misc\Debug.h" />
     <ClInclude Include="src\user\cheat\misc\Hotkeys.h" />
     <ClInclude Include="src\user\cheat\misc\ProtectionBypass.h" />
-    <ClInclude Include="src\user\cheat\misc\sniffer\PacketInfo.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="src\user\cheat\misc\sniffer\PacketSniffer.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="src\user\cheat\misc\sniffer\ProtoManager.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\user\cheat\native.h" />
@@ -122,6 +108,7 @@
     <ClInclude Include="src\user\cheat\world\DumbEnemies.h" />
     <ClInclude Include="src\user\cheat\world\KillAura.h" />
     <ClInclude Include="src\user\cheat\world\MobVacuum.h" />
+    <ClInclude Include="src\user\cheat\world\MusicEvent.h" />
     <ClInclude Include="src\user\main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +116,7 @@
     <Font Include="res\Ruda-ExtraBold.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\user\cheat\world\FakeTime.cpp" />
     <ClCompile Include="src\user\cheat\debugger.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">false</ExcludedFromBuild>
@@ -154,18 +142,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\user\cheat\misc\sniffer\PacketParser.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\user\cheat\misc\sniffer\SnifferWindow.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="src\user\cheat\teleport\CustomTeleports.cpp" />
     <ClCompile Include="src\user\cheat\GenshinCM.cpp" />
     <ClCompile Include="src\user\cheat\visuals\Browser.cpp" />
     <ClCompile Include="src\user\cheat\visuals\CameraZoom.cpp" />
+    <ClCompile Include="src\user\cheat\visuals\EnablePeaking.cpp" />
     <ClCompile Include="src\user\cheat\visuals\FPSUnlock.cpp" />
     <ClCompile Include="src\user\cheat\visuals\HideUI.cpp" />
     <ClCompile Include="src\user\cheat\visuals\NoFog.cpp" />
@@ -204,16 +185,8 @@
     <ClCompile Include="src\user\cheat\misc\Debug.cpp" />
     <ClCompile Include="src\user\cheat\misc\Hotkeys.cpp" />
     <ClCompile Include="src\user\cheat\misc\ProtectionBypass.cpp" />
-    <ClCompile Include="src\user\cheat\misc\sniffer\PacketInfo.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="src\user\cheat\misc\sniffer\PacketSniffer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\user\cheat\misc\sniffer\ProtoManager.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="src\user\cheat\native.cpp" />
@@ -233,6 +206,7 @@
     <ClCompile Include="src\user\cheat\world\DumbEnemies.cpp" />
     <ClCompile Include="src\user\cheat\world\KillAura.cpp" />
     <ClCompile Include="src\user\cheat\world\MobVacuum.cpp" />
+    <ClCompile Include="src\user\cheat\world\MusicEvent.cpp" />
     <ClCompile Include="src\user\main.cpp" />
   </ItemGroup>
   <PropertyGroup>
@@ -871,8 +845,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>CLibrary</TargetName>
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\obj\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformShortName)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)-$(PlatformShortName)\obj\$(ProjectName)\</IntDir>
     <CustomBuildBeforeTargets>Run</CustomBuildBeforeTargets>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
     <CustomBuildAfterTargets>FinalizeBuildStatus</CustomBuildAfterTargets>
@@ -880,8 +854,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>CLibrary</TargetName>
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\obj\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformShortName)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)-$(PlatformShortName)\obj\$(ProjectName)\</IntDir>
     <CustomBuildBeforeTargets>Run</CustomBuildBeforeTargets>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
     <CustomBuildAfterTargets>FinalizeBuildStatus</CustomBuildAfterTargets>
@@ -889,8 +863,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>CLibrary</TargetName>
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\obj\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformShortName)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)-$(PlatformShortName)\obj\$(ProjectName)\</IntDir>
     <CustomBuildBeforeTargets>Run</CustomBuildBeforeTargets>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
     <CustomBuildAfterTargets>FinalizeBuildStatus</CustomBuildAfterTargets>
@@ -911,6 +885,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -926,7 +901,7 @@
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>"$(OutDir)injector.exe"
-powershell -nop -c "&amp; {sleep 15}"</Command>
+powershell -nop -c "&amp; {sleep 20}"</Command>
       <Outputs>$(OutDir)_noexist.nope;%(Outputs)</Outputs>
       <Inputs>$(TargetPath);%(Inputs)</Inputs>
     </CustomBuildStep>
@@ -949,6 +924,7 @@ powershell -nop -c "&amp; {sleep 15}"</Command>
       <SupportJustMyCode>false</SupportJustMyCode>
       <ExceptionHandling>Async</ExceptionHandling>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -957,7 +933,7 @@ powershell -nop -c "&amp; {sleep 15}"</Command>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(OutDir);$(ProjectDir)vendor\lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>cheat-base.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>cheat-base.lib;ntdll.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
     <CustomBuildStep>
@@ -986,6 +962,7 @@ powershell -nop -c "&amp; {sleep 15}"</Command>
       <ExceptionHandling>Async</ExceptionHandling>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DiagnosticsFormat>Classic</DiagnosticsFormat>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

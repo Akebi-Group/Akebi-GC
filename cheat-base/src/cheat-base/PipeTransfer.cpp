@@ -45,7 +45,7 @@ bool PipeTransfer::Connect()
 
 bool PipeTransfer::WaitForConnection()
 {
-	return ConnectNamedPipe(m_Pipe, nullptr);
+	return ConnectNamedPipe(m_Pipe, nullptr) || GetLastError() == ERROR_PIPE_CONNECTED;
 }
 
 void PipeTransfer::ReadBytes(void* buffer, size_t size)

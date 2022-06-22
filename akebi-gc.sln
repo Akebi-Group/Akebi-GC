@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "injector", "injector\injector.vcxproj", "{F578B30C-8DE6-4741-99E4-1D30D2ACDAC4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cheat-library", "cheat-library\cheat-library.vcxproj", "{CE178784-CB96-45CA-AE16-FC0DA1126970}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cheat-base", "cheat-base\cheat-base.vcxproj", "{ADB35022-823B-4DC0-B495-3EFEFBD3A82F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cheat-library", "cheat-library\cheat-library.vcxproj", "{CE178784-CB96-45CA-AE16-FC0DA1126970}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "injector", "injector\injector.vcxproj", "{F578B30C-8DE6-4741-99E4-1D30D2ACDAC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

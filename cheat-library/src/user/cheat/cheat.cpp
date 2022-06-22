@@ -26,6 +26,7 @@
 #include <cheat/world/MobVacuum.h>
 #include <cheat/world/AutoTreeFarm.h>
 #include <cheat/world/AutoDestroy.h>
+#include <cheat/world/FakeTime.h>
 
 #include <cheat/teleport/ChestTeleport.h>
 #include <cheat/teleport/MapTeleport.h>
@@ -37,6 +38,7 @@
 
 #include <cheat/world/AutoFish.h>
 #include <cheat/world/AutoCook.h>
+#include <cheat/world/MusicEvent.h>
 
 #include <cheat/visuals/NoFog.h>
 #include <cheat/visuals/FPSUnlock.h>
@@ -46,6 +48,7 @@
 #include <cheat/visuals/PaimonFollow.h>
 #include <cheat/visuals/HideUI.h>
 #include <cheat/visuals/Browser.h>
+#include <cheat/visuals/EnablePeaking.h>
 
 #include "GenshinCM.h"
 
@@ -84,6 +87,7 @@ namespace cheat
 			FEAT_INST(ElementalSight),
 			FEAT_INST(KillAura),
 			FEAT_INST(MobVacuum),
+			FEAT_INST(FakeTime),
 
 			FEAT_INST(ChestTeleport),
 			FEAT_INST(OculiTeleport),
@@ -95,6 +99,7 @@ namespace cheat
 
 			FEAT_INST(AutoFish),
 			FEAT_INST(AutoCook),
+			FEAT_INST(MusicEvent),
 
 			FEAT_INST(NoFog),
 			FEAT_INST(FPSUnlock),
@@ -103,7 +108,8 @@ namespace cheat
 			FEAT_INST(ProfileChanger),
 			FEAT_INST(PaimonFollow),
 			FEAT_INST(HideUI),
-			FEAT_INST(Browser)
+			FEAT_INST(Browser),
+			FEAT_INST(EnablePeaking)
 			
 			});
 #undef FEAT_INST

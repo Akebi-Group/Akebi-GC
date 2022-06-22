@@ -4118,6 +4118,10 @@ namespace app {
         uint16_t _value;
     };
 
+    struct SimpleSafeInt16 {
+        uint16_t _value;
+    };
+
     struct Quaternion {
         float x;
         float y;
@@ -11650,6 +11654,265 @@ namespace app {
         MonitorData* monitor;
         struct Browser__Fields fields;
     };
+
+    struct __declspec(align(8)) BeatMapData__Fields {
+        struct List_1_MoleMole_MusicGame_TrackData_* trackDatas;
+        struct POLBDGNBFKM* config;
+    };
+
+    struct BeatMapData {
+        struct BeatMapData__Class* klass;
+        MonitorData* monitor;
+        struct BeatMapData__Fields fields;
+    };
+
+    struct __declspec(align(8)) MusicMetaInfo__Fields {
+        struct BpmInfo* bpmInfo;
+        struct List_1_System_Single_* simpleBeatHintTimeMsList;
+        struct List_1_System_Single_* complexBeatHintTimeMsList;
+        struct CGDACGGKKNJ* musicConfig;
+        struct PMIELLLMJKA* musicInfoConfig;
+        struct POLBDGNBFKM* beatMapConfig;
+        struct JNEKHDKOKGL* musicInstrumentConfig;
+    };
+
+    struct MusicMetaInfo {
+        struct MusicMetaInfo__Class* klass;
+        MonitorData* monitor;
+        struct MusicMetaInfo__Fields fields;
+    };
+
+    struct MusicGamePlayComponent__Fields {
+        void* _;
+        uint32_t _combo;
+        float _score_k__BackingField;
+        uint32_t _maxCombo_k__BackingField;
+        uint32_t _perfectCnt_k__BackingField;
+        uint32_t _greatCnt_k__BackingField;
+        uint32_t _missCnt_k__BackingField;
+    };
+
+    struct MusicGamePlayComponent {
+        struct MusicGamePlayComponent__Class* klass;
+        MonitorData* monitor;
+        struct MusicGamePlayComponent__Fields fields;
+    };
+
+    struct MoleMole_VCBaseSetDitherValue__Fields {
+        void* _;
+        bool _usingDitherAlpha;
+        float _ditherAlphaValue;
+        float _managerDitherAlphaValue;
+        float _localDitherAlphaValue;
+        bool IBKAJMBMGAE;
+        struct MoleMole_VCBaseModel* _modelComponent;
+        float _showStartDitherDuration;
+        bool _needStartDitherAction;
+        float _detectDitherRangeBetweenCameraAndAvatar;
+        float _detectDitherRangeNormalBetweenCamera;
+        float _detectDitherRangeNormalBetweenCameraInTimeLine;
+        bool GCEGGKLBFPG;
+        struct List_1_MoleMole_BaseDither_* _dithers;
+        bool _isDitherChangeStarted;
+        float _spd;
+        float _fromValue;
+        float _toValue;
+        struct Action* _changeFinishHandler;
+        bool _triggerUpdateDitherShow;
+        bool _prevUsingDitherAlpha;
+        float _prevDitherAlphaValue;
+        float _prevTextureBias;
+        bool _prevInMotionVectorMode;
+        bool _isVisible;
+    };
+
+    struct MoleMole_VCBaseSetDitherValue {
+        struct MoleMole_VCBaseSetDitherValue__Class* klass;
+        MonitorData* monitor;
+        struct MoleMole_VCBaseSetDitherValue__Fields fields;
+    };
+
+    enum class MoleMole_Config_AbilityState__Enum : uint64_t {
+        None = 0x0000000000000000,
+        Invincible = 0x0000000000000001,
+        DenyLockOn = 0x0000000000000002,
+        IsGhostToAllied = 0x0000000000000004,
+        IsGhostToEnemy = 0x0000000000000008,
+        ElementBurning = 0x0000000000000010,
+        ElementWet = 0x0000000000000020,
+        ElementFrozen = 0x0000000000000080,
+        LockHP = 0x0000000000000200,
+        IgnoreTriggerBullet = 0x0000000000000400,
+        ElementShock = 0x0000000000000800,
+        Struggle = 0x0000000000001000,
+        ElementRock = 0x0000000000002000,
+        ElementIce = 0x0000000000008000,
+        ElementFreeze = 0x0000000000010000,
+        AttackUp = 0x0000000000020000,
+        DefenseUp = 0x0000000000040000,
+        SpeedUp = 0x0000000000080000,
+        DefenseDown = 0x0000000000100000,
+        SpeedDown = 0x0000000000200000,
+        ElementWind = 0x0000000000400000,
+        ElementElectric = 0x0000000000800000,
+        ElementFire = 0x0000000001000000,
+        NoHeal = 0x0000000002000000,
+        Limbo = 0x0000000004000000,
+        MuteTaunt = 0x0000000008000000,
+        ElementPetrifaction = 0x0000000010000000,
+        IgnoreAddEnergy = 0x0000000040000000,
+        ElementGrass = 0x0000000080000000,
+        ElementOverdose = 0x0000000100000000,
+        Corruption = 0x0000000200000000,
+        UnlockFrequencyLimit = 0x0000000400000000,
+        ElementDeadTime = 0x0000000800000000,
+    };
+
+    enum class MoleMole_Config_ModifierTimeScale__Enum : int32_t {
+        Owner = 0x00000000,
+        Level = 0x00000001,
+    };
+
+    enum class MoleMole_Config_ModifierStacking__Enum : int32_t {
+        Refresh = 0x00000000,
+        Unique = 0x00000001,
+        Prolong = 0x00000002,
+        RefreshAndAddDurability = 0x00000003,
+        Multiple = 0x00000004,
+        MultipleRefresh = 0x00000005,
+        MultipleRefreshNoRemove = 0x00000006,
+        MultipleAllRefresh = 0x00000007,
+        GlobalUnique = 0x00000008,
+        Overlap = 0x00000009,
+        RefreshUniqueDurability = 0x0000000a,
+    };
+
+    enum class MoleMole_Config_ConfigAbilityModifier_MoleMole_Config_ConfigAbilityModifier_ModifierMPBehavior__Enum : int32_t {
+        NormallySynced = 0x00000000,
+        MuteRemoteAuthorityOnly = 0x00000001,
+    };
+
+    struct __declspec(align(8)) MoleMole_Config_ConfigAbilityModifier__Fields {
+        MoleMole_Config_ModifierTimeScale__Enum _timeScale;
+        MoleMole_Config_ModifierStacking__Enum _stacking;
+        struct MoleMole_Config_ConfigModifierStackingOption* _stackingOption;
+        bool _isBuff;
+        bool _isDebuff;
+        struct String* _modifierName;
+        bool _isUnique;
+        struct MoleMole_Config_DynamicFloat* _duration;
+        ElementType__Enum _elementType;
+        struct MoleMole_Config_DynamicFloat* _elementDurability;
+        struct SimpleSafeFloat maxElementDurabilityRawNum;
+        struct SimpleSafeFloat purgeIncrementRawNum;
+        bool _isElementDurabilityMutable;
+        bool _forceTriggerBurning;
+        bool _overrideWeaponElement;
+        struct MoleMole_Config_DynamicFloat* _thinkInterval;
+        struct MoleMole_Config_ConfigAbilityMixin__Array* _modifierMixins;
+        bool _trimThinkInterval;
+        struct Dictionary_2_System_String_MoleMole_Config_DynamicFloat_* _properties;
+        MoleMole_Config_AbilityState__Enum _state;
+        struct MoleMole_Config_ConfigAbilityStateOption* _stateOption;
+        bool _muteStateDisplayEffect;
+        bool _applyAttackerWitchTimeRatio;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onAdded;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onRemoved;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onBeingHit;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onAttackLanded;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onHittingOther;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onThinkInterval;
+        struct MoleMole_Config_ConfigAbilityAction__Array* CLKOPBOIEEH;
+        struct MoleMole_Config_ConfigAbilityAction__Array* PBDDACFFPOE;
+        bool _onThinkIntervalIsFixedUpdate;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onKill;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onCrash;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onAvatarIn;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onAvatarOut;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onVehicleIn;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onVehicleOut;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onZoneEnter;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onZoneExit;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onReconnect;
+        struct MoleMole_Config_ConfigAbilityAction__Array* _onChangeAuthority;
+        struct MoleMole_Config_EntityType__Enum__Array* _forbiddenEntities;
+        bool _fireEventWhenApply;
+        bool _isDurabilityGlobal;
+        bool _tickThinkIntervalAfterDie;
+        bool _thinkIntervalIgnoreTimeScale;
+        bool _reduceDurablityIgnoreTimeScale;
+        bool _isLimitedProperties;
+        bool _forceSyncToRemote;
+        void* buffIDRawNum;
+        bool _retainWhenDurabilityIsZero;
+        struct OCDGDLOKFEB__Enum__Array* HFBALDBFOOH;
+        int32_t fullNameHashCode;
+        int32_t configLocalID;
+        MoleMole_Config_ConfigAbilityModifier_MoleMole_Config_ConfigAbilityModifier_ModifierMPBehavior__Enum mpBehavior;
+        bool isAuthorityOnly;
+    };
+
+    struct MoleMole_Config_ConfigAbilityModifier {
+        struct MoleMole_Config_ConfigAbilityModifier__Class* klass;
+        MonitorData* monitor;
+        struct MoleMole_Config_ConfigAbilityModifier__Fields fields;
+    };
+
+	struct __declspec(align(8)) HKMHAGBLLMK__Fields {
+		struct MoleMole_BaseAbilityMixin__Array* JGLDNAPGGGC;
+		struct List_1_System_ValueTuple_2__1* JFLGBBBFBLF;
+		struct List_1_System_ValueTuple_2__2* EFOPNOEMFBI;
+		struct List_1_MoleMole_Config_ConfigAbilityAction__1* PGICFJEDMAE;
+		struct List_1_System_ValueTuple_3__1* CGBNAMBLDOE;
+		struct IList_1_MoleMole_BaseAbilityMixin_* LOGOJNMHLIF;
+	};
+
+    struct MoleMole_ActorModifier__Fields {
+        HKMHAGBLLMK__Fields _;
+        struct MoleMole_ActorAbility* parentAbility;
+        uint32_t parentAbilityInstanceID;
+        struct MoleMole_Config_ConfigAbility* _parentAbilityConfig;
+        uint32_t parentAbilityEntityID;
+        uint32_t _applyEntityId_k__BackingField;
+        struct MoleMole_LCAbility* owner;
+        struct MoleMole_Config_ConfigAbilityModifier* _config;
+        struct Dictionary_2_MoleMole_EncryptedString_System_Int32_* stackIndices;
+        int32_t _parentOwnedIx;
+        uint32_t instancedModifierID;
+        struct MoleMole_ActorModifier* attachedInstancedModifier;
+        uint32_t attachedModifierOwnerEntityId;
+        uint32_t attachedModifierInstancedModifierId;
+        bool attachedModifierIsServerBuff;
+        int32_t attachedModifierNameHash;
+        bool isAttachedParentAbility;
+        bool PBDIKHPKHLF;
+        struct Action_1_MoleMole_ActorModifier_* onDetached;
+        uint32_t serverBuffUid;
+        struct Action_1_Nullable_1_Single_* onDurabilityEmpty;
+        bool _isValid_k__BackingField;
+        uint64_t _modifierStartTime_k__BackingField;
+        bool isModifierInvalidByServer;
+        bool hasAddedAbilityState;
+        float thinkInterval;
+        float reduceElementRatio;
+        float PHKNIPMALFB;
+    };
+
+    struct MoleMole_ActorModifier {
+        struct MoleMole_ActorModifier__Class* klass;
+        MonitorData* monitor;
+        struct MoleMole_ActorModifier__Fields fields;
+    };
+
+	struct Button_1 {
+		struct Button_1__Class* klass;
+		MonitorData* monitor;
+	};
+
+	struct Slider_1 {
+		struct Slider_1__Class* klass;
+		MonitorData* monitor;
+	};
 
 #if !defined(_GHIDRA_) && !defined(_IDA_)
 }

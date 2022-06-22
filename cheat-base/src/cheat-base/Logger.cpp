@@ -88,17 +88,19 @@ Prefix GetLevelPrefix(Logger::Level level)
 
 void Logger::Log(Logger::Level logLevel, const char* filepath, int line, const char* fmt, ...)
 {
-	if (Logger::s_ConsoleLogLevel == Logger::Level::None && Logger::s_FileLogLevel == Logger::Level::None)
-		return;
-
-	auto filename = std::filesystem::path(filepath).filename().string();
-	auto prefix = GetLevelPrefix(logLevel);
 	char buffer[1024];
 
 	va_list args;
 	va_start(args, fmt);
 	vsprintf_s(buffer, fmt, args);
 	va_end(args);
+
+	LogEvent(logLevel, filepath, line, buffer);
+	if (Logger::s_ConsoleLogLevel == Logger::Level::None && Logger::s_FileLogLevel == Logger::Level::None)
+		return;
+
+	auto filename = std::filesystem::path(filepath).filename().string();
+	auto prefix = GetLevelPrefix(logLevel);
 
 	if (Logger::s_ConsoleLogLevel != Logger::Level::None && Logger::s_ConsoleLogLevel >= logLevel) 
 	{

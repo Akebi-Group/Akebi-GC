@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <mutex>
+#include <cheat-base/events/event.hpp>
+
 #define EXTLOG(level, fmt, ...) Logger::Log(level, __FILE__, __LINE__, fmt, __VA_ARGS__)
 #define LOG_CRIT(fmt, ...) EXTLOG(Logger::Level::Critical, fmt, __VA_ARGS__)
 #define LOG_ERROR(fmt, ...) EXTLOG(Logger::Level::Error, fmt, __VA_ARGS__)
@@ -36,6 +38,8 @@ public:
 	static void Log(Level logLevel, const char* filename, int line, const char* fmt, ...);
 
 	static void PrepareFileLogging(std::string directory);
+
+	static inline TEvent<Logger::Level, const char*, int, const char*> LogEvent;
 
 private:
 	static Level s_FileLogLevel;

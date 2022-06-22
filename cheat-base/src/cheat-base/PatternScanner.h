@@ -33,6 +33,9 @@ public:
 
 	int64_t GetModuleTimestamp(const std::string& moduleName);
 	int64_t GetModuleTimestamp(HMODULE hModule);
+	
+	uintptr_t SearchInModule(const std::string& moduleName, const std::string& pattern);
+	uintptr_t SearchInModule(HMODULE hModule, const std::string& pattern);
 
 protected:
 
@@ -97,9 +100,6 @@ protected:
 
 	uintptr_t SearchXref(const std::string& moduleName, const OffsetSignature& xrefPattern);
 	uintptr_t SearchXref(HMODULE hModule, const OffsetSignature& xrefPattern);
-	
-	uintptr_t SearchInModule(const std::string& moduleName, const std::string& pattern);
-	uintptr_t SearchInModule(HMODULE hModule, const std::string& pattern);
 
 	uintptr_t GetOffsetInt(const nlohmann::json& value);
 	std::string GetOffsetStr(uintptr_t offset);

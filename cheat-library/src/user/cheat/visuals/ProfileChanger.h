@@ -27,7 +27,7 @@ namespace cheat::feature
 		const FeatureGUIInfo& GetGUIInfo() const override;
 		void DrawMain() override;
 
-		virtual bool NeedStatusDraw() const override;
+		bool NeedStatusDraw() const override;
 		void DrawStatus() override;
 
 		bool CheckFile(const std::string& name);
@@ -35,7 +35,7 @@ namespace cheat::feature
 	private:
 		SafeQueue<uint32_t> toBeUpdate;
 		SafeValue<int64_t> nextUpdate;
-		int f_DelayUpdate = 100.f;
+		int f_DelayUpdate = 100;
 	
 		void OnGameUpdate();
 		ProfileChanger();

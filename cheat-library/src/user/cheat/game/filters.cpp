@@ -105,7 +105,7 @@ namespace cheat::game::filters
 			std::vector<std::string> { "_OreNightBerth", "_ShiningNightBerthOre" } };
 		SimpleFilter MagicalCrystalChunk = { app::EntityType__Enum_1::GatherObject, "_OreMagicCrystal" };
 		SimpleFilter ScarletQuartz = { app::EntityType__Enum_1::GatherObject, "_OreDulinsBlood" };
-		SimpleFilter StarSilver = { app::EntityType__Enum_1::GatherObject, "_OreMoonMeteor" };
+		SimpleFilter Starsilver = { app::EntityType__Enum_1::GatherObject, "_OreMoonMeteor" };
 		SimpleFilter WhiteIronChunk = { app::EntityType__Enum_1::GatherObject, "_OreMetal" };
 		SimpleFilter DunlinsTooth = { app::EntityType__Enum_1::GatherObject, "_DunlinsTooth" };
 	}
@@ -281,7 +281,7 @@ namespace cheat::game::filters
 			mineral::IronChunk +
 			mineral::NoctilucousJade +
 			mineral::MagicalCrystalChunk +
-			mineral::StarSilver +
+			mineral::Starsilver +
 			mineral::WhiteIronChunk
 		};
 		WhitelistFilter Doodads = {

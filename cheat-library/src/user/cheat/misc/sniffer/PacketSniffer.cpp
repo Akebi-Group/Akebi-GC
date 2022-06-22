@@ -11,18 +11,12 @@
 namespace cheat::feature 
 {
 	PacketSniffer::PacketSniffer() : Feature(),
-		NF(m_CapturingEnabled, "Capturing", "PacketSniffer", false),
-		NF(m_ManipulationEnabled, "Manipulation", "PacketSniffer", false),
-		NF(m_PipeEnabled, "Pipe", "PacketSniffer", false)
-
-#ifdef _PACKET_SNIFFER
-		, NF(m_ProtoDirPath, "Proto Dir Path", "PacketSniffer", ""),
-		NF(m_ProtoIDFilePath, "Proto ID File Path", "PacketSniffer", ""),
-		m_PacketParser(m_ProtoDirPath, m_ProtoIDFilePath)
-#endif
+		NF(f_CaptureEnabled, "Capturing", "PacketSniffer", false),
+		NF(f_ManipulationEnabled, "Manipulation", "PacketSniffer", false),
+		NF(f_PipeName, "Pipe name", "PacketSniffer", "genshin_packet_pipe")
 
 	{
-		sniffer::MessageManager::Connect("genshin_packet_pipe");
+		sniffer::MessageManager::Connect(f_PipeName.value());
 
 		HookManager::install(app::Kcp_KcpNative_kcp_client_send_packet, KcpNative_kcp_client_send_packet_Hook);
 		HookManager::install(app::MoleMole_KcpClient_TryDequeueEvent, KcpClient_TryDequeueEvent_Hook);
@@ -34,80 +28,14 @@ namespace cheat::feature
 		return info;
 	}
 
-	bool PacketSniffer::OnCapturingChanged()
-	{
-#ifdef _PACKET_SNIFFER
-		if (!m_CapturingEnabled)
-			return true;
-
-		if (!m_ProtoDirPath.value().empty() && !m_ProtoIDFilePath.value().empty())
-		{
-			m_PacketParser.SetProtoIDPath(m_ProtoIDFilePath);
-			m_PacketParser.SetProtoDir(m_ProtoDirPath);
-			return true;
-		}
-
-		return false;
-#endif
-
-		return true;
-	}
-
 	void PacketSniffer::DrawMain()
 	{
-
-		//ImGui::Text("Dev: for working needs server for named pipe 'genshin_packet_pipe'.\nCheck 'packet-handler' project like example.");
-		if (ConfigWidget(m_CapturingEnabled, "Enabling capturing of packet info and sending to pipe, if it exists."))
-		{ 
-			bool result = OnCapturingChanged();
-			if (!result)
-			{
-				m_CapturingEnabled = false;
-				ImGui::OpenPopup("Error");
-			}
-		}
-		
-		if (ImGui::BeginPopup("Error"))
-		{
-			ImGui::Text("Please fill 'Proto Dir Path' and 'Proto ID File Path' before enabling capture.");
-			ImGui::EndPopup();
-		}
-
-#ifdef _PACKET_SNIFFER
-		auto& window = sniffer::SnifferWindow::GetInstance();
-		ConfigWidget(window.m_Show, "Show capturing window.");
-
-		ConfigWidget(m_PipeEnabled, "Enable sending of packet data to pipe with name 'genshin_packet_pipe'.\n"\
-			"This feature can be used with external monitoring tools.");
-		//ConfigWidget(m_ManipulationEnabled, "Enabling manipulation packet feature, that allows to replace, block incoming/outcoming packets." \
-		//	"\nThis feature often needs, to read-write pipe operation, so can decrease network bandwidth.");
-
-		if (m_CapturingEnabled)
-		{
-			ImGui::Text("These parameters can only be changed when 'Capturing' is disabled.");
-			ImGui::BeginDisabled();
-		}
-
-		ConfigWidget(m_ProtoDirPath, "Path to directory containing Genshin .proto files.");
-		ConfigWidget(m_ProtoIDFilePath, "Path to JSON file containing packet id->packet name info.");
-
-		if (m_CapturingEnabled)
-			ImGui::EndDisabled();
-#else
-		ImGui::Text("When capture is enabled, raw packet data will be send to named pipe: 'genshin_packet_pipe'.");
-		ImGui::Text("'Raw' means that you should to parse protobuf structure by yourself.");
-#endif
+		ImGui::Text("Dev: for working needs server for named pipe with specified name.\nCheck 'packet-handler' project like example.");
+		ConfigWidget(f_PipeName, "Pipe name for connecting. Changes will apply after next game launch.");
+		ConfigWidget(f_CaptureEnabled, "Enable capturing of packet info and sending to pipe, if it exists.");
+		ConfigWidget(f_ManipulationEnabled, "Enable blocking and modifying packets by sniffer, can cause network lags.");
 	}
 	
-	void PacketSniffer::DrawExternal()
-	{
-#ifdef _PACKET_SNIFFER
-		auto& window = sniffer::SnifferWindow::GetInstance();
-		if (window.m_Show)
-			window.Draw();
-#endif
-	}
-
 	PacketSniffer& PacketSniffer::GetInstance()
 	{
 		static PacketSniffer instance;
@@ -141,7 +69,10 @@ namespace cheat::feature
 
 	bool PacketSniffer::OnPacketIO(app::KcpPacket_1* packet, PacketIOType type)
 	{
-		if (!m_CapturingEnabled)
+		if (!sniffer::MessageManager::IsConnected())
+			return true;
+
+		if (!f_CaptureEnabled)
 			return true;
 
 		PacketData packetData = ParseRawPacketData((char*)packet->data, packet->dataLen);
@@ -149,30 +80,10 @@ namespace cheat::feature
 			return true;
 
 		packetData.ioType = type;
-		packetData.blockModeEnabled = m_ManipulationEnabled;
-
-#ifdef _PACKET_SNIFFER
-		bool parsed = m_PacketParser.Parse(packetData);
-		if (!parsed)
-			return true;
-
-		sniffer::SnifferWindow::GetInstance().OnPacketIO({packetData});
-#endif
-
+		packetData.blockModeEnabled = f_ManipulationEnabled;
 		sniffer::MessageManager::Send(packetData);
 
-		bool canceled = m_ManipulationEnabled && ProcessModifiedData(packet);
-
-#ifdef _PACKET_SNIFFER
-		if (m_PacketParser.IsUnionPacket(packetData))
-		{
-			for (auto& nestedPacketData : m_PacketParser.ParseUnionPacket(packetData))
-			{
-				sniffer::SnifferWindow::GetInstance().OnPacketIO({ nestedPacketData });
-				sniffer::MessageManager::Send(nestedPacketData);
-			}
-		}
-#endif
+		bool canceled = f_ManipulationEnabled && ProcessModifiedData(packet);
 
 		return !canceled;
 	}
