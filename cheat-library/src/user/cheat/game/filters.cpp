@@ -189,7 +189,7 @@ namespace cheat::game::filters
 	namespace Npc
 	{
 		SimpleFilter Npc = { app::EntityType__Enum_1::NPC,
-			std::vector<std::string> { "_Liyue", "_Mengde", "_Inazuma", "_Coop", "_Quest", "_Enkanomiya", "_Animal", "_Guide" }};
+			std::vector<std::string> { "_Liyue", "_Mengde", "_Inazuma", "_Coop", "_Quest", "_Enkanomiya", "_Animal", "_Guide", "_Homeworld" }};
 	}
 
 	namespace plant
