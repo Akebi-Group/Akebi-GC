@@ -436,6 +436,8 @@ namespace cheat::feature
 #define ADD_FILTER_FIELD(section, name) AddFilter(MakeCapital(#section), SplitWords(#name), &game::filters::##section##::##name##)
 	void ESP::InstallFilters()
 	{
+		ADD_FILTER_FIELD(Avatar, Avatar);
+		
 		ADD_FILTER_FIELD(collection, Book);
 		ADD_FILTER_FIELD(collection, Viewpoint);
 		ADD_FILTER_FIELD(collection, RadiantSpincrystal);
@@ -589,6 +591,8 @@ namespace cheat::feature
 		ADD_FILTER_FIELD(monster, TreasureHoarder);
 		ADD_FILTER_FIELD(monster, UnusualHilichurl);
 		ADD_FILTER_FIELD(monster, Whopperflower);
+
+		ADD_FILTER_FIELD(Npc, Npc);
 
 		ADD_FILTER_FIELD(plant, AmakumoFruit);
 		ADD_FILTER_FIELD(plant, Apple);
