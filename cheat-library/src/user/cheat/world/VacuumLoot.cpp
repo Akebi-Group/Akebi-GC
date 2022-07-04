@@ -21,9 +21,7 @@ namespace cheat::feature
 
     void VacuumLoot::DrawMain()
     {
-
         ConfigWidget("Vacuum Loot", f_Enabled, "Vacuum Loot drops");
-
     }
 
 	bool VacuumLoot::NeedStatusDraw() const
