@@ -123,7 +123,7 @@ namespace cheat
 
 		manager.SetModuleOrder({
 			"Player",
-			"combat",
+			"Combat",
 			"World",
 			"Teleport",
 			"ESP",
