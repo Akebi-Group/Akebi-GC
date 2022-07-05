@@ -33,7 +33,7 @@ namespace cheat::feature
 
 	void CustomTeleports::DrawMain()
 	{
-		if (ImGui::BeginGroupPanel("Custom Teleports", true))
+		if (ImGui::CollapsingHeader("Custom Teleports", true))
 		{
 		auto& entityManager = game::EntityManager::instance();
 		auto& MapTeleport = MapTeleport::GetInstance();
@@ -272,7 +272,6 @@ namespace cheat::feature
 			ImGui::TreePop();
 		}
 	}
-	ImGui::EndGroupPanel();
 }
 	bool CustomTeleports::NeedStatusDraw() const
 	{

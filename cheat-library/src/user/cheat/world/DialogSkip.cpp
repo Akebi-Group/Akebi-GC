@@ -31,7 +31,7 @@ namespace cheat::feature
 
     void DialogSkip::DrawMain()
     {
-        if (ImGui::BeginGroupPanel("Auto Talk", true))
+        if (ImGui::CollapsingHeader("Auto Talk", true))
         {
         ConfigWidget("Enabled", f_Enabled, "Automatically continue the dialog.");
         ConfigWidget("Auto-select Dialog", f_AutoSelectDialog, "Automatically select dialog choices.");
@@ -48,7 +48,6 @@ namespace cheat::feature
         }
         ConfigWidget("Skip Cutscenes", f_CutsceneUSM, "Automatically skips game movies.");
         }
-        ImGui::EndGroupPanel();
     }
 
     bool DialogSkip::NeedStatusDraw() const

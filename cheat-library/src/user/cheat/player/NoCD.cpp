@@ -38,7 +38,7 @@ namespace cheat::feature
 
     void NoCD::DrawMain()
     {
-		if (ImGui::BeginGroupPanel("Cooldown Effects", true))
+		if (ImGui::CollapsingHeader("Cooldown Effects", true))
 		{
 		ConfigWidget("Max Burst Energy", f_UtimateMaxEnergy,
 			"Removes energy requirement for elemental bursts.\n" \
@@ -78,7 +78,6 @@ namespace cheat::feature
 			}
 		}
 	}
-	ImGui::EndGroupPanel();
 }
 
     bool NoCD::NeedStatusDraw() const

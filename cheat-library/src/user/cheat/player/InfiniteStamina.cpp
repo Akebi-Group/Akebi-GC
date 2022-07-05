@@ -24,7 +24,7 @@ namespace cheat::feature
 
     void InfiniteStamina::DrawMain()
     {
-		if (ImGui::BeginGroupPanel("Infinite Stamina", true))
+		if (ImGui::CollapsingHeader("Infinite Stamina", true))
 		{
 		ConfigWidget("Enabled", f_Enabled, "Enables infinite stamina option.");
 
@@ -33,7 +33,6 @@ namespace cheat::feature
 			"e.g. swim, climb, sprint, etc.\n"
 			"NOTE: This is may be more safe than the standard method. More testing is needed.");
 		}
-		ImGui::EndGroupPanel();
     }
 
     bool InfiniteStamina::NeedStatusDraw() const

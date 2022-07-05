@@ -33,7 +33,7 @@ namespace cheat::feature
 
     void RapidFire::DrawMain()
     {
-		if (ImGui::BeginGroupPanel("Attack Effects", true))
+		if (ImGui::CollapsingHeader("Attack Effects", true))
 		{
 		ConfigWidget("Enabled", f_Enabled, "Enables attack multipliers. Need to choose a mode to work.");
 		ImGui::SameLine();
@@ -80,7 +80,6 @@ namespace cheat::feature
 		ConfigWidget("Radius (m)", f_MultiTargetRadius, 0.1f, 5.0f, 50.0f, "Radius to check for valid targets.");
 		ImGui::Unindent();
 		}
-		ImGui::EndGroupPanel();
     }
 
     bool RapidFire::NeedStatusDraw() const

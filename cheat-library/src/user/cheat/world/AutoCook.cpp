@@ -37,7 +37,7 @@ namespace cheat::feature
 
     void AutoCook::DrawMain()
     {
-        if (ImGui::BeginGroupPanel("Auto Cook", true))
+        if (ImGui::CollapsingHeader("Auto Cook", true))
         {
         ConfigWidget(f_Enabled, "Fast Cooking if the recipe has fast cooking open. \n" \
                 "If fast cooking is closed, you in addition need to turn on Fast Proficiency.");
@@ -47,7 +47,6 @@ namespace cheat::feature
             "(For standard mode only.)");
         ConfigWidget("Quality Cooking", f_QualityField, 1, 1, 3, "Quality of the cook.");
         }
-        ImGui::EndGroupPanel();
     }
 
     bool AutoCook::NeedStatusDraw() const

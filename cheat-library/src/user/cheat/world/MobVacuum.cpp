@@ -36,7 +36,7 @@ namespace cheat::feature
 
     void MobVacuum::DrawMain()
     {
-        if (ImGui::BeginGroupPanel("Mob Vacuum", true))
+        if (ImGui::CollapsingHeader("Mob Vacuum", true))
         {
         ConfigWidget("Enabled", f_Enabled, "Enables mob vacuum.\n" \
             "Mobs within the specified radius will move\nto a specified distance in front of the player.");
@@ -69,7 +69,6 @@ namespace cheat::feature
         ConfigWidget("Radius (m)", f_Radius, 0.1f, 5.0f, 150.0f, "Radius of vacuum.");
         ConfigWidget("Distance (m)", f_Distance, 0.1f, 0.5f, 10.0f, "Distance between the player and the monster.");
         }
-        ImGui::EndGroupPanel();
     }
 
     bool MobVacuum::NeedStatusDraw() const

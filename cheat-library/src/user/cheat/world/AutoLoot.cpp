@@ -46,7 +46,7 @@ namespace cheat::feature
 
     void AutoLoot::DrawMain()
     {
-		if (ImGui::BeginGroupPanel("Auto Loot", true))
+		if (ImGui::CollapsingHeader("Auto Loot", true))
 		{
 		if (ImGui::BeginTable("AutoLootDrawTable", 2, ImGuiTableFlags_NoBordersInBody))
 		{
@@ -114,7 +114,6 @@ namespace cheat::feature
 	    }
     	ImGui::EndGroupPanel();
 	}
-	ImGui::EndGroupPanel();
     }
 
     bool AutoLoot::NeedStatusDraw() const

@@ -39,7 +39,7 @@ namespace cheat::feature
 
 	void MapTeleport::DrawMain()
 	{
-		if (ImGui::BeginGroupPanel("Map Teleport", true))
+		if (ImGui::CollapsingHeader("Map Teleport", true))
 		{
 		ConfigWidget("Enabled",
 			f_Enabled,
@@ -65,7 +65,6 @@ namespace cheat::feature
 		if (!f_Enabled)
 			ImGui::EndDisabled();
 	}
-	ImGui::EndGroupPanel();
 }
 	MapTeleport& MapTeleport::GetInstance()
 	{

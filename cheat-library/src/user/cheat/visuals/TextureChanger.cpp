@@ -30,9 +30,9 @@ namespace cheat::feature
 
     void TextureChanger::DrawMain()
     {
-        if (ImGui::BeginGroupPanel("Texture Changer", true))
+        if (ImGui::CollapsingHeader("Texture Changer", true))
         {
-        ConfigWidget(f_Enabled, "Texture Changer.");
+        ConfigWidget("Texture Changer.", f_Enabled, "Texture Changer.");
         ImGui::Text("Active Hero: %s", ActiveHero.c_str());
  
         ConfigWidget(f_HeadPath, "Head Texture.\n" \
@@ -47,7 +47,6 @@ namespace cheat::feature
         if (ImGui::Button("Apply"))
             ApplyTexture = true;
         }
-        ImGui::EndGroupPanel();
     }
 
     bool TextureChanger::NeedStatusDraw() const

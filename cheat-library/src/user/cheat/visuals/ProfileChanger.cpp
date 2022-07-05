@@ -31,19 +31,19 @@ namespace cheat::feature
     static void ProfileEditPage(app::MonoFriendInformationDialog* __this, app::Sprite* value, MethodInfo* method);
 
     ProfileChanger::ProfileChanger() : Feature(),
-        NF(f_Enabled, "Custom Profile", "Visuals::ProfileChanger", false),
-        NF(f_UID, "UID", "Visuals::ProfileChanger", false),
-        NF(f_UIDWaterMarkPrefix, "UIDWaterMarkPrefix", "Visuals::ProfileChanger", false),
-        NF(f_NickName, "NickName", "Visuals::ProfileChanger", false),
-        NF(f_Level, "Level", "Visuals::ProfileChanger", false),
-        NF(f_Exp, "Exp", "Visuals::ProfileChanger", false),
-        NF(f_CurExp, "CurExp", "Visuals::ProfileChanger", 1),
-        NF(f_MaxExp, "MaxExp", "Visuals::ProfileChanger", 1),
-        NF(f_ExpBar, "ExpBar", "Visuals::ProfileChanger", false),
-        NF(f_ExpBarValue, "ExpBarValue", "Visuals::ProfileChanger", 20.0f),
-        NF(f_WorldLevel, "WorldLevel", "Visuals::ProfileChanger", false),
-        NF(f_Avatar, "AvatarImage", "Visuals::ProfileChanger", false),
-        NF(f_Card, "CardImage", "Visuals::ProfileChanger", false),
+        NF(f_Enabled, "Custom Profile", "ProfileChanger", false),
+        NF(f_UID, "UID", "ProfileChanger", false),
+        NF(f_UIDWaterMarkPrefix, "UIDWaterMarkPrefix", "ProfileChanger", false),
+        NF(f_NickName, "NickName", "ProfileChanger", false),
+        NF(f_Level, "Level", "ProfileChanger", false),
+        NF(f_Exp, "Exp", "ProfileChanger", false),
+        NF(f_CurExp, "CurExp", "ProfileChanger", 1),
+        NF(f_MaxExp, "MaxExp", "ProfileChanger", 1),
+        NF(f_ExpBar, "ExpBar", "ProfileChanger", false),
+        NF(f_ExpBarValue, "ExpBarValue", "ProfileChanger", 20.0f),
+        NF(f_WorldLevel, "WorldLevel", "ProfileChanger", false),
+        NF(f_Avatar, "AvatarImage", "ProfileChanger", false),
+        NF(f_Card, "CardImage", "ProfileChanger", false),
         toBeUpdate(), nextUpdate(0)
     {
         HookManager::install(app::ProfilePage, ProfilePage);
@@ -59,9 +59,9 @@ namespace cheat::feature
 
     void ProfileChanger::DrawMain()
     {
-        if (ImGui::BeginGroupPanel("Custom Profile", true))
+        if (ImGui::CollapsingHeader("Custom Profile"))
         {
-        ConfigWidget(f_Enabled, "Custom Profile.");
+        ConfigWidget("Custom Profile.", f_Enabled, "Custom Profile.");
         ConfigWidget(f_UID, "Changes the uid visually.");
         ConfigWidget("Append \"UID:\" prefix on the water-mark", f_UIDWaterMarkPrefix);
         ConfigWidget(f_NickName, "Changes the nickname visually.");
@@ -83,7 +83,6 @@ namespace cheat::feature
             "Note the size of the picture must be: 840x400.\n" \
             "Example path: C:\\Avatars.png");
         }
-        ImGui::EndGroupPanel();
     }
 
     bool ProfileChanger::NeedStatusDraw() const

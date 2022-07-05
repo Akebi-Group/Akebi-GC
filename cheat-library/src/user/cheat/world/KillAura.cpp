@@ -34,7 +34,7 @@ namespace cheat::feature
 
     void KillAura::DrawMain()
     {
-		if (ImGui::BeginGroupPanel("Kill Aura", true))
+		if (ImGui::CollapsingHeader("Kill Aura", true))
 		{
 		ConfigWidget("Enable Kill Aura", f_Enabled, "Enables kill aura. Need to choose a mode to work.");
 		ImGui::SameLine();
@@ -49,7 +49,6 @@ namespace cheat::feature
 		ConfigWidget("Crash Attack Delay (ms)", f_AttackDelay, 1, 0, 1000, "Delay in ms before next crash damage.");
 		ConfigWidget("Crash Repeat Delay (ms)", f_RepeatDelay, 1, 100, 2000, "Delay in ms before crash damaging same monster.");
 	}
-	ImGui::EndGroupPanel();
 }
 
 
