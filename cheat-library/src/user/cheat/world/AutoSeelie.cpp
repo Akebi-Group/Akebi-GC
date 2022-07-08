@@ -9,7 +9,8 @@
 namespace cheat::feature
 {
 	AutoSeelie::AutoSeelie() : Feature(),
-		NF(f_Enabled, "Auto follow seelie", "AutoSeelie", false)
+		NF(f_Enabled, "Auto seelie", "Auto Seelie", false),
+		nextTime(0)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(AutoSeelie::OnGameUpdate);
     }
@@ -22,8 +23,6 @@ namespace cheat::feature
     void AutoSeelie::DrawMain()
     {
         ConfigWidget("Auto seelie", f_Enabled, "Auto follow seelie to its home");
-		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Don't work with Electro Seelies");
     }
 
 	bool AutoSeelie::NeedStatusDraw() const
@@ -51,9 +50,38 @@ namespace cheat::feature
 		if (entity->name().find("Gear_Seelie") != std::string::npos || entity->name().find("_FireSeelie") != std::string::npos ||
 			entity->name().find("_LitSeelie") != std::string::npos)
 		{
+			if (entity->name().find("ElectricSeelie") != std::string::npos)
+			{
+				std::string name = "/EntityRoot/OtherRoot/" + entity->name();
+				name = name.substr(0, name.size() - 16);
+				name += std::to_string(entity->runtimeID());
+				name += "/";
+				std::cout << name << '\n';
+				
+				GameObject::sellie = app::GameObject_Find(string_to_il2cppi(name), nullptr);
+				if (GameObject::sellie != nullptr)
+				{
+					LOG_DEBUG("Electro seelie found, RuntimeID: %i", entity->runtimeID());
+				}
+				else
+				{
+					LOG_DEBUG("Electro seelie not found");
+				}
+				/*auto Transform = app::GameObject_GetComponentByName(GameObject::sellie, string_to_il2cppi("Transform"), nullptr);
+				auto child = app::Transform_GetChild(reinterpret_cast<app::Transform*>(Transform), 1, nullptr);
+
+				auto pre_status = app::Component_1_get_gameObject(reinterpret_cast<app::Component_1*>(child), nullptr);
+
+				auto status = app::GameObject_get_active(reinterpret_cast<app::GameObject*>(pre_status), nullptr);
+
+				if (status)
+				{
+					return false;
+				}
+				return distance <= radius;*/
+			}
 			return distance <= radius;
 		}
-		
 		return false;
 	}
 
@@ -73,9 +101,9 @@ namespace cheat::feature
             if (!IsEntityForVac(entity))
                 continue;
 
-            entity->setRelativePosition(avatarEntity->relativePosition());
-        }
-		nextTime = currentTime + 1000;
+			entity->setRelativePosition(avatarEntity->relativePosition());
+		}
+		//nextTime = currentTime + 10;
     }
 	
 }
