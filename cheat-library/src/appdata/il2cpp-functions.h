@@ -332,6 +332,7 @@ DO_APP_FUNC(0x0658F960, bool, Cursor_get_visible, (MethodInfo* method));
 DO_APP_FUNC(0x064B3A00, void, Rigidbody_set_detectCollisions, (Rigidbody* __this, bool value, MethodInfo* method));
 DO_APP_FUNC(0x064B3A40, void, Rigidbody_set_isKinematic, (Rigidbody* __this, bool value, MethodInfo* method));
 DO_APP_FUNC(0x064B3740, void, Rigidbody_set_velocity, (Rigidbody* __this, Vector3 value, MethodInfo* method));
+DO_APP_FUNC(0x064B3950, Vector3, Rigidbody_get_velocity, (Rigidbody* __this, MethodInfo* method));
 
 DO_APP_FUNC(0x06631190, float, Time_get_timeScale, (MethodInfo* method));
 DO_APP_FUNC(0x06631240, void, Time_set_timeScale, (float value, MethodInfo* method));

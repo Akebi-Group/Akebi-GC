@@ -20,6 +20,7 @@
     <ClInclude Include="src\user\cheat\misc\sniffer\pipe\messages\PipePacketData.h" />
     <ClInclude Include="src\user\cheat\misc\sniffer\pipe\PipeClient.h" />
     <ClInclude Include="src\user\cheat\misc\sniffer\pipe\PipeIO.h" />
+    <ClInclude Include="src\user\cheat\player\FallControl.h" />
     <ClInclude Include="src\user\cheat\visuals\TextureChanger.h" />
     <ClInclude Include="src\user\cheat\visuals\FreeCamera.h" />
     <ClInclude Include="src\user\cheat\world\AutoSeelie.h" />
@@ -110,6 +111,7 @@
     <ClCompile Include="src\user\cheat\misc\sniffer\pipe\messages\PipePacketData.cpp" />
     <ClCompile Include="src\user\cheat\misc\sniffer\pipe\PipeClient.cpp" />
     <ClCompile Include="src\user\cheat\misc\sniffer\pipe\PipeIO.cpp" />
+    <ClCompile Include="src\user\cheat\player\FallControl.cpp" />
     <ClCompile Include="src\user\cheat\visuals\TextureChanger.cpp" />
     <ClCompile Include="src\user\cheat\visuals\FreeCamera.cpp" />
     <ClCompile Include="src\user\cheat\world\AutoSeelie.cpp" />
