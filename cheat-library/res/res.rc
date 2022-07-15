@@ -62,6 +62,8 @@ MAPTEYVATDATA           RCDATA                  "map_teyvat.json"
 
 MAPUNDEGROUNDMINESDATA  RCDATA                  "map_undeground_mines.json"
 
+MAPGOLDENAPPLEARCHIPELAGODATA   RCDATA                  "map_golden_apple_archipelago.json"
+
 AssemblyChecksums       RCDATA                  "assembly_checksum.json"
 
 
@@ -206,6 +208,8 @@ HDDIVDARAY              PNG                     "iconsHD\\DivdaRay.png"
 
 HDDOMAIN                PNG                     "iconsHD\\Domain.png"
 
+HDECHOINGCONCH          PNG                     "iconsHD\\EchoingConch.png"
+
 HDEIGHTSTONETABLETS     PNG                     "iconsHD\\EightStoneTablets.png"
 
 HDELECTRICCONDUCTION    PNG                     "iconsHD\\ElectricConduction.png"
@@ -315,6 +319,8 @@ HDHORSETAIL             PNG                     "iconsHD\\Horsetail.png"
 HDHYDROHYPOSTASIS       PNG                     "iconsHD\\HydroHypostasis.png"
 
 HDILLUSION              PNG                     "iconsHD\\Illusion.png"
+
+HDIMAGINGCONCH          PNG                     "iconsHD\\ImagingConch.png"
 
 HDINAZUMASHRINEOFDEPTHS PNG                     "iconsHD\\InazumaShrineofDepths.png"
 
@@ -776,6 +782,8 @@ DIVDARAY                PNG                     "icons\\DivdaRay.png"
 
 DOMAIN                  PNG                     "icons\\Domain.png"
 
+ECHOINGCONCH            PNG                     "icons\\EchoingConch.png"
+
 EIGHTSTONETABLETS       PNG                     "icons\\EightStoneTablets.png"
 
 ELECTRICCONDUCTION      PNG                     "icons\\ElectricConduction.png"
@@ -885,6 +893,8 @@ HORSETAIL               PNG                     "icons\\Horsetail.png"
 HYDROHYPOSTASIS         PNG                     "icons\\HydroHypostasis.png"
 
 ILLUSION                PNG                     "icons\\Illusion.png"
+
+IMAGINGCONCH            PNG                     "icons\\ImagingConch.png"
 
 INAZUMASHRINEOFDEPTHS   PNG                     "icons\\InazumaShrineofDepths.png"
 

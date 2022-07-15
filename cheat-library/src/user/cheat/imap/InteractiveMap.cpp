@@ -1212,6 +1212,7 @@ namespace cheat::feature
         LoadSceneData(nlohmann::json::parse(ResourceLoader::Load("MapTeyvatData", RT_RCDATA)), 3);
         LoadSceneData(nlohmann::json::parse(ResourceLoader::Load("MapEnkanomiyaData", RT_RCDATA)), 5);
         LoadSceneData(nlohmann::json::parse(ResourceLoader::Load("MapUndegroundMinesData", RT_RCDATA)), 6);
+        LoadSceneData(nlohmann::json::parse(ResourceLoader::Load("MapGoldenAppleArchipelagoData", RT_RCDATA)), 9);
 
         LOG_INFO("Interactive map data loaded successfully.");
     }
@@ -1280,6 +1281,10 @@ namespace cheat::feature
 		APPLY_SCENE_OFFSETS(6,
 			"Medaka", -649.27f, 776.9f,
 			"SweetFlowerMedaka", -720.16f, 513.55f);
+
+    	APPLY_SCENE_OFFSETS(9,
+			"PaleRedCrab", -396.38f, -253.75f,
+			"GoldenCrab", 145.89f, 215.34f);
 #undef APPLY_SCENE_OFFSETS
 
 	}

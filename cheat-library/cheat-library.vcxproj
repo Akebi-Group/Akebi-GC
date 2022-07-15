@@ -206,6 +206,7 @@
     <None Include="res\map_enkanomiya.json" />
     <None Include="res\map_teyvat.json" />
     <None Include="res\map_undeground_mines.json" />
+    <None Include="res\map_golden_apple_archipelago.json" />
     <None Include="res\signatures.json" />
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +279,7 @@
     <Image Include="res\iconsHD\Dendrobium.png" />
     <Image Include="res\iconsHD\DivdaRay.png" />
     <Image Include="res\iconsHD\Domain.png" />
+    <Image Include="res\iconsHD\EchoingConch.png" />
     <Image Include="res\iconsHD\EightStoneTablets.png" />
     <Image Include="res\iconsHD\ElectricConduction.png" />
     <Image Include="res\iconsHD\ElectroCrystal.png" />
@@ -333,6 +335,7 @@
     <Image Include="res\iconsHD\Horsetail.png" />
     <Image Include="res\iconsHD\HydroHypostasis.png" />
     <Image Include="res\iconsHD\Illusion.png" />
+    <Image Include="res\iconsHD\ImagingConch.png" />
     <Image Include="res\iconsHD\InazumaShrineofDepths.png" />
     <Image Include="res\iconsHD\IronChunk.png" />
     <Image Include="res\iconsHD\JadeChamber.png" />
@@ -561,6 +564,7 @@
     <Image Include="res\icons\Dendrobium.png" />
     <Image Include="res\icons\DivdaRay.png" />
     <Image Include="res\icons\Domain.png" />
+    <Image Include="res\icons\EchoingConch.png" />
     <Image Include="res\icons\EightStoneTablets.png" />
     <Image Include="res\icons\ElectricConduction.png" />
     <Image Include="res\icons\ElectroCrystal.png" />
@@ -616,6 +620,7 @@
     <Image Include="res\icons\Horsetail.png" />
     <Image Include="res\icons\HydroHypostasis.png" />
     <Image Include="res\icons\Illusion.png" />
+    <Image Include="res\icons\ImagingConch.png" />
     <Image Include="res\icons\InazumaShrineofDepths.png" />
     <Image Include="res\icons\IronChunk.png" />
     <Image Include="res\icons\JadeChamber.png" />
