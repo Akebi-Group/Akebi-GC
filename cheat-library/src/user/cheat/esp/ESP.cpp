@@ -413,6 +413,7 @@ namespace cheat::feature
 	void ESP::InstallFilters()
 	{
 		ADD_FILTER_FIELD(collection, Book);
+		ADD_FILTER_FIELD(collection, EchoShell);
 		ADD_FILTER_FIELD(collection, Viewpoint);
 		ADD_FILTER_FIELD(collection, RadiantSpincrystal);
 		ADD_FILTER_FIELD(collection, BookPage);

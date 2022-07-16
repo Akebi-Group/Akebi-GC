@@ -10,6 +10,7 @@ namespace cheat::game::filters
 	namespace collection
 	{
 		SimpleFilter Book = { app::EntityType__Enum_1::GatherObject, "SkillObj_EmptyGadget" };
+		SimpleFilter EchoShell = { app::EntityType__Enum_1::EchoShell, "Echoconch" };
 		SimpleFilter Viewpoint = { app::EntityType__Enum_1::ViewPoint, "SkillObj_EmptyGadget" };
 		ChestFilter RadiantSpincrystal = ChestFilter(game::Chest::ItemType::BGM);
 		ChestFilter BookPage = ChestFilter(game::Chest::ItemType::BookPage);
