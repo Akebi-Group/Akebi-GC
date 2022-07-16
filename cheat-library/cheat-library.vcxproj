@@ -900,7 +900,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch-il2cpp.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)src/appdata;$(ProjectDir)src/framework;$(ProjectDir)res/;$(ProjectDir)vendor/protobuf/src/;$(ProjectDir)src/user;$(SolutionDir)cheat-base/src/;$(SolutionDir)cheat-base/vendor/imgui/;$(SolutionDir)cheat-base/vendor/json/single_include/;$(SolutionDir)cheat-base/vendor/magic_enum/include/;$(SolutionDir)cheat-base/vendor/fmt/include/;$(SolutionDir)cheat-base/vendor/imgui-notify-v2/;$(SolutionDir)cheat-base/vendor/simpleIni/;$(SolutionDir)cheat-base/vendor/imgui-notify-v2/;$(SolutionDir)cheat-base/vendor/detours/</AdditionalIncludeDirectories>
       <Optimization>MaxSpeed</Optimization>
       <WholeProgramOptimization>true</WholeProgramOptimization>

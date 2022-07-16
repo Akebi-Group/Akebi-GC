@@ -203,7 +203,8 @@ namespace cheat::feature
         for (auto entity : entities) {
             auto entityPos = entity->absolutePosition();
             std::string baseString = csvFriendly ? "{},{},{},{},{},{}" : "{} {} {} x={} y={} z={}";
-            auto entityDetails = fmt::format(baseString,
+            auto entityDetails = fmt::format(
+                fmt::runtime(baseString),
                 fmt::ptr(entity),
                 entity->runtimeID(),
                 entity->name().c_str(),
@@ -222,7 +223,8 @@ namespace cheat::feature
         std::string baseString = csvFriendly ? "{},{},{},{},{},{}" : "{} {} {} x={} y={} z={}";
         if (csvFriendly && includeHeaders)
             baseString = headerString.append(baseString);
-        auto entityDetails = fmt::format(baseString,
+        auto entityDetails = fmt::format(
+            fmt::runtime(baseString),
             fmt::ptr(entity),
             entity->runtimeID(),
             entity->name().c_str(),
