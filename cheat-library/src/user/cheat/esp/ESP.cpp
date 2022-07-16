@@ -413,13 +413,14 @@ namespace cheat::feature
 	void ESP::InstallFilters()
 	{
 		ADD_FILTER_FIELD(collection, Book);
-		ADD_FILTER_FIELD(collection, EchoShell);
 		ADD_FILTER_FIELD(collection, Viewpoint);
 		ADD_FILTER_FIELD(collection, RadiantSpincrystal);
 		ADD_FILTER_FIELD(collection, BookPage);
 		ADD_FILTER_FIELD(collection, QuestInteract);
 		ADD_FILTER_FIELD(collection, WoodenCrate);
 		ADD_FILTER_FIELD(collection, GeoSigil);
+		ADD_FILTER_FIELD(collection, EchoConch);
+		ADD_FILTER_FIELD(collection, DreamConch);
 
 		ADD_FILTER_FIELD(chest, CommonChest);
 		ADD_FILTER_FIELD(chest, ExquisiteChest);

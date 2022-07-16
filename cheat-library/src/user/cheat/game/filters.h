@@ -9,7 +9,6 @@ namespace cheat::game::filters
 	namespace collection
 	{
 		extern SimpleFilter Book;
-		extern SimpleFilter EchoShell;
 		extern SimpleFilter Viewpoint;
 		extern SimpleFilter WoodenCrate;
 		extern SimpleFilter GeoSigil;
@@ -17,6 +16,9 @@ namespace cheat::game::filters
 		extern ChestFilter RadiantSpincrystal;
 		extern ChestFilter BookPage;
 		extern ChestFilter QuestInteract;
+
+		extern SimpleFilter EchoConch;
+		extern SimpleFilter DreamConch;
 	}
 
 	namespace chest

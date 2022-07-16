@@ -10,13 +10,14 @@ namespace cheat::game::filters
 	namespace collection
 	{
 		SimpleFilter Book = { app::EntityType__Enum_1::GatherObject, "SkillObj_EmptyGadget" };
-		SimpleFilter EchoShell = { app::EntityType__Enum_1::EchoShell, "Echoconch" };
 		SimpleFilter Viewpoint = { app::EntityType__Enum_1::ViewPoint, "SkillObj_EmptyGadget" };
 		ChestFilter RadiantSpincrystal = ChestFilter(game::Chest::ItemType::BGM);
 		ChestFilter BookPage = ChestFilter(game::Chest::ItemType::BookPage);
 		ChestFilter QuestInteract = ChestFilter(game::Chest::ItemType::QuestInteract);
 		SimpleFilter WoodenCrate = { app::EntityType__Enum_1::Chest, "Searchpoint_OnWater" };
 		SimpleFilter GeoSigil = { app::EntityType__Enum_1::Chest, "Prop_Search_Point" };
+		SimpleFilter EchoConch = { app::EntityType__Enum_1::EchoShell, "Echoconch" };
+		SimpleFilter DreamConch = { app::EntityType__Enum_1::EchoShell, "Dreamconch" };
 	}
 
 	namespace chest
