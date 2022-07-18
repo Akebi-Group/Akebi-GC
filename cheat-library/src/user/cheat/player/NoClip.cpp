@@ -13,14 +13,15 @@ namespace cheat::feature
 	app::Vector3 zero;
 
     NoClip::NoClip() : Feature(),
-        NF(f_Enabled,            "No clip",              "NoClip", false),
-		NF(f_NoAnimation,		 "No Animation",		 "NoClip", true),
-        NF(f_Speed,              "Speed",                "NoClip", 5.5f),
-        NF(f_CameraRelative,     "Relative to camera",   "NoClip", true),
-		NF(f_VelocityMode,       "Velocity mode",        "NoClip", false),
-		NF(f_FreeflightMode,     "Freeflight mode",      "NoClip", false),
-		NF(f_AltSpeedEnabled,	 "Alt speed enabled",    "NoClip", false),
-		NF(f_AltSpeed,			 "Alt speed",            "NoClip", 1.0f)
+        NF(f_Enabled,            "No clip",									"NoClip", false),
+		NF(f_NoAnimation,		 "No Animation",							"NoClip", true),
+		NF(f_UseRightShift,		 "Use RightShift Instead to Go Down",		"NoClip", true),
+        NF(f_Speed,              "Speed",									"NoClip", 5.5f),
+        NF(f_CameraRelative,     "Relative to camera",						"NoClip", true),
+		NF(f_VelocityMode,       "Velocity mode",							"NoClip", false),
+		NF(f_FreeflightMode,     "Freeflight mode",							"NoClip", false),
+		NF(f_AltSpeedEnabled,	 "Alt speed enabled",						"NoClip", false),
+		NF(f_AltSpeed,			 "Alt speed",								"NoClip", 1.0f)
     {
 		HookManager::install(app::MoleMole_HumanoidMoveFSM_LateTick, HumanoidMoveFSM_LateTick_Hook);
 
@@ -40,6 +41,8 @@ namespace cheat::feature
             "To move, use WASD, Space (go up), and Shift (go down).");
 
 		ConfigWidget("No Animation", f_NoAnimation, "Disables player animations.");
+
+		ConfigWidget("Use RightShift", f_UseRightShift, "Use RightShift instead of LeftShift to go Down/Descend.");
 
 		ConfigWidget("Speed", f_Speed, 0.1f, 2.0f, 100.0f,
 			"No-clip move speed.\n" \
@@ -147,8 +150,15 @@ namespace cheat::feature
 		if (Hotkey(VK_SPACE).IsPressed())
 			dir = dir + avatarEntity->up();
 		
-		if (Hotkey(ImGuiKey_ModShift).IsPressed())
-			dir = dir + avatarEntity->down();
+		if (f_UseRightShift) {
+			if (Hotkey(ImGuiKey_RightShift).IsPressed())
+				dir = dir + avatarEntity->down();
+		}
+		
+		if (!f_UseRightShift) {
+			if (Hotkey(ImGuiKey_ModShift).IsPressed())
+				dir = dir + avatarEntity->down();
+		}
 
 		app::Vector3 prevPos = avatarEntity->relativePosition();
 		if (IsVectorZero(prevPos))

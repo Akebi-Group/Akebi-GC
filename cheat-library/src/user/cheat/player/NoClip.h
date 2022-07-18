@@ -12,6 +12,7 @@ namespace cheat::feature
 	public:
 		config::Field<config::Toggle<Hotkey>> f_Enabled;
 		config::Field<config::Toggle<Hotkey>> f_NoAnimation;
+		config::Field<bool> f_UseRightShift;
 
 		config::Field<float> f_Speed;
 		config::Field<bool> f_CameraRelative;
