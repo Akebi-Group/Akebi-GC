@@ -595,7 +595,7 @@ namespace cheat::feature
 		if (m_CompletedPoints.empty())
 			return;
 
-		PointData* pointData = *m_CompletedPoints.begin();
+		PointData* pointData = *--m_CompletedPoints.end();
 		pointData->completed = false;
 		pointData->completeTimestamp = 0;
 		m_ScenesData[pointData->sceneID].labels[pointData->labelID].completedCount--;
