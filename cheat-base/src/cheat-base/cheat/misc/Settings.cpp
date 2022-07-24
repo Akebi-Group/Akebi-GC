@@ -20,6 +20,7 @@ namespace cheat::feature
 		
 		NF(f_FpsMove, "Move FPS Indicator", "General::FPS", false),
 		NF(f_FpsShow, "Show FPS Indicator", "General::FPS", true),
+		NF(f_FpsPrefix, "Show FPS: Prefix", "General::FPS", true),
 
 		NF(f_NotificationsShow, "Show Notifications", "General::Notify", true), 
 		NF(f_NotificationsDelay, "Notifications Delay", "General::Notify", 500),
@@ -95,6 +96,7 @@ namespace cheat::feature
 		{
 			ConfigWidget(f_FpsShow);
 			ConfigWidget(f_FpsMove, "Allow moving of 'FPS Indicator' window.");
+			ConfigWidget(f_FpsPrefix, "Append \"FPS:\" Prefix");
 		}
 		ImGui::EndGroupPanel();
 

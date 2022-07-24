@@ -390,7 +390,12 @@ namespace cheat
 
 		if (ImGui::Begin("FPS", nullptr, flags))
 		{
-			ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+			if (settings.f_FpsPrefix) {
+				ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+			}
+			if (!settings.f_FpsPrefix) {
+				ImGui::Text("%.1f", ImGui::GetIO().Framerate);
+			}
 			ImGui::End();
 		}
 	}
