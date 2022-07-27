@@ -125,14 +125,14 @@ namespace cheat
 #undef FEAT_INST
 
 		manager.SetModuleOrder({
-			"Player",
-			"World",
-			"Teleport",
-			"ESP",
-			"Visuals",
-			"Hotkeys",
-			"Settings",
-			"Debug"
+			"玩家",
+			"世界",
+			"传送",
+			"透视",
+			"界面",
+			"热键",
+			"设置",
+			"调试"
 			});
 
 		LPBYTE pFontData = nullptr;

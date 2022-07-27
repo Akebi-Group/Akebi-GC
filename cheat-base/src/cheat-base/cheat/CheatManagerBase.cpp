@@ -53,7 +53,7 @@ namespace cheat
 
 		ImGui::BeginGroup();
 
-		if (ImGui::Checkbox("Block key/mouse", &m_IsBlockingInput))
+		if (ImGui::Checkbox("锁定 键盘和鼠标", &m_IsBlockingInput))
 		{
 			renderer::SetInputLock(this, m_IsBlockingInput);
 		}
@@ -128,7 +128,7 @@ namespace cheat
 
 	void CheatManagerBase::DrawProfileGlobalActivities()
 	{
-		if (ImGui::Button("Add new profile"))
+		if (ImGui::Button("添加新档案"))
 		{
 			std::unordered_set<std::string> profileNameSet = { config::GetProfiles().begin(), config::GetProfiles().end() };
 			size_t index = 0;
@@ -136,7 +136,7 @@ namespace cheat
 			do 
 			{
 				index++;
-				std::string newName = fmt::format("Profile #{}", index);
+				std::string newName = fmt::format("档案 #{}", index);
 				if (profileNameSet.count(newName) == 0)
 					name = newName;
 
@@ -153,10 +153,10 @@ namespace cheat
 		if (isPopupOpen)
 			ImGui::BeginDisabled();
 
-		if (ImGui::SmallButton("Rnm"))
+		if (ImGui::SmallButton("重命名"))
 			ImGui::OpenRenamePopup(profileName);
 		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip("Rename");
+			ImGui::SetTooltip("重命名");
 
 		if (isPopupOpen)
 			ImGui::EndDisabled();
@@ -169,10 +169,10 @@ namespace cheat
 
 		ImGui::SameLine();
 
-		if (ImGui::SmallButton("Del"))
+		if (ImGui::SmallButton("删除"))
 			config::RemoveProfile(profileName);
 		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip("Delete");
+			ImGui::SetTooltip("删除");
 
 		ImGui::SameLine();
 
@@ -237,7 +237,7 @@ namespace cheat
 		if (m_IsProfileConfigurationShowed)
 			ImGui::BeginDisabled();
 
-		bool buttonPressed = ImGui::Button("Configure...");
+		bool buttonPressed = ImGui::Button("配置...");
 
 		if (m_IsProfileConfigurationShowed)
 			ImGui::EndDisabled();
@@ -287,7 +287,7 @@ namespace cheat
 
 		if (ImGui::BeginTable("activesTable", 1, tabFlags))
 		{
-			ImGui::TableSetupColumn("Active features");
+			ImGui::TableSetupColumn("已启用的功能");
 			ImGui::TableHeadersRow();
 
 			int row = 0;

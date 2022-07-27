@@ -29,7 +29,7 @@ namespace renderer
 	static bool _isCustomFontLoaded = false;
 
 	static constexpr int _fontSizeStep = 1;
-	static constexpr int _fontSizeMax = 64;
+	static constexpr int _fontSizeMax = 15;
 	static constexpr int _fontsCount = _fontSizeMax / _fontSizeStep;
 	static std::array<ImFont*, _fontsCount> _fonts;
 
@@ -46,13 +46,11 @@ namespace renderer
 	static void OnInitializeDX12(HWND window, ID3D12Device* pDevice, UINT buffersCounts, ID3D12DescriptorHeap* pDescriptorHeapImGuiRender);
 
 
-
 	void Init(LPBYTE fontData, DWORD fontDataSize, DXVersion version)
 	{
 		_customFontData = { fontData, fontDataSize };
 
 		LOG_DEBUG("Initialize IMGui...");
-
 		switch (version)
 		{
 		case renderer::DXVersion::D3D11:
@@ -147,7 +145,12 @@ namespace renderer
 		for (int i = 0; i < _fontsCount; i++)
 		{
 			ImGuiIO& io = ImGui::GetIO();
-			auto newFont = io.Fonts->AddFontFromMemoryTTF(_customFontData.data, _customFontData.size, static_cast<float>((i + 1) * _fontSizeStep));
+			auto size_pixels = static_cast<float>((i + 1) * _fontSizeStep);
+			auto newFont = io.Fonts->AddFontFromMemoryTTF(_customFontData.data, _customFontData.size, size_pixels);
+			if (_customFontData.data != NULL)
+			{
+				newFont = io.Fonts->AddFontFromMemoryTTF(_customFontData.data, _customFontData.size, size_pixels, NULL, io.Fonts->GetGlyphRangesChineseFull());
+			}
 			if (newFont == nullptr)
 				return;
 
