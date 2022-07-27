@@ -10,6 +10,7 @@ namespace cheat::feature
 	public:
 		config::Field<config::Toggle<Hotkey>> f_Enabled;
 		config::Field<config::Toggle<Hotkey>> f_Lightning;
+		config::Field<bool> f_HideStatus;
 
 		static CustomWeather& GetInstance();
 		const FeatureGUIInfo& GetGUIInfo() const override;

@@ -42,8 +42,9 @@ namespace cheat::feature
     }
 
     CustomWeather::CustomWeather() : Feature(),
-        NF(f_Enabled, "Custom Weather", "World", false),
-        NF(f_Lightning, "Lightning", "World", false),
+        NF(f_Enabled, "Custom Weather", "CustomWeather", false),
+        NF(f_Lightning, "Lightning", "CustomWeather", false),
+        NF(f_HideStatus, "Hide Status", "CustomWeather", false),
         toBeUpdate(), nextUpdate(0)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(CustomWeather::OnGameUpdate);
@@ -62,11 +63,12 @@ namespace cheat::feature
             ImGui::Combo(("Weather Type"), &current_weather, WeatherType, ARRAYSIZE(WeatherType));
         }
         ConfigWidget(f_Lightning, "Lightning target enemy, works with RainHeavy weather.");
+        ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool CustomWeather::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void CustomWeather::DrawStatus()
