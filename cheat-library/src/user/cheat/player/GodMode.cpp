@@ -7,8 +7,9 @@
 namespace cheat::feature 
 {
     GodMode::GodMode() : Feature(),
-        NFEX(f_Enabled, "God mode", "m_GodMode", "Player", false, false),
-        NF(f_AltGodMode, "Alternative God Mode", "Player", false)
+        NFEX(f_Enabled, "God mode", "m_GodMode", "GodMode", false, false),
+        NF(f_AltGodMode, "Alternative God Mode", "GodMode", false),
+        NF(f_HideStatus, "Hide Status", "GodMode", false)
     {
 		HookManager::install(app::VCHumanoidMove_NotifyLandVelocity, VCHumanoidMove_NotifyLandVelocity_Hook);
 		HookManager::install(app::Miscs_CheckTargetAttackable, Miscs_CheckTargetAttackable_Hook);
@@ -27,16 +28,15 @@ namespace cheat::feature
         ConfigWidget("God Mode", f_Enabled, 
                      "Enables god mode, i.e. no incoming damage.\n" \
                      "May not work with some types of damage.");
-        ImGui::Indent();
         ConfigWidget("Alternative God Mode", f_AltGodMode,
             "Alternative god mode that ignores incoming damage\n" \
             "including environmental damage.");
-        ImGui::Unindent();
+        ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool GodMode::NeedStatusDraw() const
     {
-        return f_Enabled || f_AltGodMode;
+        return !f_HideStatus && f_Enabled || !f_HideStatus && f_AltGodMode;
     }
 
     void GodMode::DrawStatus() 

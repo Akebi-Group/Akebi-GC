@@ -14,6 +14,7 @@ namespace cheat::feature
 	public:
 		config::Field<config::Toggle<Hotkey>> f_Enabled;
 		config::Field<float> f_Distance;
+		config::Field<bool> f_HideStatus;
 		config::Field<float> f_Radius;
 		config::Field<float> f_MobDropRadius;
 		config::Field<int> f_DelayTime;

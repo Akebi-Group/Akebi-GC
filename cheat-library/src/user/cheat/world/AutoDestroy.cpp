@@ -18,7 +18,8 @@ namespace cheat::feature
 		NF(f_DestroyOres,		"Destroy Ores",			"AutoDestroy", false),
 		NF(f_DestroyShields,	"Destroy Shields",		"AutoDestroy", false),
 		NF(f_DestroyDoodads,	"Destroy Doodads",		"AutoDestroy", false),
-        NF(f_Range,				"Range",				"AutoDestroy", 10.0f)
+        NF(f_Range,				"Range",				"AutoDestroy", 10.0f),
+		NF(f_HideStatus,        "Hide Status",          "AutoDestroy", false)
     { 
 		HookManager::install(app::MoleMole_LCAbilityElement_ReduceModifierDurability, LCAbilityElement_ReduceModifierDurability_Hook);
 	}
@@ -45,11 +46,12 @@ namespace cheat::feature
 		ImGui::TextColored(ImColor(255, 165, 0, 255), "Extremely risky!");
 		ImGui::Unindent();
 		ConfigWidget("Range (m)", f_Range, 0.1f, 1.0f, 15.0f);
+		ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool AutoDestroy::NeedStatusDraw() const
 	{
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void AutoDestroy::DrawStatus() 

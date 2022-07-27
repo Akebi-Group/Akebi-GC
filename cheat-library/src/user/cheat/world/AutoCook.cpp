@@ -22,7 +22,8 @@ namespace cheat::feature
         NF(f_Enabled, "Standart Cooking", "AutoCook", false),
         NF(f_FastProficiency, "Fast Proficiency", "AutoCook", false),
         NF(f_CountField, "Count Item", "AutoCook", 1),
-        NF(f_QualityField, "Quality", "AutoCook", 1)
+        NF(f_QualityField, "Quality", "AutoCook", 1),
+        NF(f_HideStatus, "Hide Status", "AutoCook", false)
     {
         HookManager::install(app::MoleMole_PlayerModule_RequestPlayerCook, PlayerModule_RequestPlayerCook);
         HookManager::install(app::MoleMole_PlayerModule_OnPlayerCookRsp, PlayerModule_OnPlayerCookRsp);
@@ -44,11 +45,12 @@ namespace cheat::feature
             "How much to cook at a time.\n" \
             "(For standard mode only.)");
         ConfigWidget("Quality Cooking", f_QualityField, 1, 1, 3, "Quality of the cook.");
+        ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool AutoCook::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void AutoCook::DrawStatus()

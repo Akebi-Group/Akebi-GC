@@ -8,7 +8,8 @@ namespace cheat::feature
 {
     FPSUnlock::FPSUnlock() : Feature(),
 		NF(f_Enabled, "Fps unlock", "Visuals::FPSUnlocker", false),
-        NF(f_Fps, "FPS", "Visuals::FPSUnlocker", 240)
+        NF(f_Fps, "FPS", "Visuals::FPSUnlocker", 240),
+        NF(f_HideStatus, "Hide Status", "Visuals::FPSUnlocker", false)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(FPSUnlock::OnGameUpdate);
     }
@@ -23,11 +24,17 @@ namespace cheat::feature
     {
         ConfigWidget("", f_Enabled); ImGui::SameLine();
         ConfigWidget(f_Fps, 1, 30, 360, "Unlocks higher framerate.");
+        if (f_Enabled)
+        {
+            ImGui::Indent();
+            ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
+            ImGui::Unindent();
+        }
     }
 
     bool FPSUnlock::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void FPSUnlock::DrawStatus()

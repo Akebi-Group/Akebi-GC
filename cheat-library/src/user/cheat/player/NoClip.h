@@ -29,6 +29,7 @@ namespace cheat::feature
 
 		config::Field<bool> f_AltSpeedEnabled;
 		config::Field<float> f_AltSpeed;
+		config::Field<bool> f_HideStatus;
 
 
 		static NoClip& GetInstance();

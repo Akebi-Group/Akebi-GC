@@ -13,6 +13,7 @@ namespace cheat::feature
 		config::Field<int> m_RepeatDelay;
 		config::Field<int> m_AttackPerTree;
 		config::Field<float> m_Range;
+		config::Field<bool> m_HideStatus;
 
 		static AutoTreeFarm& GetInstance();
 

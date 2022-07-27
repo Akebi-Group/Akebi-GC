@@ -38,7 +38,8 @@ namespace cheat::feature
 		NF(f_RightRoll, "Roll Right", "Visuals::FreeCamera", Hotkey('X')),
 		NF(f_ResetRoll, "Reset Roll", "Visuals::FreeCamera", Hotkey('C')),
 		NF(f_IncFOV, "Increase FOV", "Visuals::FreeCamera", Hotkey('3')),
-		NF(f_DecFOV, "Decrease FOV", "Visuals::FreeCamera", Hotkey('1'))
+		NF(f_DecFOV, "Decrease FOV", "Visuals::FreeCamera", Hotkey('1')),
+		NF(f_HideStatus, "Hide Status", "Visuals::FreeCamera", false)
 	{
 		events::GameUpdateEvent += MY_METHOD_HANDLER(FreeCamera::OnGameUpdate);
 	}
@@ -53,6 +54,7 @@ namespace cheat::feature
 	{
 		ConfigWidget("Enable", f_Enabled);
 		ConfigWidget("Freeze Character Animation", f_FreezeAnimation, "Freezes the active character's animation.\nAfter disabling, jump to un-freeze your character.");
+		ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 		if (ImGui::BeginTable("FreeCameraDrawTable", 1, ImGuiTableFlags_NoBordersInBody))
 		{
 			ImGui::TableNextRow();
@@ -90,7 +92,7 @@ namespace cheat::feature
 
 	bool FreeCamera::NeedStatusDraw() const
 	{
-		return f_Enabled;
+		return !f_HideStatus && f_Enabled;
 	}
 
 	void FreeCamera::DrawStatus()

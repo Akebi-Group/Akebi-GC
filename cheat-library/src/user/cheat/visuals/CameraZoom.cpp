@@ -10,7 +10,8 @@ namespace cheat::feature
 
     CameraZoom::CameraZoom() : Feature(),
         NF(f_Enabled, "Camera Zoom", "Visuals::CameraZoom", false),
-        NF(f_Zoom, "Zoom", "Visuals::CameraZoom", 200)
+        NF(f_Zoom, "Zoom", "Visuals::CameraZoom", 200),
+        NF(f_HideStatus, "Hide Status", "Visuals::CameraZoom", false)
     {
         HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook);
     }
@@ -29,11 +30,18 @@ namespace cheat::feature
 			"For example:\n"
             "\t2.0 = 2.0 * defaultZoom"
         );
+
+        if (f_Enabled)
+        {
+            ImGui::Indent();
+            ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
+            ImGui::Unindent();
+        }
     }
 
     bool CameraZoom::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void CameraZoom::DrawStatus()

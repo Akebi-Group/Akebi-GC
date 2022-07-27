@@ -9,7 +9,8 @@ namespace cheat::feature
     app::GameObject* ui_camera{};
 
     HideUI::HideUI() : Feature(),
-		NFEX(f_Enabled, "Hide UI", "HideUI", "Visuals", false, false)
+        NFEX(f_Enabled, "Hide UI", "HideUI", "HideUI", false, false),
+        NF(f_HideStatus, "Hide Status", "HideUI", false)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(HideUI::OnGameUpdate);
     }
@@ -23,11 +24,17 @@ namespace cheat::feature
     void HideUI::DrawMain()
     {
         ConfigWidget(f_Enabled, "Hide in-game UI.");
+        if (f_Enabled)
+        {
+            ImGui::Indent();
+            ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
+            ImGui::Unindent();
+        }
     }
 
     bool HideUI::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void HideUI::DrawStatus()

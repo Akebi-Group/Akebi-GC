@@ -11,7 +11,8 @@ namespace cheat::feature
 {
 
     FreezeEnemies::FreezeEnemies() : Feature(),
-        NF(f_Enabled, "Freeze Enemies", "FreezeEnemies", false)
+        NF(f_Enabled, "Freeze Enemies", "FreezeEnemies", false),
+        NF(f_HideStatus, "Hide Status", "FreezeEnemies", false)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(FreezeEnemies::OnGameUpdate);
     }
@@ -25,11 +26,17 @@ namespace cheat::feature
     void FreezeEnemies::DrawMain()
     {
         ConfigWidget(f_Enabled, "Freezes all enemies' animation speed.");
+        if (f_Enabled)
+        {
+            ImGui::Indent();
+            ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
+            ImGui::Unindent();
+        }
     }
 
     bool FreezeEnemies::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void FreezeEnemies::DrawStatus()

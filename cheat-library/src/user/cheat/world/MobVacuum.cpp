@@ -22,7 +22,8 @@ namespace cheat::feature
         NF(f_Distance,   "Distance",      "MobVacuum", 1.5f),
         NF(f_Radius,     "Radius",        "MobVacuum", 10.0f),
         NF(f_OnlyTarget, "Only targeted", "MobVacuum", true),
-        NF(f_Instantly,  "Instantly",     "MobVacuum", false)
+        NF(f_Instantly,  "Instantly",     "MobVacuum", false),
+        NF(f_HideStatus, "Hide Status",   "MobVacuum", false)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(MobVacuum::OnGameUpdate);
         events::MoveSyncEvent += MY_METHOD_HANDLER(MobVacuum::OnMoveSync);
@@ -38,6 +39,7 @@ namespace cheat::feature
     {
         ConfigWidget("Enabled", f_Enabled, "Enables mob vacuum.\n" \
             "Mobs within the specified radius will move\nto a specified distance in front of the player.");
+        ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 
         bool filtersChanged = false;
         ImGui::BeginGroupPanel("Monsters");
@@ -70,7 +72,7 @@ namespace cheat::feature
 
     bool MobVacuum::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void MobVacuum::DrawStatus() 

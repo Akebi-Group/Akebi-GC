@@ -47,6 +47,7 @@ namespace cheat::feature
         NF(f_WorldLevel, "WorldLevel", "Visuals::ProfileChanger", false),
         NF(f_Avatar, "AvatarImage", "Visuals::ProfileChanger", false),
         NF(f_Card, "CardImage", "Visuals::ProfileChanger", false),
+        NF(f_HideStatus, "Hide Status", "Visuals::ProfileChanger", false),
         toBeUpdate(), nextUpdate(0)
     {
         HookManager::install(app::ProfilePage, ProfilePage);
@@ -86,11 +87,12 @@ namespace cheat::feature
         ConfigWidget(f_Card, "Changes the Card visually.\n" \
             "Note the size of the picture must be: 840x400.\n" \
             "Example path: C:\\Avatars.png");
+        ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool ProfileChanger::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void ProfileChanger::DrawStatus()

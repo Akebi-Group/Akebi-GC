@@ -10,6 +10,7 @@ namespace cheat::feature
 	public:
 		config::Field<config::Toggle<Hotkey>> f_Enabled;
 		config::Field<float> f_Zoom;
+		config::Field<bool> f_HideStatus;
 
 		static CameraZoom& GetInstance();
 

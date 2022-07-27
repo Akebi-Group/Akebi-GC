@@ -8,7 +8,8 @@ namespace cheat::feature
 {
     static bool _prevEnabledState = false;
     NoFog::NoFog() : Feature(),
-        NFEX(f_Enabled, "No Fog", "NoFog", "Visuals", false, false)
+        NFEX(f_Enabled, "No Fog", "NoFog", "NoFog", false, false),
+        NF(f_HideStatus, "Hide Status", "NoFog", false)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(NoFog::OnGameUpdate);
     }
@@ -22,11 +23,17 @@ namespace cheat::feature
     void NoFog::DrawMain()
     {
         ConfigWidget(f_Enabled, "Removes the fog.");
+        if (f_Enabled)
+        {
+            ImGui::Indent();
+            ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
+            ImGui::Unindent();
+        }
     }
 
     bool NoFog::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void NoFog::DrawStatus()

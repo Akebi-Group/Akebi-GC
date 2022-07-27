@@ -14,6 +14,7 @@ namespace cheat::feature
 		config::Field<config::Toggle<Hotkey>> f_FastDialog;
 		config::Field<config::Toggle<Hotkey>> f_CutsceneUSM;
 		config::Field<float> f_TimeSpeedup;
+		config::Field<bool> f_HideStatus;
 
 		static DialogSkip& GetInstance();
 

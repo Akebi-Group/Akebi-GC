@@ -11,6 +11,7 @@ namespace cheat::feature
 	AutoSeelie::AutoSeelie() : Feature(),
 		NF(f_Enabled, "Auto seelie", "Auto Seelie", false),
 		NF(f_ElectroSeelie, "Auto Electro seelie", "Auto Seelie", false),
+		NF(f_HideStatus, "Hide Status", "Auto Seelie", false),
 		nextTime(0)
 	{
 		events::GameUpdateEvent += MY_METHOD_HANDLER(AutoSeelie::OnGameUpdate);
@@ -32,6 +33,7 @@ namespace cheat::feature
 				"they start moving automatically with this option within 100m radius.");
 			ImGui::SameLine();
 			ImGui::TextColored(ImColor(255, 165, 0, 255), "Read the note!");
+			ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 			ImGui::Unindent();
 		}
 
@@ -39,7 +41,7 @@ namespace cheat::feature
 
 	bool AutoSeelie::NeedStatusDraw() const
 	{
-		return f_Enabled;
+		return !f_HideStatus && f_Enabled;
 	}
 
 	void AutoSeelie::DrawStatus()

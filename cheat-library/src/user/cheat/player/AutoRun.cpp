@@ -12,7 +12,8 @@ namespace cheat::feature
 
 	AutoRun::AutoRun() : Feature(),
 		NF(f_Enabled, "Auto Run", "Player::AutoRun", false),
-		NF(f_Speed,	"Speed", "Player::AutoRun",1.0f)
+		NF(f_Speed,	"Speed", "Player::AutoRun",1.0f),
+		NF(f_HideStatus, "Hide Status", "Player::Autorun", false)
 	{
 		events::GameUpdateEvent += MY_METHOD_HANDLER(AutoRun::OnGameUpdate);
 	}
@@ -27,11 +28,12 @@ namespace cheat::feature
 	{
 		ConfigWidget("Enable", f_Enabled);
 		ConfigWidget("Auto Run speed", f_Speed, 0.01f, 0.01f, 1000.0f, "Speed of character \n Not recommended going above 5");
+		ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 	}
 
 	bool AutoRun::NeedStatusDraw() const
 	{
-		return f_Enabled;
+		return !f_HideStatus && f_Enabled;
 	}
 
 	void AutoRun::DrawStatus()

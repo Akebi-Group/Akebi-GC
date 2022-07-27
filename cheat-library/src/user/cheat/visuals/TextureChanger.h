@@ -12,6 +12,7 @@ namespace cheat::feature
 		config::Field<config::Toggle<std::string>> f_HeadPath;
 		config::Field<config::Toggle<std::string>> f_BodyPath;
 		config::Field<config::Toggle<std::string>> f_DressPath;
+		config::Field<bool> f_HideStatus;
 		std::string ActiveHero = "NONE";
  		bool ApplyTexture;
 

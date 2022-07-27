@@ -16,7 +16,8 @@ namespace cheat::feature
         NF(f_ExcludeImportant, "Exclude Katheryne/Tubby/Wagner", "AutoTalk", true),
         NF(f_FastDialog, "Fast dialog", "AutoTalk", false),
         NF(f_CutsceneUSM, "Skip Cutscenes", "AutoTalk", false),
-        NF(f_TimeSpeedup, "Time Speed", "AutoTalk", 5.0f)
+        NF(f_TimeSpeedup, "Time Speed", "AutoTalk", 5.0f),
+        NF(f_HideStatus, "Hide Status", "AutoTalk", false)
     {
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_Hook);
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook);
@@ -45,11 +46,12 @@ namespace cheat::feature
             ConfigWidget(f_TimeSpeedup, 0.1f, 2.0f, 50.0f, "Time Speedup Multipler \nHigher Values will lead to sync issues with servers \nand is not recommended for Laggy Internet connections.");
         }
         ConfigWidget("Skip Cutscenes", f_CutsceneUSM, "Automatically skips game movies.");
+        ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool DialogSkip::NeedStatusDraw() const
     {
-        return f_Enabled || f_CutsceneUSM;
+        return !f_HideStatus && f_Enabled || !f_HideStatus && f_CutsceneUSM;
     }
 
     void DialogSkip::DrawStatus()

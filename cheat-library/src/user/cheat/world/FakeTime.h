@@ -8,6 +8,7 @@ namespace cheat::feature
 		config::Field<config::Toggle<Hotkey>> f_Enabled;
 		config::Field<int> f_TimeHour;
 		config::Field<int> f_TimeMinute;
+		config::Field<bool> f_HideStatus;
 
 		static FakeTime& GetInstance();
 		void OnGameUpdate();

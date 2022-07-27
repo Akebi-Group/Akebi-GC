@@ -13,7 +13,8 @@ namespace cheat::feature
         NFEX(f_Enabled, "Auto Fish", "m_AutoFish", "AutoFish", false, false),
         NF(f_DelayBeforeCatch, "Delay before catch", "AutoFish", 2000),
         NF(f_AutoRecastRod, "Recast rod", "AutoFish", true),
-        NF(f_DelayBeforeRecast, "Delay before recast", "AutoFish", 500)
+        NF(f_DelayBeforeRecast, "Delay before recast", "AutoFish", 500),
+        NF(f_HideStatus, "Hide Status", "AutoFish", false)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(AutoFish::OnGameUpdate);
 
@@ -40,11 +41,12 @@ namespace cheat::feature
 
         ConfigWidget(f_AutoRecastRod, "If enabled, rod will recasted. Without visualization.");
         ConfigWidget("Recast Delay (ms)", f_DelayBeforeRecast, 10, 100, 4000, "Rod will be recast after this delay (in ms).");
+        ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool AutoFish::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void AutoFish::DrawStatus()

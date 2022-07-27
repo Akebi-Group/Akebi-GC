@@ -13,6 +13,7 @@ namespace cheat::feature
 		config::Field<config::Toggle<Hotkey>> f_UtimateMaxEnergy;
 		config::Field<config::Toggle<Hotkey>> f_Sprint;
 		config::Field<config::Toggle<Hotkey>> f_InstantBow;
+		config::Field<bool> f_HideStatus;
 
 		static NoCD& GetInstance();
 

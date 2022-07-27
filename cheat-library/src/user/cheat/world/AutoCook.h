@@ -13,6 +13,7 @@ namespace cheat::feature
 
 		config::Field<int> f_CountField;
 		config::Field<int> f_QualityField;
+		config::Field<bool> f_HideStatus;
 
 		int CookFoodMaxNum; // Maximum quantity at a time
 		int CookCount; 

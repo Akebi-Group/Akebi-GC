@@ -9,7 +9,8 @@ namespace cheat::feature
 {
     InfiniteStamina::InfiniteStamina() : Feature(),
         NF(f_Enabled, "Infinite stamina", "InfiniteStamina", false),
-        NF(f_PacketReplacement, "Move sync packet replacement", "InfiniteStamina", false)
+        NF(f_PacketReplacement, "Move sync packet replacement", "InfiniteStamina", false),
+		NF(f_HideStatus, "Hide Status", "InfiniteStamina", false)
     {
 		HookManager::install(app::MoleMole_DataItem_HandleNormalProp, DataItem_HandleNormalProp_Hook);
 
@@ -30,11 +31,12 @@ namespace cheat::feature
 			"This mode prevents sending server packets with stamina cost actions,\n"
 			"e.g. swim, climb, sprint, etc.\n"
 			"NOTE: This is may be more safe than the standard method. More testing is needed.");
+		ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool InfiniteStamina::NeedStatusDraw() const
 {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void InfiniteStamina::DrawStatus() 

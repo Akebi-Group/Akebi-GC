@@ -12,7 +12,8 @@ namespace cheat::feature
     }
 
     PaimonFollow::PaimonFollow() : Feature(),
-        NFEX(f_Enabled, "Paimon Follow", "PaimonFollow", "Visuals", false, false),
+        NFEX(f_Enabled, "Paimon Follow", "PaimonFollow", "PaimonFollow", false, false),
+        NF(f_HideStatus, "Hide Status", "PaimonFollow", false),
         toBeUpdate(), nextUpdate(0)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(PaimonFollow::OnGameUpdate);
@@ -28,11 +29,17 @@ namespace cheat::feature
     {
         ConfigWidget(f_Enabled, "To display paimon, turn on the function, open the profile (esc) and close it. \n" \
             "If the paimon disappeared after teleportation, do not disable the function, open and close the profile.");
+        if (f_Enabled)
+        {
+            ImGui::Indent();
+            ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
+            ImGui::Unindent();
+        }
     }
 
     bool PaimonFollow::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void PaimonFollow::DrawStatus()

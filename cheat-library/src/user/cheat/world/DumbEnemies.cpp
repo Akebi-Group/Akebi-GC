@@ -8,7 +8,8 @@ namespace cheat::feature
     static void VCMonsterAIController_TryDoSkill_Hook(void* __this, uint32_t skillID, MethodInfo* method);
 
     DumbEnemies::DumbEnemies() : Feature(),
-        NF(f_Enabled, "Dumb Enemies", "DumbEnemies", false)
+        NF(f_Enabled, "Dumb Enemies", "DumbEnemies", false),
+        NF(f_HideStatus, "Hide Status", "DumbEnemies", false)
     {
 		HookManager::install(app::MoleMole_VCMonsterAIController_TryDoSkill, VCMonsterAIController_TryDoSkill_Hook);
     }
@@ -23,11 +24,17 @@ namespace cheat::feature
     {
         ConfigWidget(f_Enabled, "Enemies don't attack or use abilities against player. \n"
             "May not work with some enemies or enemy abilites.");
+        if (f_Enabled)
+        {
+            ImGui::Indent();
+            ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
+            ImGui::Unindent();
+        }
     }
 
     bool DumbEnemies::NeedStatusDraw() const
 {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void DumbEnemies::DrawStatus() 

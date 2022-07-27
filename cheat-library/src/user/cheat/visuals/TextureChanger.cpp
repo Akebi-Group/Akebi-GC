@@ -17,6 +17,7 @@ namespace cheat::feature
         NF(f_HeadPath, "Head", "Visuals::TextureChanger", false),
         NF(f_BodyPath, "Body", "Visuals::TextureChanger", false),
         NF(f_DressPath, "Dress", "Visuals::TextureChanger", false),
+        NF(f_HideStatus, "Hide Status", "Visuals::TextureChanger", false),
         toBeUpdate(), nextUpdate(0)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(TextureChanger::OnGameUpdate);
@@ -44,11 +45,13 @@ namespace cheat::feature
 
         if (ImGui::Button("Apply"))
             ApplyTexture = true;
+        ImGui::SameLine();
+        ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool TextureChanger::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void TextureChanger::DrawStatus()

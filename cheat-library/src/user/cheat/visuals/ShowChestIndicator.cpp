@@ -9,7 +9,8 @@ namespace cheat::feature
     static bool IndicatorPlugin_DoCheck(app::LCIndicatorPlugin* __this, MethodInfo* method);
 
     ChestIndicator::ChestIndicator() : Feature(),
-        NFEX(f_Enabled, "Show Chest Indicator", "ChestIndicator", "Visuals", false, false)
+        NFEX(f_Enabled, "Show Chest Indicator", "ChestIndicator", "ChestIndicator", false, false),
+        NF(f_HideStatus, "Hide Status", "ChestIndicator", false)
     {
         HookManager::install(app::MoleMole_LCIndicatorPlugin_DoCheck, IndicatorPlugin_DoCheck);
     }
@@ -23,11 +24,17 @@ namespace cheat::feature
     void ChestIndicator::DrawMain()
     {
         ConfigWidget(f_Enabled, "Show chests, game mechanics.");
+        if (f_Enabled)
+        {
+            ImGui::Indent();
+            ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
+            ImGui::Unindent();
+        }
     }
 
     bool ChestIndicator::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void ChestIndicator::DrawStatus()

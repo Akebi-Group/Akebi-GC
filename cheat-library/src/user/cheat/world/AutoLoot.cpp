@@ -28,6 +28,7 @@ namespace cheat::feature
         NF(f_Others,		 "Other treasures",					"AutoLoot", false),
 		NF(f_DelayTime,		 "Delay time (in ms)",				"AutoLoot", 150),
         NF(f_CustomRange,    "Pickup Range",                    "AutoLoot", 5.0f),
+		NF(f_HideStatus,     "Hide Status",                     "AutoLoot", false),
 		toBeLootedItems(), nextLootTime(0)
     {
 		// Auto loot
@@ -59,6 +60,7 @@ namespace cheat::feature
 					"If using with custom range, make sure this is turned on FIRST.");
 				ImGui::SameLine();
 				ImGui::TextColored(ImColor(255, 165, 0, 255), "Read the note!");
+				ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 			}
 			ImGui::EndGroupPanel();
 			
@@ -115,7 +117,7 @@ namespace cheat::feature
 
     bool AutoLoot::NeedStatusDraw() const
 	{
-        return f_AutoPickup || f_AutoTreasure || f_UseCustomRange || f_PickupFilter;
+        return !f_HideStatus && f_AutoPickup || !f_HideStatus && f_AutoTreasure || !f_HideStatus && f_UseCustomRange || !f_HideStatus && f_PickupFilter;
     }
 
     void AutoLoot::DrawStatus() 

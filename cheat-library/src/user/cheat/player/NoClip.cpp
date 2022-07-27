@@ -28,7 +28,8 @@ namespace cheat::feature
 		NF(f_VelocityMode,		"Velocity mode",		"NoClip", false),
 		NF(f_FreeflightMode,	"Freeflight mode",		"NoClip", false),
 		NF(f_AltSpeedEnabled,	"Alt speed enabled",	"NoClip", false),
-		NF(f_AltSpeed,			"Alt speed",			"NoClip", 1.0f)
+		NF(f_AltSpeed,			"Alt speed",			"NoClip", 1.0f),
+		NF(f_HideStatus, "Hide Status", "NoClip", false)
 
 	{
 		HookManager::install(app::MoleMole_HumanoidMoveFSM_LateTick, HumanoidMoveFSM_LateTick_Hook);
@@ -81,11 +82,12 @@ namespace cheat::feature
 			ConfigWidget("Descend HotKey", f_DescendKey, "Set Descend Key");
 			ConfigWidget("Alt Speed Key", f_AltSpeedKey, "Set AltSpeed HotKey");
 		}
+		ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 	}
 
 	bool NoClip::NeedStatusDraw() const
 	{
-		return f_Enabled;
+		return !f_HideStatus && f_Enabled;
 	}
 
 	void NoClip::DrawStatus()

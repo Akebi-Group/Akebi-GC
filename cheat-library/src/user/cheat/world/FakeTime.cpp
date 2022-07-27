@@ -10,7 +10,8 @@ namespace cheat::feature
 	FakeTime::FakeTime() : Feature(),
 		NF(f_Enabled, "FakeTime", "Enabled", false),
 		NF(f_TimeHour, "FakeTime", "TimeHour", 12),
-		NF(f_TimeMinute, "FakeTime", "TimeMinute", 0)
+		NF(f_TimeMinute, "FakeTime", "TimeMinute", 0),
+		NF(f_HideStatus, "Hide Status", "TimeMinute", false)
 	{
 		HookManager::install(app::LevelTimeManager_SetInternalTimeOfDay, LevelTimeManager_SetInternalTimeOfDay_Hook);
 
@@ -31,10 +32,11 @@ namespace cheat::feature
 		ConfigWidget("Enabled", f_Enabled, "Keep game time the same");
 		ConfigWidget("TimeHour", f_TimeHour, 1, 0, 24);
 		ConfigWidget("TimeMinute", f_TimeMinute, 1, 0, 60);
+		ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 	}
 	bool FakeTime::NeedStatusDraw() const
 	{
-		return f_Enabled;
+		return !f_HideStatus && f_Enabled;
 	}
 	void FakeTime::DrawStatus()
 	{

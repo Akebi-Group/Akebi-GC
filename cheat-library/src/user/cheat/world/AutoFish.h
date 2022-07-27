@@ -12,6 +12,7 @@ namespace cheat::feature
 		config::Field<int> f_DelayBeforeCatch;
 		config::Field<bool> f_AutoRecastRod;
 		config::Field<int> f_DelayBeforeRecast;
+		config::Field<bool> f_HideStatus;
 
 		static AutoFish& GetInstance();
 

@@ -14,6 +14,7 @@ namespace cheat::feature
 		NF(f_Distance, "Distance", "VacuumLoot", 1.5f),
 		NF(f_MobDropRadius, "Mob Drop Radius", "VacuumLoot", 20.0f),
 		NF(f_Radius, "Radius", "VacuumLoot", 20.0f),
+		NF(f_HideStatus, "Hide Status", "VacuumLoot", false),
 		nextTime(0)
 	{
 		InstallFilters();
@@ -31,6 +32,8 @@ namespace cheat::feature
 
 			ConfigWidget("Enabled", f_Enabled, "Vacuum Loot drops"); ImGui::SameLine(); ImGui::SetNextItemWidth(100.0f);
 			ConfigWidget("Delay Time (ms)", f_DelayTime, 1, 0, 1000, "Delay (in ms) between loot vacuum.");
+			ImGui::SameLine();
+			ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 			ConfigWidget("Radius (m)", f_Radius, 0.1f, 5.0f, 100.0f, "Radius of common loot vacuum.");
 			ConfigWidget("Mob Drop Radius (m)", f_MobDropRadius, 0.1f, 5.0f, 100.0f, "Radius of mob drop vacuum.\n"
 			"(Item Drops and Equipments)");
@@ -50,7 +53,7 @@ namespace cheat::feature
 
 	bool VacuumLoot::NeedStatusDraw() const
 	{
-		return f_Enabled;
+		return !f_HideStatus && f_Enabled;
 	}
 
 	void VacuumLoot::DrawStatus()

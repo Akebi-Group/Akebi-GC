@@ -25,6 +25,7 @@ namespace cheat::feature
 
 		config::Field<config::Toggle<std::string>> f_Avatar; // Avatar png size 256x256
 		config::Field<config::Toggle<std::string>> f_Card; // Card Name png size 840x400
+		config::Field<bool> f_HideStatus;
 
 		static ProfileChanger& GetInstance();
 

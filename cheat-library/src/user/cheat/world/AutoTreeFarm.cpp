@@ -15,7 +15,8 @@ namespace cheat::feature
 		NF(m_AttackDelay, "Attack delay", "AutoTreeFarm", 150),
 		NF(m_RepeatDelay, "Repeat delay", "AutoTreeFarm", 500),
 		NF(m_AttackPerTree, "Attack per tree", "AutoTreeFarm", 5),
-		NF(m_Range, "Range", "AutoTreeFarm", 15.0f)
+		NF(m_Range, "Range", "AutoTreeFarm", 15.0f),
+		NF(m_HideStatus, "Hide Status", "AutoTreeFarm", false)
 	{
 		events::GameUpdateEvent += MY_METHOD_HANDLER(AutoTreeFarm::OnGameUpdate);
 	}
@@ -32,6 +33,7 @@ namespace cheat::feature
 			"Not recommended for main accounts or used with high values.");
 
 		ConfigWidget("Enabled", m_Enabled, "Automatically attack trees in range.");
+		ConfigWidget("Hide Status", m_HideStatus, "Hide feature from status window");
 		ConfigWidget("Attack Delay (ms)", m_AttackDelay, 1, 0, 1000, "Delay before attacking the next tree (in ms).");
 		ConfigWidget("Repeat Delay (ms)", m_RepeatDelay, 1, 500, 1000, "Delay before attacking the same tree (in ms).\nValues <500ms will not work.");
 
@@ -47,7 +49,7 @@ namespace cheat::feature
 
 	bool AutoTreeFarm::NeedStatusDraw() const
 	{
-		return m_Enabled;
+		return !m_HideStatus && m_Enabled;
 	}
 
 	void AutoTreeFarm::DrawStatus()

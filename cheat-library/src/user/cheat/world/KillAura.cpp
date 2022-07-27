@@ -20,7 +20,8 @@ namespace cheat::feature
         NF(f_OnlyTargeted, "Only targeted",             "KillAura", true),
         NF(f_Range,        "Range",                     "KillAura", 15.0f),
         NF(f_AttackDelay,  "Attack delay time (in ms)", "KillAura", 100),
-        NF(f_RepeatDelay,  "Repeat delay time (in ms)", "KillAura", 1000)
+        NF(f_RepeatDelay,  "Repeat delay time (in ms)", "KillAura", 1000),
+		NF(f_HideStatus,   "Hide Status",               "KillAura", false)
     { 
 		events::GameUpdateEvent += MY_METHOD_HANDLER(KillAura::OnGameUpdate);
 		HookManager::install(app::MoleMole_BaseMoveSyncPlugin_ConvertSyncTaskToMotionInfo, BaseMoveSyncPlugin_ConvertSyncTaskToMotionInfo_Hook);
@@ -42,6 +43,7 @@ namespace cheat::feature
 		ConfigWidget("Instant Death Mode", f_InstantDeathMode, "Kill aura will attempt to instagib any valid target.");
 		ImGui::SameLine();
 		ImGui::TextColored(ImColor(255, 165, 0, 255), "Can get buggy with bosses like PMA and Hydro Hypo.");
+		ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 		ConfigWidget("Kill Range", f_Range, 0.1f, 5.0f, 100.0f);
 		ConfigWidget("Only Hostile/Aggro", f_OnlyTargeted, "If enabled, kill aura will only affect monsters targeting/aggro towards you.");
 		ConfigWidget("Crash Attack Delay (ms)", f_AttackDelay, 1, 0, 1000, "Delay in ms before next crash damage.");
@@ -50,7 +52,7 @@ namespace cheat::feature
 
     bool KillAura::NeedStatusDraw() const
 	{
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void KillAura::DrawStatus() 

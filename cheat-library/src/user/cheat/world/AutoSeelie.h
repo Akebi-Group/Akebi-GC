@@ -16,6 +16,7 @@ namespace cheat::feature
 	public:
 		config::Field<config::Toggle<Hotkey>> f_Enabled;
 		config::Field<bool> f_ElectroSeelie;
+		config::Field<bool> f_HideStatus;
 
 		static AutoSeelie& GetInstance();
 

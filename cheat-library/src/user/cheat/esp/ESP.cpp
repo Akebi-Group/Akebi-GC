@@ -32,6 +32,7 @@ namespace cheat::feature
 		NF(f_MiddleScreenTracer, "Middle Screen Tracer", "ESP", false),
         NF(f_DrawDistance, "Draw Distance", "ESP", false),
         NF(f_DrawName, "Draw Name", "ESP", false),
+		NF(f_HideStatus, "Hide Status", "ESP", false),
 
 		NF(f_FontSize, "Font Size", "ESP", 12.0f),
 		NF(f_FontOutline, "Font outline", "ESP", true),
@@ -88,6 +89,7 @@ namespace cheat::feature
 			ImGui::Spacing();
 			ConfigWidget(f_DrawName, "Draw name of object.");
 			ConfigWidget(f_DrawDistance, "Draw distance of object.");
+			ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 
 			ImGui::Spacing();
 			ConfigWidget(f_FontSize, 1, 1, 100, "Font size of name or distance.");
@@ -125,7 +127,7 @@ namespace cheat::feature
 
 	bool ESP::NeedStatusDraw() const
 	{
-		return f_Enabled;
+		return !f_HideStatus && f_Enabled;
 	}
 
 	void ESP::DrawStatus()

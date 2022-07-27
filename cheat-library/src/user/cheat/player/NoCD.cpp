@@ -21,7 +21,8 @@ namespace cheat::feature
 		NF(f_TimerReduce, "Reduce Timer",        "NoCD", 1.f),
 		NF(f_UtimateMaxEnergy,   "Burst max energy",             "NoCD", false),
         NF(f_Sprint,             "No Sprint Cooldown",           "NoCD", false),
-		NF(f_InstantBow,         "Instant bow",                  "NoCD", false)
+		NF(f_InstantBow,         "Instant bow",                  "NoCD", false),
+		NF(f_HideStatus, "Hide Status", "NoCD", false)
     {
 		HookManager::install(app::MoleMole_LCAvatarCombat_IsEnergyMax, LCAvatarCombat_IsEnergyMax_Hook);
 		HookManager::install(app::MoleMole_LCAvatarCombat_IsSkillInCD_1, LCAvatarCombat_IsSkillInCD_1);
@@ -52,6 +53,7 @@ namespace cheat::feature
 
     	ConfigWidget("Instant Bow Charge", f_InstantBow, "Disable cooldown of bow charge.\n" \
 			"Known issues with Fischl.");
+		ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 
     	if (f_InstantBow) {
 			ImGui::Text("If Instant Bow Charge doesn't work:");
@@ -80,7 +82,7 @@ namespace cheat::feature
 
     bool NoCD::NeedStatusDraw() const
 {
-        return f_InstantBow || f_AbilityReduce || f_Sprint ;
+        return !f_HideStatus && f_InstantBow || !f_HideStatus && f_AbilityReduce || !f_HideStatus && f_Sprint ;
     }
 
     void NoCD::DrawStatus() 

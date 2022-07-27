@@ -20,7 +20,8 @@ namespace cheat::feature
 		NF(f_minMultiplier,		"Min Multiplier",		"RapidFire", 1),
 		NF(f_maxMultiplier,		"Max Multiplier",		"RapidFire", 3),
 		NF(f_MultiTarget,		"Multi-target",			"RapidFire", false),
-		NF(f_MultiTargetRadius, "Multi-target Radius",	"RapidFire", 20.0f)
+		NF(f_MultiTargetRadius, "Multi-target Radius",	"RapidFire", 20.0f),
+		NF(f_HideStatus, "Hide Status", "", false)
     {
 		HookManager::install(app::MoleMole_LCBaseCombat_DoHitEntity, LCBaseCombat_DoHitEntity_Hook);
     }
@@ -76,12 +77,13 @@ namespace cheat::feature
 	
 		ImGui::Indent();
 		ConfigWidget("Radius (m)", f_MultiTargetRadius, 0.1f, 5.0f, 50.0f, "Radius to check for valid targets.");
+		ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
 		ImGui::Unindent();
     }
 
     bool RapidFire::NeedStatusDraw() const
 {
-        return f_Enabled && (f_MultiHit || f_MultiTarget);
+        return !f_HideStatus && f_Enabled && (f_MultiHit || f_MultiTarget);
     }
 
     void RapidFire::DrawStatus() 

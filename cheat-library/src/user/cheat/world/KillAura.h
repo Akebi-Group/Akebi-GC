@@ -11,6 +11,7 @@ namespace cheat::feature
 		config::Field<config::Toggle<Hotkey>> f_Enabled;
 		config::Field<config::Toggle<Hotkey>> f_DamageMode;
 		config::Field<config::Toggle<Hotkey>> f_InstantDeathMode;
+		config::Field<bool> f_HideStatus;
 		config::Field<bool> f_OnlyTargeted;
 		config::Field<float> f_Range;
 		config::Field<int> f_AttackDelay;

@@ -13,6 +13,7 @@ namespace cheat::feature
     {
 	public:
 		config::Field<config::Toggle<Hotkey>> f_Enabled;
+		config::Field<bool> f_HideStatus;
 
 		config::Field<config::Toggle<Hotkey>> f_IncludeMonsters;
 		config::Field<bool> f_MonsterCommon;

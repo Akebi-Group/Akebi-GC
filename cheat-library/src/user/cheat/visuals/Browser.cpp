@@ -12,7 +12,8 @@ namespace cheat::feature
     static std::string f_URL;
 
     Browser::Browser() : Feature(),
-        NFEX(f_Enabled, "Browser", "Browser", "Visuals", false, false),
+        NFEX(f_Enabled, "Browser", "Browser", "Browser", false, false),
+        NF(f_HideStatus, "Hide Status", "Browser", false),
         toBeUpdate(), nextUpdate(0)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(Browser::OnGameUpdate);
@@ -20,7 +21,7 @@ namespace cheat::feature
 
     const FeatureGUIInfo& Browser::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "Browser", "Visuals", false };
+        static const FeatureGUIInfo info{ "Browser", "Visuals", true };
         return info;
     }
 
@@ -28,11 +29,12 @@ namespace cheat::feature
     {
         ConfigWidget(f_Enabled, "Create in-game Browser");
         ImGui::InputText("URL", &f_URL);
+        ConfigWidget("Hide Status", f_HideStatus, "Hide feature from status window");
     }
 
     bool Browser::NeedStatusDraw() const
     {
-        return f_Enabled;
+        return !f_HideStatus && f_Enabled;
     }
 
     void Browser::DrawStatus()

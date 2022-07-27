@@ -13,6 +13,7 @@ namespace cheat::feature
 		config::Field<config::Toggle<Hotkey>> f_DestroyShields;
 		config::Field<config::Toggle<Hotkey>> f_DestroyDoodads;
 		config::Field<float> f_Range;
+		config::Field<bool> f_HideStatus;
 
 		static AutoDestroy& GetInstance();
 
