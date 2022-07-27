@@ -337,5 +337,6 @@ namespace cheat::game::filters
 		extern SimpleFilter MonsterEquips;
 		extern BlacklistFilter Living;
 		extern SimpleFilter OrganicTargets;
+		extern SimpleFilter Lightning;
 	}
 }

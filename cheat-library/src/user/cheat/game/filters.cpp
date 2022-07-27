@@ -529,5 +529,7 @@ namespace cheat::game::filters
 		SimpleFilter OrganicTargets = { Monsters, Animals }; // Solael: Please don't mess around with this filter.
 		//m0nkrel: We can choose the entities we need ourselves so as not to magnetize cats, dogs, etc.
 		//AdvancedFilter Animals = { {EntityType__Enum_1::EnvAnimal, EntityType__Enum_1::Monster }, {"Crane", "Tit", "Boar", "Squirrel", "Fox", "Pigeon", "Wigeon", "Falcon" ,"Marten" } };
+
+		SimpleFilter Lightning = { EntityType__Enum_1::Lightning };
 	}
 }

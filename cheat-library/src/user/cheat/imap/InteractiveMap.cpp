@@ -1358,6 +1358,12 @@ namespace cheat::feature
 		if (_monoMiniMap == nullptr)
 			return false;
 
+		// Fix Exception in Console, when loading ptr null | RyujinZX#7832
+		if (_monoMiniMap->fields._._._._.m_CachedPtr == 0) {
+			_monoMiniMap = nullptr;
+			return false;
+		}
+			 
 		SAFE_BEGIN();
 		return app::Behaviour_get_isActiveAndEnabled(reinterpret_cast<app::Behaviour*>(_monoMiniMap), nullptr);
 		SAFE_ERROR();

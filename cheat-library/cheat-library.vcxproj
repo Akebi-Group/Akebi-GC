@@ -24,6 +24,7 @@
     <ClInclude Include="src\user\cheat\visuals\TextureChanger.h" />
     <ClInclude Include="src\user\cheat\visuals\FreeCamera.h" />
     <ClInclude Include="src\user\cheat\world\AutoSeelie.h" />
+    <ClInclude Include="src\user\cheat\world\CustomWeather.h" />
     <ClInclude Include="src\user\cheat\world\FakeTime.h" />
     <ClInclude Include="src\user\cheat\debugger.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_WS|x64'">false</ExcludedFromBuild>
@@ -115,6 +116,7 @@
     <ClCompile Include="src\user\cheat\visuals\TextureChanger.cpp" />
     <ClCompile Include="src\user\cheat\visuals\FreeCamera.cpp" />
     <ClCompile Include="src\user\cheat\world\AutoSeelie.cpp" />
+    <ClCompile Include="src\user\cheat\world\CustomWeather.cpp" />
     <ClCompile Include="src\user\cheat\world\FakeTime.cpp" />
     <ClCompile Include="src\user\cheat\debugger.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>

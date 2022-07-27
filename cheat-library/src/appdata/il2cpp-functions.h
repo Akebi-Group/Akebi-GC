@@ -155,6 +155,11 @@ DO_APP_FUNC(0x012BC260, void, CookingQtePageContext_CloseItemGotPanel, (CookingQ
 DO_APP_FUNC(0x02A37D50, Button_1*, ProfilePage, (MonoInLevelPlayerProfilePage* __this, MethodInfo* method)); // MonoInLevelPlayerProfilePage_get_logoutButton
 DO_APP_FUNC(0x01B101B0, void, ProfileEditPage, (MonoFriendInformationDialog* __this, Sprite* value, MethodInfo* method)); // MonoFriendInformationDialog_set_icon 
 
+// Custom Weather | RyujinZX#6666
+DO_APP_FUNC(0x027774F0, bool, EnviroSky_ChangeWeather, (void* /*app::EnviroSky*/ __this, String* weatherPath, float transTime, float ratio, MethodInfo* method));
+DO_APP_FUNC(0x014EDB10, void* /*app::EnviroSky*/, EnviroSky_get_Instance, (MethodInfo* method));
+ 
+
 // Free Camera
 DO_APP_FUNC(0x057E9C00, float, Camera_get_fieldOfView, (Camera* __this, MethodInfo* method));
 DO_APP_FUNC(0x057EA060, void, Camera_set_fieldOfView, (Camera* __this, float value, MethodInfo* method));
