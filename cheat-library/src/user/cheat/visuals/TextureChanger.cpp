@@ -13,10 +13,10 @@ namespace cheat::feature
     }
  
     TextureChanger::TextureChanger() : Feature(),
-        NF(f_Enabled, "Texture Changer", "Visuals::TextureChanger", false),
-        NF(f_HeadPath, "Head", "Visuals::TextureChanger", false),
-        NF(f_BodyPath, "Body", "Visuals::TextureChanger", false),
-        NF(f_DressPath, "Dress", "Visuals::TextureChanger", false),
+        NF(f_Enabled, u8"材质修改", "Visuals::TextureChanger", false),
+        NF(f_HeadPath, u8"头", "Visuals::TextureChanger", false),
+        NF(f_BodyPath, u8"身体", "Visuals::TextureChanger", false),
+        NF(f_DressPath, u8"衣服", "Visuals::TextureChanger", false),
         toBeUpdate(), nextUpdate(0)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(TextureChanger::OnGameUpdate);
@@ -24,25 +24,25 @@ namespace cheat::feature
 
     const FeatureGUIInfo& TextureChanger::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "TextureChanger", "Visuals", true };
+        static const FeatureGUIInfo info{ u8"材质修改", u8"界面", true };
         return info;
     }
 
     void TextureChanger::DrawMain()
     {
-        ConfigWidget(f_Enabled, "Texture Changer.");
-        ImGui::Text("Active Hero: %s", ActiveHero.c_str());
+        ConfigWidget(f_Enabled, u8"材质修改");
+        ImGui::Text(u8"修改: %s", ActiveHero.c_str());
  
-        ConfigWidget(f_HeadPath, "Head Texture.\n" \
-            "Example path: C:\\Head.png");
+        ConfigWidget(f_HeadPath, u8"头部材质\n" \
+            u8"例如: C:\\Head.png");
 
-        ConfigWidget(f_BodyPath, "Body Texture.\n" \
-            "Example path: C:\\Body.png");
+        ConfigWidget(f_BodyPath, u8"身体材质\n" \
+            u8"例如: C:\\Body.png");
 
-        ConfigWidget(f_DressPath, "Dress Texture.\n" \
-            "Example path: C:\\Dress.png");
+        ConfigWidget(f_DressPath, u8"衣服材质\n" \
+            u8"例如: C:\\Dress.png");
 
-        if (ImGui::Button("Apply"))
+        if (ImGui::Button(u8"应用"))
             ApplyTexture = true;
     }
 
@@ -53,7 +53,7 @@ namespace cheat::feature
 
     void TextureChanger::DrawStatus()
     {
-        ImGui::Text("Texture Changer");
+        ImGui::Text(u8"材质修改");
     }
 
     TextureChanger& TextureChanger::GetInstance()

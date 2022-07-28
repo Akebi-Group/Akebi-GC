@@ -40,7 +40,7 @@ namespace cheat::feature
 
     const FeatureGUIInfo& Debug::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "DebugInfo", "Debug", false };
+        static const FeatureGUIInfo info{ u8"调试信息", u8"调试", false };
         return info;
     }
 
@@ -124,7 +124,7 @@ namespace cheat::feature
     {
         if (waypointsGrops == nullptr)
         {
-            ImGui::Text("Waypoint data doesn't exist.");
+            ImGui::Text(u8"路径数据不存在");
             return;
         }
 
@@ -132,11 +132,11 @@ namespace cheat::feature
 
         for (const auto& [sceneId, waypoints] : waypointsGrops->pairs())
         {
-            if (ImGui::TreeNode(("WTD " + std::to_string(sceneId)).c_str(), "Waypoint group id %d", sceneId))
+            if (ImGui::TreeNode(("WTD " + std::to_string(sceneId)).c_str(), u8"路径组id %d", sceneId))
             {
                 for (const auto& [waypointId, waypoint] : waypoints->pairs())
                 {
-                    if (ImGui::TreeNode(("WD " + std::to_string(waypointId)).c_str(), "Waypoint id %d", waypointId))
+                    if (ImGui::TreeNode(("WD " + std::to_string(waypointId)).c_str(), u8"路径id %d", waypointId))
                     {
                         ImGui::Text("IsGroupLimit: %s", waypoint.isGroupLimit ? "true" : "false");
                         ImGui::Text("IsUnlocked: %s", waypoint.isUnlocked ? "true" : "false");

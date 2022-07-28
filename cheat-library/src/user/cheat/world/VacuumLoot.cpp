@@ -9,11 +9,11 @@
 namespace cheat::feature
 {
 	VacuumLoot::VacuumLoot() : Feature(),
-		NF(f_Enabled, "Vacuum Loot", "VacuumLoot", false),
-		NF(f_DelayTime, "Delay time (in ms)", "VacuumLoot", 1000),
-		NF(f_Distance, "Distance", "VacuumLoot", 1.5f),
-		NF(f_MobDropRadius, "Mob Drop Radius", "VacuumLoot", 20.0f),
-		NF(f_Radius, "Radius", "VacuumLoot", 20.0f),
+		NF(f_Enabled, u8"圣遗物", "VacuumLoot", false),
+		NF(f_DelayTime, u8"周期 (ms)", "VacuumLoot", 1000),
+		NF(f_Distance, u8"距离", "VacuumLoot", 1.5f),
+		NF(f_MobDropRadius, u8"怪物掉落半径", "VacuumLoot", 20.0f),
+		NF(f_Radius, u8"半径", "VacuumLoot", 20.0f),
 		nextTime(0)
 	{
 		InstallFilters();
@@ -22,30 +22,29 @@ namespace cheat::feature
 
 	const FeatureGUIInfo& VacuumLoot::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "Vacuum Loot", "World", true };
+		static const FeatureGUIInfo info{ u8"圣遗物", u8"世界", true };
 		return info;
 	}
 
 	void VacuumLoot::DrawMain()
 	{
-
-			ConfigWidget("Enabled", f_Enabled, "Vacuum Loot drops"); ImGui::SameLine(); ImGui::SetNextItemWidth(100.0f);
-			ConfigWidget("Delay Time (ms)", f_DelayTime, 1, 0, 1000, "Delay (in ms) between loot vacuum.");
-			ConfigWidget("Radius (m)", f_Radius, 0.1f, 5.0f, 100.0f, "Radius of common loot vacuum.");
-			ConfigWidget("Mob Drop Radius (m)", f_MobDropRadius, 0.1f, 5.0f, 100.0f, "Radius of mob drop vacuum.\n"
-			"(Item Drops and Equipments)");
-			ConfigWidget("Distance (m)", f_Distance, 0.1f, 1.0f, 10.0f, "Distance between the player and the loot.\n"
-				"Values under 1.5 may be too intruding.");
-			if (ImGui::TreeNode("Loot Types"))
+		ConfigWidget(u8"启用", f_Enabled, u8"圣遗物掉落"); ImGui::SameLine(); ImGui::SetNextItemWidth(100.0f);
+		ConfigWidget(u8"周期 (ms)", f_DelayTime, 1, 0, 1000, u8"圣遗物掉落周期 (ms).");
+		ConfigWidget(u8"半径 (m)", f_Radius, 0.1f, 5.0f, 100.0f, u8"圣遗物掉落半径.");
+		ConfigWidget(u8"怪物掉落半径 (m)", f_MobDropRadius, 0.1f, 5.0f, 100.0f, u8"怪物掉落圣遗物的半径.\n"
+			u8"(物品掉落和装备)");
+		ConfigWidget(u8"距离 (m)", f_Distance, 0.1f, 1.0f, 10.0f, u8"玩家与战利品之间的距离.\n"
+			u8"1.5以下的值可能太过靠近");
+		if (ImGui::TreeNode(u8"拾取类型"))
+		{
+			for (auto& [section, filters] : m_Sections)
 			{
-				for (auto& [section, filters] : m_Sections)
-				{
-					ImGui::PushID(section.c_str());
-					DrawSection(section, filters);
-					ImGui::PopID();
-				}
-				ImGui::TreePop();
+				ImGui::PushID(section.c_str());
+				DrawSection(section, filters);
+				ImGui::PopID();
 			}
+			ImGui::TreePop();
+		}
 	}
 
 	bool VacuumLoot::NeedStatusDraw() const
@@ -55,7 +54,7 @@ namespace cheat::feature
 
 	void VacuumLoot::DrawStatus()
 	{
-		ImGui::Text("VacuumLoot\n[%dms|%.01fm|%.01fm|%.01fm]",
+		ImGui::Text("圣遗物\n[%dms|%.01fm|%.01fm|%.01fm]",
 			f_DelayTime.value(),
 			f_Radius.value(),
 			f_MobDropRadius.value(),
@@ -125,7 +124,7 @@ namespace cheat::feature
 
 			int columns = 3;
 
-			if (ImGui::BeginTable(section.c_str(), columns == 0 ? 1 : columns )) {
+			if (ImGui::BeginTable(section.c_str(), columns == 0 ? 1 : columns)) {
 				int i = 0;
 				for (std::pair<config::Field<bool>, game::IEntityFilter*> filter : filters) {
 

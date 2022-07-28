@@ -20,40 +20,40 @@ namespace cheat::feature
 {
 
 	InteractiveMap::InteractiveMap() : Feature(),
-		NFEX(f_Enabled, "Interactive map", "m_InteractiveMap", "InteractiveMap", false, false),
-		NF(f_SeparatedWindows, "Separated windows", "InteractiveMap", true),
-		NF(f_CompletionLogShow, "Completion log show", "InteractiveMap", false),
+		NFEX(f_Enabled, u8"地图", "m_InteractiveMap", "InteractiveMap", false, false),
+		NF(f_SeparatedWindows, u8"分隔窗", "InteractiveMap", true),
+		NF(f_CompletionLogShow, u8"完成日志显示", "InteractiveMap", false),
 
-		NFS(f_STFixedPoints, "Fixed points", "InteractiveMap", SaveAttachType::Global),
-		NFS(f_STCustomPoints, "Custom points", "InteractiveMap", SaveAttachType::Global),
-		NFS(f_STCompletedPoints, "Save completed points", "InteractiveMap", SaveAttachType::Account),
+		NFS(f_STFixedPoints, u8"固定点", "InteractiveMap", SaveAttachType::Global),
+		NFS(f_STCustomPoints, u8"自定义点", "InteractiveMap", SaveAttachType::Global),
+		NFS(f_STCompletedPoints, u8"保存已完成的点", "InteractiveMap", SaveAttachType::Account),
 
-		NF(f_IconSize, "Icon size", "InteractiveMap", 20.0f),
-		NF(f_MinimapIconSize, "Minimap icon size", "InteractiveMap", 14.0f),
-		NF(f_DynamicSize, "Dynamic size", "InteractiveMap", false),
-		NF(f_ShowHDIcons, "Show HD icons", "InteractiveMap", false),
+		NF(f_IconSize, u8"图标大小", "InteractiveMap", 20.0f),
+		NF(f_MinimapIconSize, u8"小地图图标大小", "InteractiveMap", 14.0f),
+		NF(f_DynamicSize, u8"动态图标", "InteractiveMap", false),
+		NF(f_ShowHDIcons, u8"显示高清图标", "InteractiveMap", false),
 
-		NF(f_ShowCompleted, "Show completed", "InteractiveMap", false),
-		NF(f_CompletePointTransparency, "Completed point transparency", "InteractiveMap", 0.5f),
-		NF(f_ShowInCompleted, "Show in-completed", "InteractiveMap", true),
-		NF(f_InCompletePointTransparency, "In-completed point transparency", "InteractiveMap", 1.0f),
+		NF(f_ShowCompleted, u8"显示完成", "InteractiveMap", false),
+		NF(f_CompletePointTransparency, u8"完成点透明度", "InteractiveMap", 0.5f),
+		NF(f_ShowInCompleted, u8"完成点透明度", "InteractiveMap", true),
+		NF(f_InCompletePointTransparency, u8"未完成的点透明度", "InteractiveMap", 1.0f),
 
-		NF(f_AutoDetectNewItems, "Detect new items", "InteractiveMap", true),
-		NF(f_AutoFixItemPositions, "Fix item positions", "InteractiveMap", true),
-		NF(f_ObjectCheckOnlyShowed, "Detect only showed", "InteractMap", true),
-		NF(f_ObjectDetectRange, "Detect range", "InteractiveMap", 20.0f),
-		NF(f_CheckObjectsDelay, "Detect delay (ms)", "InteractiveMap", 2000),
+		NF(f_AutoDetectNewItems, u8"检测新项目", "InteractiveMap", true),
+		NF(f_AutoFixItemPositions, u8"固定物品位置", "InteractiveMap", true),
+		NF(f_ObjectCheckOnlyShowed, u8"检测只显示", "InteractMap", true),
+		NF(f_ObjectDetectRange, u8"检测范围", "InteractiveMap", 20.0f),
+		NF(f_CheckObjectsDelay, u8"检测延迟 (ms)", "InteractiveMap", 2000),
 
-		NF(f_AutoDetectGatheredItems, "Detect gathered items", "InteractiveMap", true),
-		NF(f_GatheredItemsDetectRange, "Detect range", "InteractiveMap", 20.0f),
+		NF(f_AutoDetectGatheredItems, u8"检测收集到的物品", "InteractiveMap", true),
+		NF(f_GatheredItemsDetectRange, u8"检测范围", "InteractiveMap", 20.0f),
 
-		NF(f_CompleteNearestPoint, "Complete nearest point", "InteractiveMap", Hotkey()),
-		NF(f_RevertLatestCompletion, "Revert latest completion", "InteractiveMap", Hotkey()),
-		NF(f_CompleteOnlyViewed, "Complete only showed", "InteractiveMap", true),
-		NF(f_PointFindRange, "Point finding range", "InteractiveMap", 30.0f),
+		NF(f_CompleteNearestPoint, u8"完成最近点", "InteractiveMap", Hotkey()),
+		NF(f_RevertLatestCompletion, u8"恢复最新完成", "InteractiveMap", Hotkey()),
+		NF(f_CompleteOnlyViewed, u8"完整只显示", "InteractiveMap", true),
+		NF(f_PointFindRange, u8"点查找范围", "InteractiveMap", 30.0f),
 
-		NFS(f_CustomPointIndex, "Custom point index", "InteractiveMap", 1000000),
-		NFS(f_LastUserID, "Last user id", "InteractiveMap", 0),
+		NFS(f_CustomPointIndex, u8"自定义点索引", "InteractiveMap", 1000000),
+		NFS(f_LastUserID, u8"最后一个用户ID", "InteractiveMap", 0),
 
 		m_HoveredPoint(nullptr)
 	{
@@ -106,7 +106,7 @@ namespace cheat::feature
 
 	const FeatureGUIInfo& InteractiveMap::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "", "World", false };
+		static const FeatureGUIInfo info{ u8"地图", u8"世界", false };
 		return info;
 	}
 
@@ -114,72 +114,72 @@ namespace cheat::feature
 
 	void InteractiveMap::DrawMenu()
 	{
-		ImGui::BeginGroupPanel("General");
+		ImGui::BeginGroupPanel(u8"全局");
 		{
-			ConfigWidget("Enabled", f_Enabled);
-			ConfigWidget(f_SeparatedWindows, "Config and filters will be in separate windows.");
-			if (ConfigWidget(f_STCompletedPoints, "Save scope for completed items."))
+			ConfigWidget(u8"启用", f_Enabled);
+			ConfigWidget(f_SeparatedWindows, u8"配置和过滤器将在单独的窗口中。");
+			if (ConfigWidget(f_STCompletedPoints, u8"保存已完成项目的范围。"))
 			{
 				UpdateUserDataField(f_CompletedPointsJson, f_STCompletedPoints.value(), true);
 			}
 		}
 		ImGui::EndGroupPanel();
 
-		ImGui::BeginGroupPanel("Icon view");
+		ImGui::BeginGroupPanel(u8"图标视图");
 		{
 			ConfigWidget(f_IconSize, 0.01f, 4.0f, 100.0f);
 			ConfigWidget(f_MinimapIconSize, 0.01f, 4.0f, 100.0f);
-			ConfigWidget(f_DynamicSize, "Icons will be sized dynamically depend to zoom size.\nMinimap icons don't affected.");
-			ConfigWidget(f_ShowHDIcons, "Toggle icons to HD format.");
+			ConfigWidget(f_DynamicSize, u8"图标将根据缩放大小动态调整大小。\n小地图图标不受影响。");
+			ConfigWidget(f_ShowHDIcons, u8"将图标切换为高清格式。");
 		}
 		ImGui::EndGroupPanel();
 
-		ImGui::BeginGroupPanel("In/Completed icon view");
+		ImGui::BeginGroupPanel(u8"正在/完成的图标视图");
 		{
-			ConfigWidget(f_ShowCompleted, "Show completed points.");
-			ConfigWidget(f_CompletePointTransparency, 0.01f, 0.0f, 1.0f, "Completed points transparency.");
-			ConfigWidget(f_ShowInCompleted, "Show in-completed points.");
-			ConfigWidget(f_InCompletePointTransparency, 0.01f, 0.0f, 1.0f, "In-completed points transparency.");
+			ConfigWidget(f_ShowCompleted, u8"显示完成点。");
+			ConfigWidget(f_CompletePointTransparency, 0.01f, 0.0f, 1.0f, u8"完成点透明度。");
+			ConfigWidget(f_ShowInCompleted, u8"显示未完成的点.");
+			ConfigWidget(f_InCompletePointTransparency, 0.01f, 0.0f, 1.0f, u8"未完成点透明度.");
 		}
 		ImGui::EndGroupPanel();
 
-		ImGui::BeginGroupPanel("Item adjusting");
+		ImGui::BeginGroupPanel(u8"项目调整");
 		{
-			ConfigWidget(f_AutoFixItemPositions, "Do fix positions to nearest to point.\n"
-				"Only items with green line support this function.");
+			ConfigWidget(f_AutoFixItemPositions, u8"将位置固定到最近的点.\n"
+				u8"只有带绿线的项目支持此功能.");
 
-			ConfigWidget(f_AutoDetectNewItems, "Enables detecting items what are not in interactive map data.\n"
-				"Only items with green line support this function.");
+			ConfigWidget(f_AutoDetectNewItems, u8"启用检测不在交互式地图数据中的项目.\n"
+				u8"只有带绿线的项目支持此功能.");
 
-			ConfigWidget(f_ObjectCheckOnlyShowed, "Detect objects only for showed filters.");
+			ConfigWidget(f_ObjectCheckOnlyShowed, u8"仅针对显示的过滤器检测对象.");
 
 			ConfigWidget(f_ObjectDetectRange, 0.1f, 5.0f, 30.0f,
-				"Fix positions: Only if item was found in this range about entity position,\n\t its position will be fixed.\n"
-				"New item detecting: Only if item not found in this range about entity position,\n\t it be detected as new."
+				u8"固定位置：只有在该实体位置范围内找到项目时，\n\t 它的位置才会被固定.\n"
+				u8"新项目检测：仅当在该实体位置范围内未找到项目时，\n\t 将其检测为新项目."
 			);
 
-			ConfigWidget(f_CheckObjectsDelay, 10, 100, 100000, "Adjusting items is power consumption operation.\n"
-				"So rescanning will happen with specified delay.");
+			ConfigWidget(f_CheckObjectsDelay, 10, 100, 100000, u8"调整项目为耗电操作。\n"
+				u8"所以重新扫描将以指定的延迟发生.");
 		}
 		ImGui::EndGroupPanel();
 
-		ImGui::BeginGroupPanel("Gather detecting");
+		ImGui::BeginGroupPanel(u8"采集检测");
 		{
-			ConfigWidget(f_AutoDetectGatheredItems, "Enables detecting gathered items.\n"
-				"It works only items what will be gathered after enabling this function.\n"
-				"Only items with blue line support this function.");
+			ConfigWidget(f_AutoDetectGatheredItems, u8"启用检测收集的项目。\n"
+				u8"它仅适用于启用此功能后将收集的项目。\n"
+				u8"只有带有蓝线的项目支持此功能。");
 
 			ConfigWidget(f_GatheredItemsDetectRange, 0.1f, 5.0f, 30.0f,
-				"When entity was gathered finding nearest point in this range.");
+				u8"当实体被收集到在这个范围内找到最近的点时。");
 		}
 		ImGui::EndGroupPanel();
 
-		ImGui::BeginGroupPanel("Manual completing");
+		ImGui::BeginGroupPanel(u8"手动完成");
 		{
-			ConfigWidget(f_CompleteNearestPoint, true, "When pressed, complete the nearest to avatar point.");
-			ConfigWidget(f_RevertLatestCompletion, true, "When pressed, revert latest complete operation.");
-			ConfigWidget(f_CompleteOnlyViewed, "Complete performed only to visible points.");
-			ConfigWidget(f_PointFindRange, 0.5f, 0.0f, 200.0f, "Complete performs within specified range. If 0 - unlimited.");
+			ConfigWidget(f_CompleteNearestPoint, true, u8"按下时，完成最接近头像的点。");
+			ConfigWidget(f_RevertLatestCompletion, true, u8"按下时，恢复最近的完整操作。");
+			ConfigWidget(f_CompleteOnlyViewed, u8"仅对可见点执行完整。");
+			ConfigWidget(f_PointFindRange, 0.5f, 0.0f, 200.0f, u8"完成在指定范围内执行。 如果 0 则为无限。");
 		}
 		ImGui::EndGroupPanel();
 	}
@@ -188,19 +188,19 @@ namespace cheat::feature
 	{
 		const auto sceneID = game::GetCurrentMapSceneID();
 		if (m_ScenesData.count(sceneID) == 0)
-			ImGui::Text("Sorry. Current scene is not supported.");
+			ImGui::Text(u8"对不起。 不支持当前场景。");
 		
-		ImGui::InputText("Search", &m_SearchText); ImGui::SameLine();
+		ImGui::InputText(u8"搜索", &m_SearchText); ImGui::SameLine();
 		HelpMarker(
-			"This page following with filters for items.\n"
-			"Items what was activated will be appear on mini/global map. (Obviously)\n"
-			"Each filter have options, you can access to it by clicking RMB on filter.\n"
-			"Filters can be marked with colored lines,\n"
-			"\tthey indicate that filter support some features. (Hover it)\n"
-			"Thats all for now. Happy using ^)"
+			u8"此页面后面带有项目过滤器.\n"
+			u8"被激活的项目将出现在迷你/全部地图上。 （明显地）\n"
+			u8"每个过滤器都有选项，您可以通过点击过滤器上的右键来访问它\n"
+			u8"过滤器可以用彩色线条标记，\n"
+			u8"\t它们表明过滤器支持某些功能。 （悬停）\n"
+			u8"目前为止就这样了。 使用愉快 ^)"
 		);
 		if (searchFixed)
-			ImGui::BeginChild("FiltersList", ImVec2(-1, 0), false, ImGuiWindowFlags_NoBackground);
+			ImGui::BeginChild(u8"过滤列表", ImVec2(-1, 0), false, ImGuiWindowFlags_NoBackground);
 
 		auto& categories = m_ScenesData[sceneID].categories;
 		for (auto& [categoryName, labels] : categories)
@@ -232,7 +232,7 @@ namespace cheat::feature
 
 			if (ImGui::BeginSelectableGroupPanel(categoryName.c_str(), checked, changed, true))
 			{
-				if (ImGui::BeginTable("MarkFilters", 2))
+				if (ImGui::BeginTable(u8"标记过滤", 2))
 				{
 					for (const auto& label : validLabels)
 					{
@@ -360,7 +360,7 @@ namespace cheat::feature
 				if (ImGui::IsMouseHoveringRect(mark_bb.Min, mark_bb.Max))
 				{
 					markHovered = true;
-					ShowHelpText("New items detect supported");
+					ShowHelpText(u8"新项目检测支持");
 				}
 
 				ImGui::RenderFrame(mark_bb.Min, mark_bb.Max, ImColor(0.0f, 1.0f, 0.0f), false, 3.0f);
@@ -373,7 +373,7 @@ namespace cheat::feature
 				if (ImGui::IsMouseHoveringRect(mark_bb.Min, mark_bb.Max))
 				{
 					markHovered = true;
-					ShowHelpText("Gather detect supported");
+					ShowHelpText(u8"支持收集检测");
 				}
 
 				ImGui::RenderFrame(mark_bb.Min, mark_bb.Max, ImColor(0.0f, 0.0f, 1.0f), false, 3.0f);
@@ -402,11 +402,11 @@ namespace cheat::feature
 
 		// -- Filter options
 		if (ImGui::IsItemClicked(ImGuiMouseButton_Right))
-			ImGui::OpenPopup("Filter options");
+			ImGui::OpenPopup(u8"过滤器选项");
 
-		if (ImGui::BeginPopup("Filter options", ImGuiWindowFlags_AlwaysAutoResize))
+		if (ImGui::BeginPopup(u8"过滤器选项", ImGuiWindowFlags_AlwaysAutoResize))
 		{
-			if (ImGui::Button("Drop progress"))
+			if (ImGui::Button(u8"掉落进度"))
 			{
 				for (auto& [pointID, point] : label.points)
 				{
@@ -415,7 +415,7 @@ namespace cheat::feature
 				}
 				ImGui::CloseCurrentPopup();
 			}
-			if (ImGui::Button("Complete progress"))
+			if (ImGui::Button(u8"完成进度"))
 			{
 				for (auto& [pointID, point] : label.points)
 				{

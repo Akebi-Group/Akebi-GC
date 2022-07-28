@@ -7,8 +7,8 @@
 namespace cheat::feature 
 {
     GodMode::GodMode() : Feature(),
-        NFEX(f_Enabled, "God mode", "m_GodMode", "Player", false, false),
-        NF(f_AltGodMode, "Alternative God Mode", "Player", false)
+        NFEX(f_Enabled, u8"上帝模式", "m_GodMode", "Player", false, false),
+        NF(f_AltGodMode, u8"替换上帝模式", "Player", false)
     {
 		HookManager::install(app::VCHumanoidMove_NotifyLandVelocity, VCHumanoidMove_NotifyLandVelocity_Hook);
 		HookManager::install(app::Miscs_CheckTargetAttackable, Miscs_CheckTargetAttackable_Hook);
@@ -18,19 +18,19 @@ namespace cheat::feature
 
     const FeatureGUIInfo& GodMode::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "", "Player", false };
+        static const FeatureGUIInfo info{ "",u8"玩家", false };
         return info;
     }
 
     void GodMode::DrawMain()
     {
-        ConfigWidget("God Mode", f_Enabled, 
-                     "Enables god mode, i.e. no incoming damage.\n" \
-                     "May not work with some types of damage.");
+        ConfigWidget(u8"上帝模式", f_Enabled,
+            u8"启用上帝模式，即没有伤害。\n" \
+            u8"可能无法避免某些类型的伤害。");
         ImGui::Indent();
-        ConfigWidget("Alternative God Mode", f_AltGodMode,
-            "Alternative god mode that ignores incoming damage\n" \
-            "including environmental damage.");
+        ConfigWidget(u8"替换上帝模式", f_AltGodMode,
+            u8"忽略来袭伤害的替代上帝模式\n" \
+            u8"包含环境伤害");
         ImGui::Unindent();
     }
 
@@ -41,7 +41,7 @@ namespace cheat::feature
 
     void GodMode::DrawStatus() 
     {
-        ImGui::Text("God Mode%s", f_AltGodMode ? "+Alt " : " ");
+        ImGui::Text(u8"上帝模式%s", f_AltGodMode ? "+Alt " : " ");
     }
 
     GodMode& GodMode::GetInstance()

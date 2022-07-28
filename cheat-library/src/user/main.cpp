@@ -35,6 +35,10 @@ void Run(HMODULE* phModule)
 
 	DebuggerBypassPre();
 
+	LOG_DEBUG("Akebi-GC 汉化by: lliiooll");
+	LOG_DEBUG("这个汉化版是免费的，如果你是买来的，恭喜你被骗了");
+	Sleep(5000);
+
 	while (GetModuleHandle("UserAssembly.dll") == nullptr)
 	{
 		LOG_DEBUG("UserAssembly.dll isn't initialized, waiting for 2 sec.");

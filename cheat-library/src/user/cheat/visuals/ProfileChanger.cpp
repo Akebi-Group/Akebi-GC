@@ -31,22 +31,22 @@ namespace cheat::feature
     static void ProfileEditPage(app::MonoFriendInformationDialog* __this, app::Sprite* value, MethodInfo* method);
 
     ProfileChanger::ProfileChanger() : Feature(),
-        NF(f_Enabled, "Custom Profile", "Visuals::ProfileChanger", false),
-        NF(f_UID, "UID", "Visuals::ProfileChanger", false),
-        NF(f_UIDWaterMarkPrefix, "UIDWaterMarkPrefix", "Visuals::ProfileChanger", false),
-        NF(f_UIDsize, "UID Size", "Visuals::ProfileChanger", 14),
-        NF(f_UIDpos_x, "UID Pos X", "Visuals::ProfileChanger", static_cast<float>(app::Screen_get_width(nullptr)* 0.96875)),
-        NF(f_UIDpos_y, "UID Pos Y", "Visuals::ProfileChanger", 0),
-        NF(f_NickName, "NickName", "Visuals::ProfileChanger", false),
-        NF(f_Level, "Level", "Visuals::ProfileChanger", false),
-        NF(f_Exp, "Exp", "Visuals::ProfileChanger", false),
-        NF(f_CurExp, "CurExp", "Visuals::ProfileChanger", 1),
-        NF(f_MaxExp, "MaxExp", "Visuals::ProfileChanger", 1),
-        NF(f_ExpBar, "ExpBar", "Visuals::ProfileChanger", false),
-        NF(f_ExpBarValue, "ExpBarValue", "Visuals::ProfileChanger", 20.0f),
-        NF(f_WorldLevel, "WorldLevel", "Visuals::ProfileChanger", false),
-        NF(f_Avatar, "AvatarImage", "Visuals::ProfileChanger", false),
-        NF(f_Card, "CardImage", "Visuals::ProfileChanger", false),
+        NF(f_Enabled, u8"自定义档案", "Visuals::ProfileChanger", false),
+        NF(f_UID, u8"UID", "Visuals::ProfileChanger", false),
+        NF(f_UIDWaterMarkPrefix, u8"UID 水印前缀", "Visuals::ProfileChanger", false),
+        NF(f_UIDsize, u8"UID 大小", "Visuals::ProfileChanger", 14),
+        NF(f_UIDpos_x, u8"UID 位置X", "Visuals::ProfileChanger", static_cast<float>(app::Screen_get_width(nullptr)* 0.96875)),
+        NF(f_UIDpos_y, u8"UID 位置Y", "Visuals::ProfileChanger", 0),
+        NF(f_NickName, u8"昵称", "Visuals::ProfileChanger", false),
+        NF(f_Level, u8"等级", "Visuals::ProfileChanger", false),
+        NF(f_Exp, u8"经验", "Visuals::ProfileChanger", false),
+        NF(f_CurExp, u8"当前经验", "Visuals::ProfileChanger", 1),
+        NF(f_MaxExp, u8"最大经验", "Visuals::ProfileChanger", 1),
+        NF(f_ExpBar, u8"经验条", "Visuals::ProfileChanger", false),
+        NF(f_ExpBarValue, u8"经验条的值", "Visuals::ProfileChanger", 20.0f),
+        NF(f_WorldLevel, u8"世界等级", "Visuals::ProfileChanger", false),
+        NF(f_Avatar, u8"头像图片", "Visuals::ProfileChanger", false),
+        NF(f_Card, u8"名片图片", "Visuals::ProfileChanger", false),
         toBeUpdate(), nextUpdate(0)
     {
         HookManager::install(app::ProfilePage, ProfilePage);
@@ -56,36 +56,36 @@ namespace cheat::feature
 
     const FeatureGUIInfo& ProfileChanger::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "CustomProfile", "Visuals", true };
+        static const FeatureGUIInfo info{ u8"自定义档案", u8"界面", true };
         return info;
     }
 
     void ProfileChanger::DrawMain()
     {
-        ConfigWidget(f_Enabled, "Custom Profile.");
-        ConfigWidget(f_UID, "Changes the uid visually.");
-        ConfigWidget("Append \"UID:\" prefix on the water-mark", f_UIDWaterMarkPrefix);
-        ConfigWidget("UID size", f_UIDsize, 0.1, 1, 500.0, "Set UID size");
-        ConfigWidget("UID Pos X", f_UIDpos_x, 1.f, 1.f, static_cast<float>(app::Screen_get_width(nullptr)), "Set UID position X");
-        ConfigWidget("UID Pos y", f_UIDpos_y, 1.f, 0, static_cast<float>(app::Screen_get_height(nullptr)), "Set UID position y");
-        ConfigWidget(f_NickName, "Changes the nickname visually.");
-        ConfigWidget(f_Level, "Changes the level visually.");
-        ConfigWidget(f_Exp, "Changes the exp visually.");
+        ConfigWidget(f_Enabled, u8"自定义档案");
+        ConfigWidget(f_UID, u8"更改显示的uid");
+        ConfigWidget(u8"添加 \"UID:\" 前置的水印", f_UIDWaterMarkPrefix);
+        ConfigWidget(u8"UID 大小", f_UIDsize, 0.1, 1, 500.0, "设置UID大小");
+        ConfigWidget(u8"UID 位置X", f_UIDpos_x, 1.f, 1.f, static_cast<float>(app::Screen_get_width(nullptr)), u8"设置 UID 位置X");
+        ConfigWidget(u8"UID 位置y", f_UIDpos_y, 1.f, 0, static_cast<float>(app::Screen_get_height(nullptr)), u8"设置 UID 位置X");
+        ConfigWidget(f_NickName, u8"更改显示的昵称");
+        ConfigWidget(f_Level, u8"更改显示的等级");
+        ConfigWidget(f_Exp, u8"更改显示的经验");
         if (f_Exp) {
-            ConfigWidget("CurExp", f_CurExp, 1, 2, 100000, "Changes the ExpBar visually.");
-            ConfigWidget("MaxExp", f_MaxExp, 1, 2, 100000, "Changes the ExpBar visually.");
-            ConfigWidget(f_ExpBar, "Changes the ExpBar visually.");
+            ConfigWidget(u8"当前经验", f_CurExp, 1, 2, 100000, u8"更改显示的经验条.");
+            ConfigWidget(u8"最大经验", f_MaxExp, 1, 2, 100000, u8"更改显示的经验条.");
+            ConfigWidget(f_ExpBar, u8"更改显示的经验条.");
             if (f_ExpBar)
-                ConfigWidget("ExpBarValue", f_ExpBarValue, 1, 2, 100, "Changes the ExpBar visually.");
+                ConfigWidget(u8"经验条的值", f_ExpBarValue, 1, 2, 100, u8"更改显示的经验条.");
         }   
-        ConfigWidget(f_WorldLevel, "Changes the world-level visually.");
-        ConfigWidget(f_Avatar, "Changes the Avatar Image visually.\n" \
-            "Note the size of the picture must be: 256x256.\n" \
-            "Example path: C:\\Avatars.png");
+        ConfigWidget(f_WorldLevel, u8"更改显示的世界等级");
+        ConfigWidget(f_Avatar, u8"更改显示的头像.\n" \
+            u8"注意图片的大小必须是： 256x256.\n" \
+            u8"例如: C:\\Avatars.png");
 
-        ConfigWidget(f_Card, "Changes the Card visually.\n" \
-            "Note the size of the picture must be: 840x400.\n" \
-            "Example path: C:\\Avatars.png");
+        ConfigWidget(f_Card, u8"更改显示名片.\n" \
+            u8"注意图片的大小必须是: 840x400.\n" \
+            u8"例如: C:\\Avatars.png");
     }
 
     bool ProfileChanger::NeedStatusDraw() const
@@ -95,7 +95,7 @@ namespace cheat::feature
 
     void ProfileChanger::DrawStatus()
     {
-        ImGui::Text("Custom Profile");
+        ImGui::Text(u8"自定义档案");
     }
 
     ProfileChanger& ProfileChanger::GetInstance()

@@ -8,14 +8,14 @@ namespace cheat::feature
     static void MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue_Hook(app::MoleMole_VCBaseSetDitherValue* __this, float value, MethodInfo* method);
 
     EnablePeeking::EnablePeeking() : Feature(),
-        NF(f_Enabled, "Enable Peeking", "Visuals::EnablePeeking", false)
+        NF(f_Enabled,u8"启用窥视", "Visuals::EnablePeeking", false)
     {
         HookManager::install(app::MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue, MoleMole_VCBaseSetDitherValue_set_ManagerDitherAlphaValue_Hook);
     }
 
     const FeatureGUIInfo& EnablePeeking::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "EnablePeeking", "Visuals", false };
+        static const FeatureGUIInfo info{ u8"启用窥视", u8"界面", false };
         return info;
     }
 
@@ -31,7 +31,7 @@ namespace cheat::feature
 
     void EnablePeeking::DrawStatus()
     {
-        ImGui::Text("Enable Peeking");
+        ImGui::Text(u8"启用窥视");
     }
 
     EnablePeeking& EnablePeeking::GetInstance()

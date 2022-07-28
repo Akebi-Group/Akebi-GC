@@ -11,20 +11,20 @@ namespace cheat::feature
 {
 
     FreezeEnemies::FreezeEnemies() : Feature(),
-        NF(f_Enabled, "Freeze Enemies", "FreezeEnemies", false)
+        NF(f_Enabled, u8"冻结敌人", "FreezeEnemies", false)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(FreezeEnemies::OnGameUpdate);
     }
 
     const FeatureGUIInfo& FreezeEnemies::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "", "World", false };
+        static const FeatureGUIInfo info{ "", u8"世界", false };
         return info;
     }
 
     void FreezeEnemies::DrawMain()
     {
-        ConfigWidget(f_Enabled, "Freezes all enemies' animation speed.");
+        ConfigWidget(f_Enabled, u8"冻结所有敌人的移动");
     }
 
     bool FreezeEnemies::NeedStatusDraw() const
@@ -34,7 +34,7 @@ namespace cheat::feature
 
     void FreezeEnemies::DrawStatus()
     {
-        ImGui::Text("Freeze Enemies");
+        ImGui::Text(u8"冻结敌人");
     }
 
     FreezeEnemies& FreezeEnemies::GetInstance()

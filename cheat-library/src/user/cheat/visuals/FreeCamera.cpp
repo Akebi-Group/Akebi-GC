@@ -20,68 +20,68 @@ namespace cheat::feature
 	bool isEnabled = false;
 
 	FreeCamera::FreeCamera() : Feature(),
-		NF(f_Enabled, "Free Camera", "Visuals::FreeCamera", false),
-		NF(f_FreezeAnimation, "Freeze Character Animation", "Visuals::FreeCamera", false),
-		NF(f_Speed, "Speed", "Visuals::FreeCamera", 1.0f),
-		NF(f_LookSens, "Look Sensitivity", "Visuals::FreeCamera", 1.0f),
-		NF(f_RollSpeed, "Roll Speed", "Visuals::FreeCamera", 1.0f),
-		NF(f_FOVSpeed, "FOV Speed", "Visuals::FreeCamera", 0.1f),
-		NF(f_FOV, "Field of View", "Visuals::FreeCamera", 45.0f),
-		NF(f_Smoothing, "Smoothing", "Visuals::FreeCamera", 1.0f),
-		NF(f_Forward, "Forward", "Visuals::FreeCamera", Hotkey('W')),
-		NF(f_Backward, "Backward", "Visuals::FreeCamera", Hotkey('S')),
-		NF(f_Left, "Left", "Visuals::FreeCamera", Hotkey('A')),
-		NF(f_Right, "Right", "Visuals::FreeCamera", Hotkey('D')),
-		NF(f_Up, "Up", "Visuals::FreeCamera", Hotkey(VK_SPACE)),
-		NF(f_Down, "Down", "Visuals::FreeCamera", Hotkey(VK_LCONTROL)),
-		NF(f_LeftRoll, "Roll Left", "Visuals::FreeCamera", Hotkey('Z')),
-		NF(f_RightRoll, "Roll Right", "Visuals::FreeCamera", Hotkey('X')),
-		NF(f_ResetRoll, "Reset Roll", "Visuals::FreeCamera", Hotkey('C')),
-		NF(f_IncFOV, "Increase FOV", "Visuals::FreeCamera", Hotkey('3')),
-		NF(f_DecFOV, "Decrease FOV", "Visuals::FreeCamera", Hotkey('1'))
+		NF(f_Enabled, u8"自由视角", "Visuals::FreeCamera", false),
+		NF(f_FreezeAnimation, u8"冻结角色动画", "Visuals::FreeCamera", false),
+		NF(f_Speed, u8"速度", "Visuals::FreeCamera", 1.0f),
+		NF(f_LookSens, u8"外观灵敏度", "Visuals::FreeCamera", 1.0f),
+		NF(f_RollSpeed, u8"滚动速度", "Visuals::FreeCamera", 1.0f),
+		NF(f_FOVSpeed, u8"视场速度", "Visuals::FreeCamera", 0.1f),
+		NF(f_FOV, u8"视野", "Visuals::FreeCamera", 45.0f),
+		NF(f_Smoothing, u8"平滑", "Visuals::FreeCamera", 1.0f),
+		NF(f_Forward, u8"向前", "Visuals::FreeCamera", Hotkey('W')),
+		NF(f_Backward, u8"向后", "Visuals::FreeCamera", Hotkey('S')),
+		NF(f_Left, u8"向左", "Visuals::FreeCamera", Hotkey('A')),
+		NF(f_Right, u8"向右", "Visuals::FreeCamera", Hotkey('D')),
+		NF(f_Up, u8"向上", "Visuals::FreeCamera", Hotkey(VK_SPACE)),
+		NF(f_Down, u8"向下", "Visuals::FreeCamera", Hotkey(VK_LCONTROL)),
+		NF(f_LeftRoll, u8"向左滚动", "Visuals::FreeCamera", Hotkey('Z')),
+		NF(f_RightRoll, u8"向右滚动", "Visuals::FreeCamera", Hotkey('X')),
+		NF(f_ResetRoll, u8"重置卷", "Visuals::FreeCamera", Hotkey('C')),
+		NF(f_IncFOV, u8"增加视野", "Visuals::FreeCamera", Hotkey('3')),
+		NF(f_DecFOV, u8"减小视野", "Visuals::FreeCamera", Hotkey('1'))
 	{
 		events::GameUpdateEvent += MY_METHOD_HANDLER(FreeCamera::OnGameUpdate);
 	}
 
 	const FeatureGUIInfo& FreeCamera::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "Free Camera", "Visuals", true };
+		static const FeatureGUIInfo info{ u8"自由视角", u8"界面", true };
 		return info;
 	}
 
 	void FreeCamera::DrawMain()
 	{
-		ConfigWidget("Enable", f_Enabled);
-		ConfigWidget("Freeze Character Animation", f_FreezeAnimation, "Freezes the active character's animation.\nAfter disabling, jump to un-freeze your character.");
-		if (ImGui::BeginTable("FreeCameraDrawTable", 1, ImGuiTableFlags_NoBordersInBody))
+		ConfigWidget(u8"启用", f_Enabled);
+		ConfigWidget(u8"冻结角色动画", f_FreezeAnimation, u8"冻结活动角色动画。\n 禁用后，跳转以取消冻结您的角色。");
+		if (ImGui::BeginTable(u8"自由视角", 1, ImGuiTableFlags_NoBordersInBody))
 		{
 			ImGui::TableNextRow();
 			ImGui::TableSetColumnIndex(0);
 
-			ImGui::BeginGroupPanel("Settings");
+			ImGui::BeginGroupPanel(u8"设置");
 			{
-				ConfigWidget("Movement Speed", f_Speed, 0.01f, 0.01f, 1000.0f);
-				ConfigWidget("Look Sensitivity", f_LookSens, 0.01f, 0.01f, 100.0f);
-				ConfigWidget("Roll Speed", f_RollSpeed, 0.01f, 0.01f, 100.0f);
-				ConfigWidget("FOV Speed", f_FOVSpeed, 0.01f, 0.01f, 100.0f);
-				ConfigWidget("Field of View", f_FOV, 0.1f, 0.01f, 200.0f);
-				ConfigWidget("Smoothing", f_Smoothing, 0.01f, 0.001f, 1.0f, "Lower = Smoother");
+				ConfigWidget(u8"移动速度", f_Speed, 0.01f, 0.01f, 1000.0f);
+				ConfigWidget(u8"外观灵敏度", f_LookSens, 0.01f, 0.01f, 100.0f);
+				ConfigWidget(u8"滚动速度", f_RollSpeed, 0.01f, 0.01f, 100.0f);
+				ConfigWidget(u8"视场速度", f_FOVSpeed, 0.01f, 0.01f, 100.0f);
+				ConfigWidget(u8"视野", f_FOV, 0.1f, 0.01f, 200.0f);
+				ConfigWidget(u8"平滑", f_Smoothing, 0.01f, 0.001f, 1.0f, u8"更低 = 更平滑");
 			}
 			ImGui::EndGroupPanel();
 
-			ImGui::BeginGroupPanel("Hotkeys");
+			ImGui::BeginGroupPanel(u8"键位");
 			{
-				ConfigWidget("Forward", f_Forward, true);
-				ConfigWidget("Backward", f_Backward, true);
-				ConfigWidget("Left", f_Left, true);
-				ConfigWidget("Right", f_Right, true);
-				ConfigWidget("Up", f_Up, true);
-				ConfigWidget("Down", f_Down, true);
-				ConfigWidget("Roll Left", f_LeftRoll, true);
-				ConfigWidget("Roll Right", f_RightRoll, true);
-				ConfigWidget("Reset Roll", f_ResetRoll, true);
-				ConfigWidget("Increase FOV", f_IncFOV, true);
-				ConfigWidget("Decrease FOV", f_DecFOV, true);
+				ConfigWidget(u8"前进", f_Forward, true);
+				ConfigWidget(u8"后退", f_Backward, true);
+				ConfigWidget(u8"向左", f_Left, true);
+				ConfigWidget(u8"向右", f_Right, true);
+				ConfigWidget(u8"上", f_Up, true);
+				ConfigWidget(u8"下", f_Down, true);
+				ConfigWidget(u8"向左滚动", f_LeftRoll, true);
+				ConfigWidget(u8"向右滚动", f_RightRoll, true);
+				ConfigWidget(u8"重置视角", f_ResetRoll, true);
+				ConfigWidget(u8"增加视野", f_IncFOV, true);
+				ConfigWidget(u8"减小视场", f_DecFOV, true);
 			}
 			ImGui::EndGroupPanel();
 			ImGui::EndTable();
@@ -95,7 +95,7 @@ namespace cheat::feature
 
 	void FreeCamera::DrawStatus()
 	{
-		ImGui::Text("Free Camera");
+		ImGui::Text(u8"自由视角");
 	}
 
 	FreeCamera& FreeCamera::GetInstance()

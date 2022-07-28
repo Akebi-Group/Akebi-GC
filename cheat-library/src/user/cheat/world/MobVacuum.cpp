@@ -9,20 +9,20 @@
 namespace cheat::feature 
 {
     MobVacuum::MobVacuum() : Feature(),
-        NF(f_Enabled,        "Mob vacuum", "MobVacuum", false),
-        NF(f_IncludeMonsters, "Include Monsters", "MobVacuum", true),
-        NF(f_MonsterCommon, "Common", "MobVacuum", true),
-        NF(f_MonsterElites, "Elite", "MobVacuum", true),
-        NF(f_MonsterBosses, "Boss", "MobVacuum", true),
-        NF(f_IncludeAnimals, "Include Animals", "MobVacuum", true),
-        NF(f_AnimalDrop, "Droppers", "MobVacuum", true),
-        NF(f_AnimalPickUp, "Pick-ups", "MobVacuum", true),
-        NF(f_AnimalNPC, "NPCs", "MobVacuum", true),
-        NF(f_Speed,      "Speed",         "MobVacuum", 2.5f),
-        NF(f_Distance,   "Distance",      "MobVacuum", 1.5f),
-        NF(f_Radius,     "Radius",        "MobVacuum", 10.0f),
-        NF(f_OnlyTarget, "Only targeted", "MobVacuum", true),
-        NF(f_Instantly,  "Instantly",     "MobVacuum", false)
+        NF(f_Enabled,        u8"吸怪", "MobVacuum", false),
+        NF(f_IncludeMonsters, u8"包含怪物", "MobVacuum", true),
+        NF(f_MonsterCommon, u8"通用", "MobVacuum", true),
+        NF(f_MonsterElites, u8"精英怪", "MobVacuum", true),
+        NF(f_MonsterBosses, u8"Boss", "MobVacuum", true),
+        NF(f_IncludeAnimals, u8"包含动物", "MobVacuum", true),
+        NF(f_AnimalDrop, u8"掉落物", "MobVacuum", true),
+        NF(f_AnimalPickUp, u8"拾取", "MobVacuum", true),
+        NF(f_AnimalNPC, u8"NPC", "MobVacuum", true),
+        NF(f_Speed,     u8"速度", "MobVacuum", 2.5f),
+        NF(f_Distance, u8"距离", "MobVacuum", 1.5f),
+        NF(f_Radius, u8"半径", "MobVacuum", 10.0f),
+        NF(f_OnlyTarget, u8"单目标", "MobVacuum", true),
+        NF(f_Instantly, u8"瞬间", "MobVacuum", false)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(MobVacuum::OnGameUpdate);
         events::MoveSyncEvent += MY_METHOD_HANDLER(MobVacuum::OnMoveSync);
@@ -30,42 +30,42 @@ namespace cheat::feature
 
     const FeatureGUIInfo& MobVacuum::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "Mob Vacuum", "World", true };
+        static const FeatureGUIInfo info{ u8"吸怪", u8"世界", true };
         return info;
     }
 
     void MobVacuum::DrawMain()
     {
-        ConfigWidget("Enabled", f_Enabled, "Enables mob vacuum.\n" \
-            "Mobs within the specified radius will move\nto a specified distance in front of the player.");
+        ConfigWidget(u8"启用", f_Enabled, u8"启用怪物吸引.\n" \
+            u8"指定半径内的生物会移动到玩家前方指定距离内.");
 
         bool filtersChanged = false;
-        ImGui::BeginGroupPanel("Monsters");
+        ImGui::BeginGroupPanel(u8"怪物");
         {
-            filtersChanged |= ConfigWidget(f_IncludeMonsters, "Include monsters in vacuum.");
-            filtersChanged |= ConfigWidget(f_MonsterCommon, "Common enemies."); ImGui::SameLine();
-            filtersChanged |= ConfigWidget(f_MonsterElites, "Elite enemies."); ImGui::SameLine();
-            filtersChanged |= ConfigWidget(f_MonsterBosses, "World and Trounce boss enemies.");
+            filtersChanged |= ConfigWidget(f_IncludeMonsters, u8"包括真空中的怪物.");
+            filtersChanged |= ConfigWidget(f_MonsterCommon, u8"通常的敌人."); ImGui::SameLine();
+            filtersChanged |= ConfigWidget(f_MonsterElites, u8"精英怪."); ImGui::SameLine();
+            filtersChanged |= ConfigWidget(f_MonsterBosses, u8"世界和秘境敌人");
         }
         ImGui::EndGroupPanel();
         
         ImGui::BeginGroupPanel("Animals");
         {
-            filtersChanged |= ConfigWidget(f_IncludeAnimals, "Include animals in vacuum.");
-            filtersChanged |= ConfigWidget(f_AnimalDrop, "Animals you need to kill before collecting."); ImGui::SameLine();
-            filtersChanged |= ConfigWidget(f_AnimalPickUp, "Animals you can immediately collect."); ImGui::SameLine();
-            filtersChanged |= ConfigWidget(f_AnimalNPC, "Animals without mechanics.");
+            filtersChanged |= ConfigWidget(f_IncludeAnimals, u8"包括真空中的动物");
+            filtersChanged |= ConfigWidget(f_AnimalDrop, u8"收集前需要杀死的动物."); ImGui::SameLine();
+            filtersChanged |= ConfigWidget(f_AnimalPickUp, u8"您可以立即收集的动物."); ImGui::SameLine();
+            filtersChanged |= ConfigWidget(f_AnimalNPC, u8"没有机械的动物.");
         }
         ImGui::EndGroupPanel();
 
         if (filtersChanged)
             UpdateFilters();
 
-    	ConfigWidget("Instant Vacuum", f_Instantly, "Vacuum entities instantly.");
-        ConfigWidget("Only Hostile/Aggro", f_OnlyTarget, "If enabled, vacuum will only affect monsters targeting you. Will not affect animals.");
-        ConfigWidget("Speed", f_Speed, 0.1f, 1.0f, 15.0f, "If 'Instant Vacuum' is not checked, mob will be vacuumed at the specified speed.");
-        ConfigWidget("Radius (m)", f_Radius, 0.1f, 5.0f, 150.0f, "Radius of vacuum.");
-        ConfigWidget("Distance (m)", f_Distance, 0.1f, 0.5f, 10.0f, "Distance between the player and the monster.");
+    	ConfigWidget(u8"瞬间吸引", f_Instantly, u8"瞬间吸引怪物");
+        ConfigWidget(u8"只有敌对/仇恨", f_OnlyTarget, u8"如果启用，真空只会影响以你为目标的怪物。 不会影响动物。");
+        ConfigWidget(u8"速度", f_Speed, 0.1f, 1.0f, 15.0f, u8"如果未启用瞬间吸引，则会以指定的速度吸尘。");
+        ConfigWidget(u8"半径 (m)", f_Radius, 0.1f, 5.0f, 150.0f, u8"吸引的半径");
+        ConfigWidget(u8"距离 (m)", f_Distance, 0.1f, 0.5f, 10.0f, u8"玩家与怪物之间的距离。");
     }
 
     bool MobVacuum::NeedStatusDraw() const
@@ -75,12 +75,12 @@ namespace cheat::feature
 
     void MobVacuum::DrawStatus() 
     { 
-        ImGui::Text("Vacuum [%s]\n[%s|%.01fm|%.01fm|%s]", 
-            f_IncludeMonsters && f_IncludeAnimals ? "All" : f_IncludeMonsters ? "Monsters" : f_IncludeAnimals ? "Animals" : "None",
-            f_Instantly ? "Instant" : fmt::format("Normal|{:.1f}", f_Speed.value()).c_str(),
+        ImGui::Text(u8"吸引 [%s]\n[%s|%.01fm|%.01fm|%s]",
+            f_IncludeMonsters && f_IncludeAnimals ? u8"全部" : f_IncludeMonsters ? u8"怪物" : f_IncludeAnimals ? u8"动物" : u8"无",
+            f_Instantly ? u8"瞬间" : fmt::format(u8"正常|{:.1f}", f_Speed.value()).c_str(),
             f_Radius.value(),
             f_Distance.value(),
-            f_OnlyTarget ? "Aggro" : "All"
+            f_OnlyTarget ? u8"仇恨" : u8"全部"
         );
     }
 

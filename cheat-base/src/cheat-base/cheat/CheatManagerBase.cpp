@@ -45,7 +45,7 @@ namespace cheat
 
 		ImGui::SetNextWindowSize(ImVec2(600, 300), ImGuiCond_FirstUseEver);
 
-		if (!ImGui::Begin("Akebi-GC"))
+		if (!ImGui::Begin(u8"Akebi-GC 汉化by lliiooll"))
 		{
 			ImGui::End();
 			return;
@@ -53,7 +53,7 @@ namespace cheat
 
 		ImGui::BeginGroup();
 
-		if (ImGui::Checkbox("锁定 键盘和鼠标", &m_IsBlockingInput))
+		if (ImGui::Checkbox(u8"锁定 键盘和鼠标", &m_IsBlockingInput))
 		{
 			renderer::SetInputLock(this, m_IsBlockingInput);
 		}
@@ -128,7 +128,7 @@ namespace cheat
 
 	void CheatManagerBase::DrawProfileGlobalActivities()
 	{
-		if (ImGui::Button("添加新档案"))
+		if (ImGui::Button(u8"添加新档案"))
 		{
 			std::unordered_set<std::string> profileNameSet = { config::GetProfiles().begin(), config::GetProfiles().end() };
 			size_t index = 0;
@@ -136,7 +136,7 @@ namespace cheat
 			do 
 			{
 				index++;
-				std::string newName = fmt::format("档案 #{}", index);
+				std::string newName = fmt::format(u8"档案 #{}", index);
 				if (profileNameSet.count(newName) == 0)
 					name = newName;
 
@@ -153,10 +153,10 @@ namespace cheat
 		if (isPopupOpen)
 			ImGui::BeginDisabled();
 
-		if (ImGui::SmallButton("重命名"))
+		if (ImGui::SmallButton(u8"重命名"))
 			ImGui::OpenRenamePopup(profileName);
 		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip("重命名");
+			ImGui::SetTooltip(u8"重命名");
 
 		if (isPopupOpen)
 			ImGui::EndDisabled();
@@ -169,17 +169,17 @@ namespace cheat
 
 		ImGui::SameLine();
 
-		if (ImGui::SmallButton("删除"))
+		if (ImGui::SmallButton(u8"删除"))
 			config::RemoveProfile(profileName);
 		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip("删除");
+			ImGui::SetTooltip(u8"删除");
 
 		ImGui::SameLine();
 
-		if (ImGui::SmallButton("Dupe"))
+		if (ImGui::SmallButton(u8"Dupe"))
 			config::DuplicateProfile(profileName);
 		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip("Duplicate Profile");
+			ImGui::SetTooltip(u8"Duplicate Profile");
 	}
 
 	void CheatManagerBase::DrawProfileEntry(const std::string& profileName)
@@ -189,7 +189,7 @@ namespace cheat
 
 	void CheatManagerBase::DrawProfileTableHeader()
 	{
-		ImGui::TableSetupColumn("Name");
+		ImGui::TableSetupColumn(u8"Name");
 	}
 
 	int CheatManagerBase::GetProfileTableColumnCount()
@@ -203,11 +203,11 @@ namespace cheat
 			ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable
 			| ImGuiTableFlags_RowBg | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV | ImGuiTableFlags_NoBordersInBody
 			| ImGuiTableFlags_ScrollY;
-		if (ImGui::BeginTable("ProfileTable", GetProfileTableColumnCount() + 1, flags,
+		if (ImGui::BeginTable(u8"档案表", GetProfileTableColumnCount() + 1, flags,
 			ImVec2(0.0f, ImGui::GetTextLineHeightWithSpacing() * 10), 0.0f))
 		{
 			DrawProfileTableHeader();
-			ImGui::TableSetupColumn("Actions");
+			ImGui::TableSetupColumn(u8"操作");
 			ImGui::TableSetupScrollFreeze(0, 1);
 			ImGui::TableHeadersRow();
 
@@ -237,7 +237,7 @@ namespace cheat
 		if (m_IsProfileConfigurationShowed)
 			ImGui::BeginDisabled();
 
-		bool buttonPressed = ImGui::Button("配置...");
+		bool buttonPressed = ImGui::Button(u8"配置...");
 
 		if (m_IsProfileConfigurationShowed)
 			ImGui::EndDisabled();
@@ -252,7 +252,7 @@ namespace cheat
 
 		constexpr float width = 200.0f;
 		ImGui::SetNextItemWidth(width);
-		if (ImGui::BeginCombo("Profile", currentProfile.c_str()))
+		if (ImGui::BeginCombo(u8"档案", currentProfile.c_str()))
 		{
 			for (auto& name : profiles)
 			{
@@ -281,13 +281,13 @@ namespace cheat
 		if (!settings.f_StatusMove)
 			flags |= ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoMove;
 
-		ImGui::Begin("Cheat status", nullptr, flags);
+		ImGui::Begin(u8"作弊状态", nullptr, flags);
 
 		static ImGuiTableFlags tabFlags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;
 
 		if (ImGui::BeginTable("activesTable", 1, tabFlags))
 		{
-			ImGui::TableSetupColumn("已启用的功能");
+			ImGui::TableSetupColumn(u8"已启用的功能");
 			ImGui::TableHeadersRow();
 
 			int row = 0;
@@ -331,12 +331,12 @@ namespace cheat
 			return;
 
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.04f, 0.05f, 0.05f, 0.90f));
-		ImGui::Begin("Info window", nullptr, flags);
+		ImGui::Begin(u8"信息窗口", nullptr, flags);
 		ImGui::PopStyleColor();
 
 		if (!showAny)
 		{
-			ImGui::Text("Nothing here");
+			ImGui::Text(u8"这里什么都没有");
 			ImGui::End();
 			return;
 		}
@@ -413,7 +413,7 @@ namespace cheat
 		if (m_IsProfileConfigurationShowed)
 		{
 			ImGui::SetNextWindowSize({ 0, ImGui::GetTextLineHeightWithSpacing() * 11 }, ImGuiCond_FirstUseEver);
-			if (ImGui::Begin("Config profile configuration", &m_IsProfileConfigurationShowed))
+			if (ImGui::Begin(u8"设置档案配置", &m_IsProfileConfigurationShowed))
 				DrawProfileConfiguration();
 
 			ImGui::End();
@@ -452,7 +452,7 @@ namespace cheat
 				toggle.enabled = !toggle.enabled;
 				field.FireChanged();
 
-				std::string title = fmt::format("{}: {}", field.friendName(), (toggle ? "Enabled" : "Disabled"));
+				std::string title = fmt::format("{}: {}", field.friendName(), (toggle ? u8"启用" : u8"禁用"));
 				ImGuiToast toast(ImGuiToastType_None, settings.f_NotificationsDelay);
 				toast.set_title(title.c_str());
 				ImGui::InsertNotification(toast);

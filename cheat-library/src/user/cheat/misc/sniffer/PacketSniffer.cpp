@@ -11,9 +11,9 @@
 namespace cheat::feature 
 {
 	PacketSniffer::PacketSniffer() : Feature(),
-		NF(f_CaptureEnabled, "Capturing", "PacketSniffer", false),
-		NF(f_ManipulationEnabled, "Manipulation", "PacketSniffer", false),
-		NF(f_PipeName, "Pipe name", "PacketSniffer", "genshin_packet_pipe")
+		NF(f_CaptureEnabled, u8"捕获", "PacketSniffer", false),
+		NF(f_ManipulationEnabled, u8"操纵", "PacketSniffer", false),
+		NF(f_PipeName, u8"信道名称", "PacketSniffer", "genshin_packet_pipe")
 
 	{
 		client.Connect(f_PipeName.value());
@@ -24,16 +24,16 @@ namespace cheat::feature
 
 	const FeatureGUIInfo& PacketSniffer::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "Packet Sniffer", "Settings", true };
+		static const FeatureGUIInfo info{ u8"数据包拦截", u8"设置", true };
 		return info;
 	}
 
 	void PacketSniffer::DrawMain()
 	{
-		ImGui::Text("Dev: for working needs server for named pipe with specified name.\nCheck 'packet-handler' project like example.");
-		ConfigWidget(f_PipeName, "Pipe name for connecting. Changes will apply after next game launch.");
-		ConfigWidget(f_CaptureEnabled, "Enable capturing of packet info and sending to pipe, if it exists.");
-		ConfigWidget(f_ManipulationEnabled, "Enable blocking and modifying packets by sniffer, can cause network lags.");
+		ImGui::Text(u8"开发：用于具有指定名称的命名信道的工作需要服务器。\n检查“数据包处理程序”项目，如示例。");
+		ConfigWidget(f_PipeName, u8"用于连接的信道名称。 更改将在下一次游戏发布后应用.");
+		ConfigWidget(f_CaptureEnabled, u8"启用数据包信息的捕获并发送到信道（如果存在）。");
+		ConfigWidget(f_ManipulationEnabled, u8"通过嗅探器启用阻止和修改数据包，可能会导致网络延迟。");
 	}
 	
 	PacketSniffer& PacketSniffer::GetInstance()

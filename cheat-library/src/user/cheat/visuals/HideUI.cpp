@@ -9,20 +9,20 @@ namespace cheat::feature
     app::GameObject* ui_camera{};
 
     HideUI::HideUI() : Feature(),
-		NFEX(f_Enabled, "Hide UI", "HideUI", "Visuals", false, false)
+		NFEX(f_Enabled, u8"隐藏ui", "HideUI", "Visuals", false, false)
     {
         events::GameUpdateEvent += MY_METHOD_HANDLER(HideUI::OnGameUpdate);
     }
 
     const FeatureGUIInfo& HideUI::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "HideUI", "Visuals", false };
+        static const FeatureGUIInfo info{ u8"隐藏ui", u8"界面", false };
         return info;
     }
 
     void HideUI::DrawMain()
     {
-        ConfigWidget(f_Enabled, "Hide in-game UI.");
+        ConfigWidget(f_Enabled, u8"隐藏作弊界面.");
     }
 
     bool HideUI::NeedStatusDraw() const

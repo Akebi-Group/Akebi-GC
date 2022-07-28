@@ -8,9 +8,9 @@ namespace cheat::feature
 	//CNLouisLiu
 	void* LevelTimeManager = NULL;
 	FakeTime::FakeTime() : Feature(),
-		NF(f_Enabled, "FakeTime", "Enabled", false),
-		NF(f_TimeHour, "FakeTime", "TimeHour", 12),
-		NF(f_TimeMinute, "FakeTime", "TimeMinute", 0)
+		NF(f_Enabled, "FakeTime", u8"启用", false),
+		NF(f_TimeHour,  "FakeTime", u8"小时", 12),
+		NF(f_TimeMinute, "FakeTime", u8"分钟", 0)
 	{
 		HookManager::install(app::LevelTimeManager_SetInternalTimeOfDay, LevelTimeManager_SetInternalTimeOfDay_Hook);
 
@@ -23,14 +23,14 @@ namespace cheat::feature
 	}
 	const FeatureGUIInfo& FakeTime::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "FakeTime", "World", true };
+		static const FeatureGUIInfo info{ u8"锁定时间", u8"世界", true };
 		return info;
 	}
 	void FakeTime::DrawMain()
 	{
-		ConfigWidget("Enabled", f_Enabled, "Keep game time the same");
-		ConfigWidget("TimeHour", f_TimeHour, 1, 0, 24);
-		ConfigWidget("TimeMinute", f_TimeMinute, 1, 0, 60);
+		ConfigWidget(u8"启用", f_Enabled, "保持游戏时间不变");
+		ConfigWidget(u8"小时", f_TimeHour, 1, 0, 24);
+		ConfigWidget(u8"分钟", f_TimeMinute, 1, 0, 60);
 	}
 	bool FakeTime::NeedStatusDraw() const
 	{
@@ -38,7 +38,7 @@ namespace cheat::feature
 	}
 	void FakeTime::DrawStatus()
 	{
-		ImGui::Text("FakeTime|%d:%d", f_TimeHour.value(), f_TimeMinute.value());
+		ImGui::Text(u8"锁定时间|%d:%d", f_TimeHour.value(), f_TimeMinute.value());
 	}
 	float FakeTime::ConversionTime() {
 

@@ -9,25 +9,25 @@ namespace cheat::feature
     static void SCameraModuleInitialize_SetWarningLocateRatio_Hook(app::SCameraModuleInitialize* __this, double deltaTime, app::CameraShareData* data, MethodInfo* method);
 
     CameraZoom::CameraZoom() : Feature(),
-        NF(f_Enabled, "Camera Zoom", "Visuals::CameraZoom", false),
-        NF(f_Zoom, "Zoom", "Visuals::CameraZoom", 200)
+        NF(f_Enabled, u8"自定义缩放", "Visuals::CameraZoom", false),
+        NF(f_Zoom, u8"缩放倍率", "Visuals::CameraZoom", 200)
     {
         HookManager::install(app::MoleMole_SCameraModuleInitialize_SetWarningLocateRatio, SCameraModuleInitialize_SetWarningLocateRatio_Hook);
     }
 
     const FeatureGUIInfo& CameraZoom::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "CameraZoom", "Visuals", false };
+        static const FeatureGUIInfo info{ u8"自定义缩放", u8"界面", false };
         return info;
     }
 
     void CameraZoom::DrawMain()
     {
         ConfigWidget("", f_Enabled); ImGui::SameLine();
-        ConfigWidget("Camera Zoom", f_Zoom, 0.01f, 1.0f, 500.0f, "Custom camera zooming.\n"
-            "Specified value is multiplier for default zoom distance.\n"
-			"For example:\n"
-            "\t2.0 = 2.0 * defaultZoom"
+        ConfigWidget(u8"自定义缩放", f_Zoom, 0.01f, 1.0f, 500.0f, u8"自定义相机缩放。\n"
+            u8"指定值是默认缩放距离的乘数。\n"
+            u8"例子:\n"
+            u8"\t2.0 = 2.0 * 默认缩放"
         );
     }
 
@@ -38,7 +38,7 @@ namespace cheat::feature
 
     void CameraZoom::DrawStatus()
     {
-        ImGui::Text("Camera zoom [%.1fx]", f_Zoom.value());
+        ImGui::Text(u8"自定义缩放 [%.1fx]", f_Zoom.value());
     }
 
     CameraZoom& CameraZoom::GetInstance()

@@ -10,16 +10,16 @@ namespace cheat::feature
 
     const FeatureGUIInfo& Hotkeys::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "", "Hotkeys", false };
+        static const FeatureGUIInfo info{ "", u8"ÈÈ¼ü", false };
         return info;
     }
 
     void Hotkeys::DrawMain()
     {
         static std::string searchBuffer;
-        ImGui::InputText("Search", &searchBuffer);
+        ImGui::InputText(u8"ËÑË÷", &searchBuffer);
 
-        ImGui::BeginChild("Hotkeys");
+        ImGui::BeginChild(u8"ÈÈ¼ü");
         
         std::unordered_map<std::string, std::vector<config::Field<config::Toggle<Hotkey>>*>> sections;
 

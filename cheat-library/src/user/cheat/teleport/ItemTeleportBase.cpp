@@ -11,8 +11,8 @@
 namespace cheat::feature 
 {
     ItemTeleportBase::ItemTeleportBase(const std::string& section, const std::string& name) : Feature(),
-		NF(f_Key, "Teleport to Nearest", section, Hotkey()),
-		NF(f_ShowInfo, "Show Info", section, true),
+		NF(f_Key, u8"传送到附近", section, Hotkey()),
+		NF(f_ShowInfo, u8"显示信息", section, true),
         section(section), name(name)
     {
 		f_Key.value().PressedEvent += MY_METHOD_HANDLER(ItemTeleportBase::OnTeleportKeyPressed);

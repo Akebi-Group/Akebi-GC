@@ -14,37 +14,37 @@ namespace cheat::feature
 	static void LCAbilityElement_ReduceModifierDurability_Hook(app::LCAbilityElement* __this, int32_t modifierDurabilityIndex, float reduceDurability, app::Nullable_1_Single_ deltaTime, MethodInfo* method);
 
     AutoDestroy::AutoDestroy() : Feature(),
-        NF(f_Enabled,			"Auto Destroy",			"AutoDestroy", false),
-		NF(f_DestroyOres,		"Destroy Ores",			"AutoDestroy", false),
-		NF(f_DestroyShields,	"Destroy Shields",		"AutoDestroy", false),
-		NF(f_DestroyDoodads,	"Destroy Doodads",		"AutoDestroy", false),
-        NF(f_Range,				"Range",				"AutoDestroy", 10.0f)
+        NF(f_Enabled,			u8"自动摧毁", "AutoDestroy", false),
+		NF(f_DestroyOres, u8"摧毁矿石", "AutoDestroy", false),
+		NF(f_DestroyShields, u8"摧毁盾牌", "AutoDestroy", false),
+		NF(f_DestroyDoodads, u8"摧毁装饰品", "AutoDestroy", false),
+        NF(f_Range, u8"距离", u8"自动摧毁", 10.0f)
     { 
 		HookManager::install(app::MoleMole_LCAbilityElement_ReduceModifierDurability, LCAbilityElement_ReduceModifierDurability_Hook);
 	}
 
     const FeatureGUIInfo& AutoDestroy::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info { "Auto Destroy Objects", "World", true };
+        static const FeatureGUIInfo info { u8"自动摧毁物品", u8"世界", true };
         return info;
     }
 
     void AutoDestroy::DrawMain()
     {
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Note. This feature is not fully tested detection-wise.\n"
-			"Not recommended for main accounts or used with high values.");
+		ImGui::TextColored(ImColor(255, 165, 0, 255), u8"注意：此功能未在检测方面进行全面测试。\n"
+			u8"不推荐用大号或氪号。");
 		
-		ConfigWidget("Enabled", f_Enabled, "Instantly destroys non-living objects within range.");
+		ConfigWidget(u8"启用", f_Enabled, u8"立即摧毁范围内的非生命物体。");
 		ImGui::Indent();
-		ConfigWidget("Ores", f_DestroyOres, "Ores and variants, e.g. electro crystals, marrows, etc.");
-		ConfigWidget("Shields", f_DestroyShields, "Abyss mage/churl/slime shields.");
+		ConfigWidget(u8"矿石", f_DestroyOres, u8"矿石和其他，例如 电晶体、骨髓等");
+		ConfigWidget(u8"盾牌", f_DestroyShields, u8"深渊法师/丘丘人/史莱姆盾");
 		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Extremely risky!");
-		ConfigWidget("Doodads", f_DestroyDoodads, "Barrels, boxes, vases, etc.");
+		ImGui::TextColored(ImColor(255, 165, 0, 255), u8"风险极大！");
+		ConfigWidget(u8"装饰品", f_DestroyDoodads, u8"桶、盒、花瓶等");
 		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Extremely risky!");
+		ImGui::TextColored(ImColor(255, 165, 0, 255), u8"风险极大！");
 		ImGui::Unindent();
-		ConfigWidget("Range (m)", f_Range, 0.1f, 1.0f, 15.0f);
+		ConfigWidget(u8"距离 (m)", f_Range, 0.1f, 1.0f, 15.0f);
     }
 
     bool AutoDestroy::NeedStatusDraw() const
@@ -54,12 +54,12 @@ namespace cheat::feature
 
     void AutoDestroy::DrawStatus() 
     { 
-		ImGui::Text("Destroy [%.01fm%s%s%s%s]",
+		ImGui::Text(u8"销毁 [%.01fm%s%s%s%s]",
 			f_Range.value(),
 			f_DestroyOres || f_DestroyShields || f_DestroyDoodads ? "|" : "",
-			f_DestroyOres ? "O" : "",
-			f_DestroyShields ? "S" : "",
-			f_DestroyDoodads ? "D" : "");
+			f_DestroyOres ? "矿石" : "",
+			f_DestroyShields ? "盾牌" : "",
+			f_DestroyDoodads ? "装饰品" : "");
     }
 
     AutoDestroy& AutoDestroy::GetInstance()

@@ -8,8 +8,8 @@
 namespace cheat::feature 
 {
     InfiniteStamina::InfiniteStamina() : Feature(),
-        NF(f_Enabled, "Infinite stamina", "InfiniteStamina", false),
-        NF(f_PacketReplacement, "Move sync packet replacement", "InfiniteStamina", false)
+        NF(f_Enabled, u8"无限体力", "InfiniteStamina", false),
+        NF(f_PacketReplacement, u8"移动数据包替换", "InfiniteStamina", false)
     {
 		HookManager::install(app::MoleMole_DataItem_HandleNormalProp, DataItem_HandleNormalProp_Hook);
 
@@ -18,18 +18,18 @@ namespace cheat::feature
 
     const FeatureGUIInfo& InfiniteStamina::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info { "Infinite Stamina", "Player", true };
+        static const FeatureGUIInfo info { u8"无限体力", u8"玩家", true };
         return info;
     }
 
     void InfiniteStamina::DrawMain()
     {
-		ConfigWidget("Enabled", f_Enabled, "Enables infinite stamina option.");
+		ConfigWidget(u8"启用", f_Enabled, u8"启用无限体力选项");
 
-		ConfigWidget("Move Sync Packet Replacement", f_PacketReplacement,
-			"This mode prevents sending server packets with stamina cost actions,\n"
-			"e.g. swim, climb, sprint, etc.\n"
-			"NOTE: This is may be more safe than the standard method. More testing is needed.");
+		ConfigWidget(u8"移动数据包替换", f_PacketReplacement,
+			u8"此模式防止发送具有体力减少作用的服务器数据包，\n"
+			u8"例如游泳，跑步，爬山等\n"
+			u8"注：这可能比标准方法更安全。需要更多测试。");
     }
 
     bool InfiniteStamina::NeedStatusDraw() const
@@ -39,7 +39,7 @@ namespace cheat::feature
 
     void InfiniteStamina::DrawStatus() 
     { 
-        ImGui::Text("Inf. Stamina [%s]", f_PacketReplacement ? "Packet" : "Normal");
+        ImGui::Text(u8"无限体力 [%s]", f_PacketReplacement ? u8"数据包" : u8"正常");
     }
 
     InfiniteStamina& InfiniteStamina::GetInstance()

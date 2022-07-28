@@ -102,6 +102,8 @@
     <ClInclude Include="src\user\main.h" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="res\msyh.ttf" />
+    <Font Include="res\msyhbd.ttf" />
     <Font Include="res\Ruda-Bold.ttf" />
     <Font Include="res\Ruda-ExtraBold.ttf" />
   </ItemGroup>
@@ -209,6 +211,7 @@
     <None Include="res\map_teyvat.json" />
     <None Include="res\map_undeground_mines.json" />
     <None Include="res\map_golden_apple_archipelago.json" />
+    <None Include="res\rcdata4.bin" />
     <None Include="res\signatures.json" />
   </ItemGroup>
   <ItemGroup>
@@ -216,13 +219,16 @@
     <Image Include="res\iconsHD\AbidingAngelfish.png" />
     <Image Include="res\iconsHD\Andrius.png" />
     <Image Include="res\iconsHD\Azhdaha.png" />
+    <Image Include="res\iconsHD\BlackSerpentKnight.png" />
     <Image Include="res\iconsHD\Boar.png" />
     <Image Include="res\iconsHD\Cat.png" />
     <Image Include="res\iconsHD\Cicin.png" />
+    <Image Include="res\iconsHD\CloudleisureSteps.png" />
     <Image Include="res\iconsHD\Crane.png" />
     <Image Include="res\iconsHD\CryoBathysmalVishap.png" />
     <Image Include="res\iconsHD\Dendroculus.png" />
     <Image Include="res\iconsHD\Dog.png" />
+    <Image Include="res\iconsHD\DreamForm.png" />
     <Image Include="res\iconsHD\DunlinsTooth.png" />
     <Image Include="res\iconsHD\Dvalin.png" />
     <Image Include="res\iconsHD\Eel.png" />
@@ -395,6 +401,7 @@
     <Image Include="res\iconsHD\MarrowLizard.png" />
     <Image Include="res\iconsHD\Matsutake.png" />
     <Image Include="res\iconsHD\Medaka.png" />
+    <Image Include="res\iconsHD\MelodicBloom.png" />
     <Image Include="res\iconsHD\Merchant.png" />
     <Image Include="res\iconsHD\Millelith.png" />
     <Image Include="res\iconsHD\MiniPuzzle.png" />
@@ -450,6 +457,7 @@
     <Image Include="res\iconsHD\RishbolandTiger.png" />
     <Image Include="res\iconsHD\RockPile.png" />
     <Image Include="res\iconsHD\RuinBrazier.png" />
+    <Image Include="res\iconsHD\RuinDrake.png" />
     <Image Include="res\iconsHD\RuinGrader.png" />
     <Image Include="res\iconsHD\RuinGuard.png" />
     <Image Include="res\iconsHD\RuinHunter.png" />
@@ -497,6 +505,7 @@
     <Image Include="res\iconsHD\Spincrocodile.png" />
     <Image Include="res\iconsHD\Squirrel.png" />
     <Image Include="res\iconsHD\Starconch.png" />
+    <Image Include="res\iconsHD\StarlightCoalescence.png" />
     <Image Include="res\iconsHD\Starshroom.png" />
     <Image Include="res\iconsHD\Starsilver.png" />
     <Image Include="res\iconsHD\StatueofTheSeven.png" />
@@ -517,6 +526,7 @@
     <Image Include="res\iconsHD\TeleportWaypoint.png" />
     <Image Include="res\iconsHD\TheCruxTheAlcor.png" />
     <Image Include="res\iconsHD\TheGreatSnowboarKing.png" />
+    <Image Include="res\iconsHD\TheRavenForum.png" />
     <Image Include="res\iconsHD\ThreeBoxes.png" />
     <Image Include="res\iconsHD\ThunderManifestation.png" />
     <Image Include="res\iconsHD\TimeTrialChallenge.png" />
@@ -553,14 +563,18 @@
     <Image Include="res\iconsHD\ZaytunPeach.png" />
     <Image Include="res\icons\AbidingAngelfish.png" />
     <Image Include="res\icons\Andrius.png" />
+    <Image Include="res\icons\Avatar.png" />
     <Image Include="res\icons\Azhdaha.png" />
+    <Image Include="res\icons\BlackSerpentKnight.png" />
     <Image Include="res\icons\Boar.png" />
     <Image Include="res\icons\Cat.png" />
     <Image Include="res\icons\Cicin.png" />
+    <Image Include="res\icons\CloudleisureSteps.png" />
     <Image Include="res\icons\Crane.png" />
     <Image Include="res\icons\CryoBathysmalVishap.png" />
     <Image Include="res\icons\Dendroculus.png" />
     <Image Include="res\icons\Dog.png" />
+    <Image Include="res\icons\DreamForm.png" />
     <Image Include="res\icons\DunlinsTooth.png" />
     <Image Include="res\icons\Dvalin.png" />
     <Image Include="res\icons\Eel.png" />
@@ -733,6 +747,7 @@
     <Image Include="res\icons\MarrowLizard.png" />
     <Image Include="res\icons\Matsutake.png" />
     <Image Include="res\icons\Medaka.png" />
+    <Image Include="res\icons\MelodicBloom.png" />
     <Image Include="res\icons\Merchant.png" />
     <Image Include="res\icons\Millelith.png" />
     <Image Include="res\icons\MiniPuzzle.png" />
@@ -749,6 +764,7 @@
     <Image Include="res\icons\NilotpalaLotus.png" />
     <Image Include="res\icons\Nobushi.png" />
     <Image Include="res\icons\NoctilucousJade.png" />
+    <Image Include="res\icons\Npc.png" />
     <Image Include="res\icons\OceanCrab.png" />
     <Image Include="res\icons\Oceanid.png" />
     <Image Include="res\icons\OceanidSummons.png" />
@@ -788,6 +804,7 @@
     <Image Include="res\icons\RishbolandTiger.png" />
     <Image Include="res\icons\RockPile.png" />
     <Image Include="res\icons\RuinBrazier.png" />
+    <Image Include="res\icons\RuinDrake.png" />
     <Image Include="res\icons\RuinGrader.png" />
     <Image Include="res\icons\RuinGuard.png" />
     <Image Include="res\icons\RuinHunter.png" />
@@ -835,6 +852,7 @@
     <Image Include="res\icons\Spincrocodile.png" />
     <Image Include="res\icons\Squirrel.png" />
     <Image Include="res\icons\Starconch.png" />
+    <Image Include="res\icons\StarlightCoalescence.png" />
     <Image Include="res\icons\Starshroom.png" />
     <Image Include="res\icons\Starsilver.png" />
     <Image Include="res\icons\StatueofTheSeven.png" />
@@ -855,6 +873,7 @@
     <Image Include="res\icons\TeleportWaypoint.png" />
     <Image Include="res\icons\TheCruxTheAlcor.png" />
     <Image Include="res\icons\TheGreatSnowboarKing.png" />
+    <Image Include="res\icons\TheRavenForum.png" />
     <Image Include="res\icons\ThreeBoxes.png" />
     <Image Include="res\icons\ThunderManifestation.png" />
     <Image Include="res\icons\TimeTrialChallenge.png" />

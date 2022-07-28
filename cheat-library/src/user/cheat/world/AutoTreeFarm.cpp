@@ -11,38 +11,38 @@
 namespace cheat::feature
 {
 	AutoTreeFarm::AutoTreeFarm() : Feature(),
-		NF(m_Enabled, "Auto tree farm", "AutoTreeFarm", false),
-		NF(m_AttackDelay, "Attack delay", "AutoTreeFarm", 150),
-		NF(m_RepeatDelay, "Repeat delay", "AutoTreeFarm", 500),
-		NF(m_AttackPerTree, "Attack per tree", "AutoTreeFarm", 5),
-		NF(m_Range, "Range", "AutoTreeFarm", 15.0f)
+		NF(m_Enabled, u8"自动伐木", "AutoTreeFarm", false),
+		NF(m_AttackDelay, u8"攻击周期", "AutoTreeFarm", 150),
+		NF(m_RepeatDelay, u8"重复周期", "AutoTreeFarm", 500),
+		NF(m_AttackPerTree, u8"攻击每棵树", "AutoTreeFarm", 5),
+		NF(m_Range, u8"距离", u8"自动伐木", 15.0f)
 	{
 		events::GameUpdateEvent += MY_METHOD_HANDLER(AutoTreeFarm::OnGameUpdate);
 	}
 
 	const FeatureGUIInfo& AutoTreeFarm::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "Auto Tree Farm", "World", true };
+		static const FeatureGUIInfo info{ u8"自动伐木", u8"世界", true };
 		return info;
 	}
 
 	void AutoTreeFarm::DrawMain()
 	{
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Note. This feature is not fully tested detection-wise.\n"
-			"Not recommended for main accounts or used with high values.");
+		ImGui::TextColored(ImColor(255, 165, 0, 255), u8"注意：此功能未在检测方面进行全面测试。\n"
+			u8"不推荐用大号或氪号。");
 
-		ConfigWidget("Enabled", m_Enabled, "Automatically attack trees in range.");
-		ConfigWidget("Attack Delay (ms)", m_AttackDelay, 1, 0, 1000, "Delay before attacking the next tree (in ms).");
-		ConfigWidget("Repeat Delay (ms)", m_RepeatDelay, 1, 500, 1000, "Delay before attacking the same tree (in ms).\nValues <500ms will not work.");
+		ConfigWidget(u8"启用", m_Enabled, u8"自动攻击范围内的树木。");
+		ConfigWidget(u8"攻击周期 (ms)", m_AttackDelay, 1, 0, 1000, u8"在攻击下一棵树之前延迟 (ms).");
+		ConfigWidget(u8"重复周期 (ms)", m_RepeatDelay, 1, 500, 1000, u8"攻击同一棵树之前的延迟（以毫秒为单位）。\n 小于500ms 的值将不起作用。");
 
-		ConfigWidget("Attacks per Tree", m_AttackPerTree, 1, 0, 100, "Count of attacks for one tree.\n" \
-			"Recommended to set to 10 or lower to avoid attacking empty trees.\n" \
-			"Set to 0 for unlimited attacks (even empty trees, extremely high risk).\n" \
-			"Note: Memorized trees' attacks are reset after game restart."
+		ConfigWidget(u8"攻击每棵树", m_AttackPerTree, 1, 0, 100, u8"一棵树的攻击计数。\n" \
+			u8"建议设置为 10 或更低，以避免攻击空树。\n" \
+			u8"设置为 0 表示无限攻击（即使是空树，风险极高）。\n" \
+			u8"注意：已采集的树的攻击在游戏重新开始后被重置。"
 		);
 
-		ConfigWidget("Range (m)", m_Range, 0.1f, 1.0f, 15.0f);
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Range is softly limited to ~15m for safety purposes.");
+		ConfigWidget(u8"距离 (m)", m_Range, 0.1f, 1.0f, 15.0f);
+		ImGui::TextColored(ImColor(255, 165, 0, 255), u8"出于安全目的，范围被软限制在15m内。");
 	}
 
 	bool AutoTreeFarm::NeedStatusDraw() const
@@ -52,7 +52,7 @@ namespace cheat::feature
 
 	void AutoTreeFarm::DrawStatus()
 	{
-		ImGui::Text("Tree Farm\n[%dms|%dms|%d|%.1fm]",
+		ImGui::Text(u8"自动伐木\n[%dms|%dms|%d|%.1fm]",
 			m_AttackDelay.value(),
 			m_RepeatDelay.value(),
 			m_AttackPerTree.value(),

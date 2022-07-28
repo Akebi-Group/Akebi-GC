@@ -14,7 +14,7 @@ namespace cheat::feature
 	}
 
     ProtectionBypass::ProtectionBypass() : Feature(),
-        NFEX(f_Enabled, "Disable Protection", "m_DisableMhyProt", "General", true, false),
+        NFEX(f_Enabled, u8"禁用保护", "m_DisableMhyProt", u8"全局", true, false),
 		m_CorrectSignatures({})
     {
 		HookManager::install(app::Unity_RecordUserData, RecordUserData_Hook);
@@ -40,7 +40,7 @@ namespace cheat::feature
 
     const FeatureGUIInfo& ProtectionBypass::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info { "", "Settings", false };
+        static const FeatureGUIInfo info { "", u8"设置", false };
         return info;
     }
 

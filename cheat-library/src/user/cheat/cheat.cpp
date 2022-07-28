@@ -97,18 +97,18 @@ namespace cheat
 			FEAT_INST(KillAura),
 			FEAT_INST(MobVacuum),
 			FEAT_INST(FakeTime),
-
+			
 			FEAT_INST(ChestTeleport),
 			FEAT_INST(OculiTeleport),
 			FEAT_INST(MapTeleport),
 			FEAT_INST(CustomTeleports),
-
+			
 			FEAT_INST(ESP),
 			FEAT_INST(InteractiveMap),
-
+			
 			FEAT_INST(AutoFish),
 			FEAT_INST(AutoCook),
-
+			
 			FEAT_INST(NoFog),
 			FEAT_INST(FPSUnlock),
 			FEAT_INST(CameraZoom),
@@ -125,14 +125,14 @@ namespace cheat
 #undef FEAT_INST
 
 		manager.SetModuleOrder({
-			"玩家",
-			"世界",
-			"传送",
-			"透视",
-			"界面",
-			"热键",
-			"设置",
-			"调试"
+			u8"玩家",
+			u8"世界",
+			u8"传送",
+			u8"透视",
+			u8"界面",
+			u8"热键",
+			u8"设置",
+			u8"调试"
 			});
 
 		LPBYTE pFontData = nullptr;

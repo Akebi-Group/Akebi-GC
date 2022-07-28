@@ -253,6 +253,8 @@
   <ItemGroup>
     <Font Include="res\Ruda-Bold.ttf" />
     <Font Include="res\Ruda-ExtraBold.ttf" />
+    <Font Include="res\msyh.ttf" />
+    <Font Include="res\msyhbd.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\framework\dllmain.cpp">
@@ -469,6 +471,9 @@
     <None Include="res\map_undeground_mines.json" />
     <None Include="res\assembly_checksum.json" />
     <None Include="res\map_golden_apple_archipelago.json" />
+    <None Include="res\rcdata4.bin">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icons\Anemoculus.png">
@@ -2500,6 +2505,54 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\icons\Spincrocodile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\iconsHD\BlackSerpentKnight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\iconsHD\RuinDrake.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\iconsHD\MelodicBloom.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\iconsHD\CloudleisureSteps.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\iconsHD\DreamForm.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\iconsHD\StarlightCoalescence.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\iconsHD\TheRavenForum.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\Avatar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\BlackSerpentKnight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\Npc.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\RuinDrake.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\MelodicBloom.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\CloudleisureSteps.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\DreamForm.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\StarlightCoalescence.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\TheRavenForum.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -14,13 +14,13 @@ namespace cheat::feature
 	static void BaseMoveSyncPlugin_ConvertSyncTaskToMotionInfo_Hook(app::BaseMoveSyncPlugin* __this, MethodInfo* method);
 
     KillAura::KillAura() : Feature(),
-        NF(f_Enabled,      "Kill aura",                 "KillAura", false),
-		NF(f_DamageMode,   "Damage mode",               "Damage mode", false),
-		NF(f_InstantDeathMode,   "Instant death",       "Instant death", false),
-        NF(f_OnlyTargeted, "Only targeted",             "KillAura", true),
-        NF(f_Range,        "Range",                     "KillAura", 15.0f),
-        NF(f_AttackDelay,  "Attack delay time (in ms)", "KillAura", 100),
-        NF(f_RepeatDelay,  "Repeat delay time (in ms)", "KillAura", 1000)
+        NF(f_Enabled,      u8"杀戮光环", "KillAura", false),
+		NF(f_DamageMode, u8"伤害模式", "Damage mode", false),
+		NF(f_InstantDeathMode, u8"瞬间死亡", "Instant death", false),
+        NF(f_OnlyTargeted, u8"单目标", "KillAura", true),
+        NF(f_Range, u8"距离", "KillAura", 15.0f),
+        NF(f_AttackDelay, u8"攻击周期 (ms)", u8"KillAura", 100),
+        NF(f_RepeatDelay, u8"重复周期 (ms)", "KillAura", 1000)
     { 
 		events::GameUpdateEvent += MY_METHOD_HANDLER(KillAura::OnGameUpdate);
 		HookManager::install(app::MoleMole_BaseMoveSyncPlugin_ConvertSyncTaskToMotionInfo, BaseMoveSyncPlugin_ConvertSyncTaskToMotionInfo_Hook);
@@ -28,24 +28,24 @@ namespace cheat::feature
 
     const FeatureGUIInfo& KillAura::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "Kill Aura", "World", true };
+        static const FeatureGUIInfo info{ u8"杀戮光环", u8"世界", true };
         return info;
     }
 
     void KillAura::DrawMain()
     {
-		ConfigWidget("Enable Kill Aura", f_Enabled, "Enables kill aura. Need to choose a mode to work.");
+		ConfigWidget(u8"启用杀戮光环", f_Enabled, u8"启用杀戮光环。 需要选择一种模式才能工作.");
 		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Choose any or both modes below.");
+		ImGui::TextColored(ImColor(255, 165, 0, 255), u8"选择以下任何一种或两种模式。");
 
-		ConfigWidget("Crash Damage Mode", f_DamageMode, "Kill aura causes crash damage for monster around you.");
-		ConfigWidget("Instant Death Mode", f_InstantDeathMode, "Kill aura will attempt to instagib any valid target.");
+		ConfigWidget(u8"碰撞损坏模式", f_DamageMode, u8"杀死光环会对你周围的怪物造成碰撞伤害。");
+		ConfigWidget(u8"瞬间杀死模式", f_InstantDeathMode, u8"杀戮光环会尝试杀死任何有效目标。");
 		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Can get buggy with bosses like PMA and Hydro Hypo.");
-		ConfigWidget("Kill Range", f_Range, 0.1f, 5.0f, 100.0f);
-		ConfigWidget("Only Hostile/Aggro", f_OnlyTargeted, "If enabled, kill aura will only affect monsters targeting/aggro towards you.");
-		ConfigWidget("Crash Attack Delay (ms)", f_AttackDelay, 1, 0, 1000, "Delay in ms before next crash damage.");
-		ConfigWidget("Crash Repeat Delay (ms)", f_RepeatDelay, 1, 100, 2000, "Delay in ms before crash damaging same monster.");
+		ImGui::TextColored(ImColor(255, 165, 0, 255), u8"对派蒙等Boss无效(不确切翻译)");
+		ConfigWidget(u8"杀戮范围", f_Range, 0.1f, 5.0f, 100.0f);
+		ConfigWidget(u8"只有敌对/仇恨", f_OnlyTargeted, u8"如果启用，杀戮光环只会杀死瞄准/攻击你的怪物。");
+		ConfigWidget(u8"碰撞攻击周期 (ms)", f_AttackDelay, 1, 0, 1000, u8"下一次碰撞损坏前的延迟毫秒数.");
+		ConfigWidget(u8"碰撞重复周期 (ms)", f_RepeatDelay, 1, 100, 2000, u8"崩溃损坏同一个怪物之前的延迟毫秒.");
     }
 
     bool KillAura::NeedStatusDraw() const
@@ -55,10 +55,10 @@ namespace cheat::feature
 
     void KillAura::DrawStatus() 
     { 
-        ImGui::Text("Kill Aura [%s]\n[%.01fm|%s|%dms|%dms]", 
-			f_DamageMode && f_InstantDeathMode ? "Extreme" : f_DamageMode ? "Crash" : f_InstantDeathMode ? "Instant" : "None",
+        ImGui::Text(u8"杀戮光环 [%s]\n[%.01fm|%s|%dms|%dms]",
+			f_DamageMode && f_InstantDeathMode ? "极端" : f_DamageMode ? "碰撞" : f_InstantDeathMode ? "瞬间" : "无",
 			f_Range.value(),
-			f_OnlyTargeted ? "Aggro" : "All",
+			f_OnlyTargeted ? "仇恨" : "所有",
 			f_AttackDelay.value(),
 			f_RepeatDelay.value());
     }

@@ -8,21 +8,21 @@ namespace cheat::feature
     static void LevelSceneElementViewPlugin_Tick_Hook(app::LevelSceneElementViewPlugin* __this, float inDeltaTime, MethodInfo* method);
 
     ElementalSight::ElementalSight() : Feature(),
-        NF(f_Enabled, "Permanent Elemental Sight", "ElementalSight", false)
+        NF(f_Enabled, u8"永久元素视野", "ElementalSight", false)
     {
         HookManager::install(app::MoleMole_LevelSceneElementViewPlugin_Tick, LevelSceneElementViewPlugin_Tick_Hook);
     }
 
     const FeatureGUIInfo& ElementalSight::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "", "World", false };
+        static const FeatureGUIInfo info{ "", u8"世界", false };
         return info;
     }
 
     void ElementalSight::DrawMain()
     {
-        ConfigWidget("Permanent Elemental Sight", f_Enabled, "Elemental sight is kept on even when moving.\n"
-                     "To turn off, toggle off and use Elemental Sight again.");
+        ConfigWidget(u8"永久元素视野", f_Enabled, u8"即使在移动时也会保持元素视野.\n"
+                    u8"要关闭此功能，请关闭之后手动使用元素视野。");
     }
 
     bool ElementalSight::NeedStatusDraw() const
@@ -32,7 +32,7 @@ namespace cheat::feature
 
     void ElementalSight::DrawStatus()
     {
-        ImGui::Text("Perma Elemental Sight");
+        ImGui::Text(u8"永久元素视野");
     }
 
     ElementalSight& ElementalSight::GetInstance()
