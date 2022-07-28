@@ -1,7 +1,8 @@
-    #include "pch-il2cpp.h"
+#include "pch-il2cpp.h"
 #include "DialogSkip.h"
 
 #include <helpers.h>
+#include <cheat/events.h>
 #include <cheat/game/EntityManager.h>
 
 namespace cheat::feature
@@ -16,11 +17,16 @@ namespace cheat::feature
         NF(f_ExcludeImportant, "Exclude Katheryne/Tubby/Wagner", "AutoTalk", true),
         NF(f_FastDialog, "Fast dialog", "AutoTalk", false),
         NF(f_CutsceneUSM, "Skip Cutscenes", "AutoTalk", false),
-        NF(f_TimeSpeedup, "Time Speed", "AutoTalk", 5.0f)
+        NF(f_TimeSpeedup, "Time Speed", "AutoTalk", 5.0f),
+        NF(f_GameSpeedEnabled, "Game SpeedUp Enabled", "AutoTalk", false),
+        NF(f_GameSpeedKey, "Game SpeedUp Key", "AutoTalk", Hotkey(ImGuiKey_CapsLock)),
+        NF(f_GameSpeedVal, "Game SpeedUp Value", "AutoTalk", 5.0f)
     {
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_UpdateView, InLevelCutScenePageContext_UpdateView_Hook);
         HookManager::install(app::MoleMole_InLevelCutScenePageContext_ClearView, InLevelCutScenePageContext_ClearView_Hook);
         HookManager::install(app::CriwareMediaPlayer_Update, CriwareMediaPlayer_Update);
+
+        events::GameUpdateEvent += MY_METHOD_HANDLER(DialogSkip::OnGameUpdate);
     }
 
     const FeatureGUIInfo& DialogSkip::GetGUIInfo() const
@@ -45,6 +51,13 @@ namespace cheat::feature
             ConfigWidget(f_TimeSpeedup, 0.1f, 2.0f, 50.0f, "Time Speedup Multipler \nHigher Values will lead to sync issues with servers \nand is not recommended for Laggy Internet connections.");
         }
         ConfigWidget("Skip Cutscenes", f_CutsceneUSM, "Automatically skips game movies.");
+
+        ConfigWidget("Game Speedup", f_GameSpeedEnabled, "Speeds Up Game with HotKey");
+        if (f_GameSpeedEnabled)
+        {
+            ConfigWidget("GameSpeedUp Key", f_GameSpeedKey, "Set GameSpeedUp Key");
+            ConfigWidget(f_GameSpeedVal, 0.1f, 2.0f, 50.0f, "Game Speedup Multiplier\nHigher Values can cause Sync Issues with Server\nBe Careful!");
+        }
     }
 
     bool DialogSkip::NeedStatusDraw() const
@@ -69,6 +82,29 @@ namespace cheat::feature
     {
         static DialogSkip instance;
         return instance;
+    }
+
+    // Raised On Game Update
+    void DialogSkip::OnGameUpdate()
+    {
+        static bool isSpeed = false;
+        if (f_GameSpeedEnabled ? f_GameSpeedKey.value().IsPressed() : Hotkey(ImGuiKey_CapsLock).IsPressed() && !isSpeed)
+        {
+            isSpeed = true;
+            float gameSpeed = app::Time_get_timeScale(nullptr);
+            if (gameSpeed == 1.0f)
+                app::Time_set_timeScale(f_GameSpeedVal, nullptr);
+        }
+
+        if (f_GameSpeedEnabled ? !f_GameSpeedKey.value().IsPressed() : !Hotkey(ImGuiKey_CapsLock).IsPressed() && isSpeed)
+        {
+            isSpeed = false;
+            float gameSpeed = app::Time_get_timeScale(nullptr);
+            if (gameSpeed != 1.0f)
+                app::Time_set_timeScale(1.0f, nullptr);
+        }
+        // float gameSpeed = app::Time_get_timeScale(nullptr);
+        //LOG_DEBUG("GameSpeed: %f Enabled: %d Value: %f Key: %s", gameSpeed, f_GameSpeedEnabled, f_GameSpeedVal, f_GameSpeedKey);
     }
 
     // Raised when dialog view updating

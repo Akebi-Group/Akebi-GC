@@ -14,6 +14,9 @@ namespace cheat::feature
 		config::Field<config::Toggle<Hotkey>> f_FastDialog;
 		config::Field<config::Toggle<Hotkey>> f_CutsceneUSM;
 		config::Field<float> f_TimeSpeedup;
+		config::Field<bool> f_GameSpeedEnabled;
+		config::Field<Hotkey> f_GameSpeedKey;
+		config::Field<float> f_GameSpeedVal;
 
 		static DialogSkip& GetInstance();
 
@@ -23,6 +26,7 @@ namespace cheat::feature
 		virtual bool NeedStatusDraw() const override;
 		void DrawStatus() override;
 
+		void OnGameUpdate();
 		void OnCutScenePageUpdate(app::InLevelCutScenePageContext* context);
 
 	private:
