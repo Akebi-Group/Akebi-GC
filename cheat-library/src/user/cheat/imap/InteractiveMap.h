@@ -146,7 +146,7 @@ namespace cheat::feature
 
 		std::unordered_set<PointData*> m_CustomPoints;
 		std::unordered_set<PointData*> m_FixedPoints;
-		std::unordered_set<PointData*> m_CompletedPoints;
+		std::list<PointData*> m_CompletedPoints;
 
 		std::mutex m_PointMutex;
 		// PointData* m_SelectedPoint;
@@ -182,6 +182,7 @@ namespace cheat::feature
 		void LoadCompletedPointData(LabelData* labelData, const nlohmann::json& data);
 		void SaveCompletedPointData(nlohmann::json& jObject, PointData* point);
 		bool ResetCompletedPointData(LabelData* label, PointData* point);
+		void ReorderCompletedPointDataByTimestamp();
 		
 		void LoadCustomPointData(LabelData* labelData, const nlohmann::json& data);
 		void SaveCustomPointData(nlohmann::json& jObject, PointData* point);
