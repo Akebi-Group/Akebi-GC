@@ -18,7 +18,7 @@
 It is recommended to use [Visual Studio 2022.](https://visualstudio.microsoft.com/)
 As well as setting up **`cheat-library`** as startup project.
 **The following is a recommended procedure, but others may be used.**
-1. Clone repository with `git clone --recurse-submodules https://github.com/Akebi-Group/Akebi-GC.git`
+1. Clone repository with `git clone -b chinese-2.8 --recurse-submodules https://github.com/Akebi-Group/Akebi-GC.git`
 1. Open `Akebi-GC/akebi-gc.sln`
 1. Build solution `akebi-gc.sln`.
 
