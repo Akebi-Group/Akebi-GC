@@ -11,6 +11,7 @@ namespace cheat::feature
 		config::Field<Hotkey> f_MenuKey;
 		config::Field<bool> f_HotkeysEnabled;
 		config::Field<int> f_FontSize;
+		config::Field<bool> f_ShowStyleEditor;
 
 		config::Field<bool> f_StatusMove;
 		config::Field<bool> f_StatusShow;

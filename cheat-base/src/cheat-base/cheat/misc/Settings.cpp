@@ -11,6 +11,7 @@ namespace cheat::feature
 		NF(f_MenuKey, "Show Cheat Menu Key", "General", Hotkey(VK_F1)),
 		NF(f_HotkeysEnabled, "Hotkeys Enabled", "General", true),
 		NF(f_FontSize, "Font size", "General", 16.0f),
+		NF(f_ShowStyleEditor, "Show Style Editor", "General", false),
 
 		NF(f_StatusMove, "Move Status Window", "General::StatusWindow", true),
 		NF(f_StatusShow, "Show Status Window", "General::StatusWindow", true),
@@ -55,6 +56,7 @@ namespace cheat::feature
 				f_FontSize = std::clamp(f_FontSize.value(), 8, 64);
 				renderer::SetGlobalFontSize(static_cast<float>(f_FontSize));
 			}
+			ConfigWidget(f_ShowStyleEditor, "Show interface style editor window.");
 		}
 		ImGui::EndGroupPanel();
 

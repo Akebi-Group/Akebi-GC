@@ -431,6 +431,9 @@ namespace cheat
 		if (settings.f_NotificationsShow)
 			DrawNotifications();
 
+		if (settings.f_ShowStyleEditor)
+			ImGui::ShowStyleEditor();
+
 		if (settings.f_MenuKey.value().IsReleased() && !ImGui::IsAnyItemActive())
 			ToggleMenuShow();
 	}
