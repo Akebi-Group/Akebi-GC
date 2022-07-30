@@ -318,7 +318,7 @@ namespace cheat::game::filters
 		WhitelistFilter DreamForm = { {EntityType__Enum_1::Field, EntityType__Enum_1::Platform }, "_AnimalSeelie" };
 		SimpleFilter StarlightCoalescence = { EntityType__Enum_1::Field, "_PaperStar" };
 		SimpleFilter TheRavenForum = { EntityType__Enum_1::Gadget, "_NightCrowStatue" };
-
+		SimpleFilter TimeTrialChallengeCollection = { EntityType__Enum_1::Field,"SkillObj_EmptyGadget" };
 	}
 
 	namespace combined

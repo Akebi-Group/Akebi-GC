@@ -23,6 +23,7 @@
     <ClInclude Include="src\user\cheat\player\AutoRun.h" />
     <ClInclude Include="src\user\cheat\visuals\TextureChanger.h" />
     <ClInclude Include="src\user\cheat\visuals\FreeCamera.h" />
+    <ClInclude Include="src\user\cheat\world\AutoChallenge.h" />
     <ClInclude Include="src\user\cheat\world\AutoSeelie.h" />
     <ClInclude Include="src\user\cheat\world\FakeTime.h" />
     <ClInclude Include="src\user\cheat\debugger.h">
@@ -114,6 +115,7 @@
     <ClCompile Include="src\user\cheat\player\AutoRun.cpp" />
     <ClCompile Include="src\user\cheat\visuals\TextureChanger.cpp" />
     <ClCompile Include="src\user\cheat\visuals\FreeCamera.cpp" />
+    <ClCompile Include="src\user\cheat\world\AutoChallenge.cpp" />
     <ClCompile Include="src\user\cheat\world\AutoSeelie.cpp" />
     <ClCompile Include="src\user\cheat\world\FakeTime.cpp" />
     <ClCompile Include="src\user\cheat\debugger.cpp">
