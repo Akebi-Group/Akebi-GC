@@ -27,56 +27,59 @@ namespace cheat::feature
 
     const FeatureGUIInfo& RapidFire::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "Attack Effects", "Player", true };
+        static const FeatureGUIInfo info{ "", "Combat", true };
         return info;
     }
 
     void RapidFire::DrawMain()
     {
-		ConfigWidget("Enabled", f_Enabled, "Enables attack multipliers. Need to choose a mode to work.");
-		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Choose any or both modes below.");
+		if (ImGui::CollapsingHeader("Attack Effects"))
+		{
+			ConfigWidget("Enabled", f_Enabled, "Enables attack multipliers. Need to choose a mode to work.");
+			ImGui::SameLine();
+			ImGui::TextColored(ImColor(255, 165, 0, 255), "Choose any or both modes below.");
 
-		ConfigWidget("Multi-hit Mode", f_MultiHit, "Enables multi-hit.\n" \
-            "Multiplies your attack count.\n" \
-            "This is not well tested, and can be detected by anticheat.\n" \
-            "Not recommended to be used with main accounts or used with high values.\n" \
-			"Known issues with certain multi-hit attacks, e.g. Xiao E, Ayaka CA, etc.");
+			ConfigWidget("Multi-hit Mode", f_MultiHit, "Enables multi-hit.\n" \
+				"Multiplies your attack count.\n" \
+				"This is not well tested, and can be detected by anticheat.\n" \
+				"Not recommended to be used with main accounts or used with high values.\n" \
+				"Known issues with certain multi-hit attacks, e.g. Xiao E, Ayaka CA, etc.");
 
-		ImGui::Indent();
+			ImGui::Indent();
 
-		ConfigWidget("One-Punch Mode", f_OnePunch, "Calculate how many attacks needed to kill an enemy based on their HP\n" \
-			"and uses that to set the multiplier accordingly.\n" \
-			"May be safer, but multiplier calculation may not be on-point.");
+			ConfigWidget("One-Punch Mode", f_OnePunch, "Calculate how many attacks needed to kill an enemy based on their HP\n" \
+				"and uses that to set the multiplier accordingly.\n" \
+				"May be safer, but multiplier calculation may not be on-point.");
 
-		ConfigWidget("Randomize Multiplier", f_Randomize, "Randomize multiplier between min and max multiplier.");
-		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "This will override One-Punch Mode!");
+			ConfigWidget("Randomize Multiplier", f_Randomize, "Randomize multiplier between min and max multiplier.");
+			ImGui::SameLine();
+			ImGui::TextColored(ImColor(255, 165, 0, 255), "This will override One-Punch Mode!");
 
-		if (!f_OnePunch) {
-			if (!f_Randomize)
-			{
-				ConfigWidget("Multiplier", f_Multiplier, 1, 2, 1000, "Attack count multiplier.");
+			if (!f_OnePunch) {
+				if (!f_Randomize)
+				{
+					ConfigWidget("Multiplier", f_Multiplier, 1, 2, 1000, "Attack count multiplier.");
+				}
+				else
+				{
+					ConfigWidget("Min Multiplier", f_minMultiplier, 1, 2, 1000, "Attack count minimum multiplier.");
+					ConfigWidget("Max Multiplier", f_maxMultiplier, 1, 2, 1000, "Attack count maximum multiplier.");
+				}
 			}
-			else
-			{
-				ConfigWidget("Min Multiplier", f_minMultiplier, 1, 2, 1000, "Attack count minimum multiplier.");
-				ConfigWidget("Max Multiplier", f_maxMultiplier, 1, 2, 1000, "Attack count maximum multiplier.");
-			}
+
+			ImGui::Unindent();
+
+			ConfigWidget("Multi-target", f_MultiTarget, "Enables multi-target attacks within specified radius of target.\n" \
+				"All valid targets around initial target will be hit based on setting.\n" \
+				"Damage numbers will only appear on initial target but all valid targets are damaged.\n" \
+				"If multi-hit is off and there are still multiple numbers on a single target, check the Entity Manager in the Debug section to see if there are invisible entities.\n" \
+				"This can cause EXTREME lag and quick bans if used with multi-hit. You are warned."
+			);
+
+			ImGui::Indent();
+			ConfigWidget("Radius (m)", f_MultiTargetRadius, 0.1f, 5.0f, 50.0f, "Radius to check for valid targets.");
+			ImGui::Unindent();
 		}
-
-		ImGui::Unindent();
-
-		ConfigWidget("Multi-target", f_MultiTarget, "Enables multi-target attacks within specified radius of target.\n" \
-			"All valid targets around initial target will be hit based on setting.\n" \
-			"Damage numbers will only appear on initial target but all valid targets are damaged.\n" \
-			"If multi-hit is off and there are still multiple numbers on a single target, check the Entity Manager in the Debug section to see if there are invisible entities.\n" \
-			"This can cause EXTREME lag and quick bans if used with multi-hit. You are warned."
-		);
-	
-		ImGui::Indent();
-		ConfigWidget("Radius (m)", f_MultiTargetRadius, 0.1f, 5.0f, 50.0f, "Radius to check for valid targets.");
-		ImGui::Unindent();
     }
 
     bool RapidFire::NeedStatusDraw() const

@@ -24,26 +24,29 @@ namespace cheat::feature
 
     const FeatureGUIInfo& TextureChanger::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "TextureChanger", "Visuals", true };
+        static const FeatureGUIInfo info{ "", "Visuals", true };
         return info;
     }
 
     void TextureChanger::DrawMain()
     {
-        ConfigWidget(f_Enabled, "Texture Changer.");
-        ImGui::Text("Active Hero: %s", ActiveHero.c_str());
- 
-        ConfigWidget(f_HeadPath, "Head Texture.\n" \
-            "Example path: C:\\Head.png");
+        if (ImGui::CollapsingHeader("Texture Changer"))
+        {
+            ConfigWidget("Texture Changer.", f_Enabled, "Texture Changer.");
+            ImGui::Text("Active Hero: %s", ActiveHero.c_str());
 
-        ConfigWidget(f_BodyPath, "Body Texture.\n" \
-            "Example path: C:\\Body.png");
+            ConfigWidget(f_HeadPath, "Head Texture.\n" \
+                "Example path: C:\\Head.png");
 
-        ConfigWidget(f_DressPath, "Dress Texture.\n" \
-            "Example path: C:\\Dress.png");
+            ConfigWidget(f_BodyPath, "Body Texture.\n" \
+                "Example path: C:\\Body.png");
 
-        if (ImGui::Button("Apply"))
-            ApplyTexture = true;
+            ConfigWidget(f_DressPath, "Dress Texture.\n" \
+                "Example path: C:\\Dress.png");
+
+            if (ImGui::Button("Apply"))
+                ApplyTexture = true;
+        }
     }
 
     bool TextureChanger::NeedStatusDraw() const

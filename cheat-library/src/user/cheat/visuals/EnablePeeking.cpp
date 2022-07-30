@@ -15,7 +15,7 @@ namespace cheat::feature
 
     const FeatureGUIInfo& EnablePeeking::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "EnablePeeking", "Visuals", false };
+        static const FeatureGUIInfo info{ "Misc", "Visuals", true };
         return info;
     }
 

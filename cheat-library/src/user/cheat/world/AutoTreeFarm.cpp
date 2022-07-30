@@ -22,27 +22,30 @@ namespace cheat::feature
 
 	const FeatureGUIInfo& AutoTreeFarm::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "Auto Tree Farm", "World", true };
+		static const FeatureGUIInfo info{ "", "World", true };
 		return info;
 	}
 
 	void AutoTreeFarm::DrawMain()
 	{
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Note. This feature is not fully tested detection-wise.\n"
-			"Not recommended for main accounts or used with high values.");
+		if (ImGui::CollapsingHeader("Auto Tree Farm"))
+		{
+			ImGui::TextColored(ImColor(255, 165, 0, 255), "Note. This feature is not fully tested detection-wise.\n"
+				"Not recommended for main accounts or used with high values.");
 
-		ConfigWidget("Enabled", m_Enabled, "Automatically attack trees in range.");
-		ConfigWidget("Attack Delay (ms)", m_AttackDelay, 1, 0, 1000, "Delay before attacking the next tree (in ms).");
-		ConfigWidget("Repeat Delay (ms)", m_RepeatDelay, 1, 500, 1000, "Delay before attacking the same tree (in ms).\nValues <500ms will not work.");
+			ConfigWidget("Enabled", m_Enabled, "Automatically attack trees in range.");
+			ConfigWidget("Attack Delay (ms)", m_AttackDelay, 1, 0, 1000, "Delay before attacking the next tree (in ms).");
+			ConfigWidget("Repeat Delay (ms)", m_RepeatDelay, 1, 500, 1000, "Delay before attacking the same tree (in ms).\nValues <500ms will not work.");
 
-		ConfigWidget("Attacks per Tree", m_AttackPerTree, 1, 0, 100, "Count of attacks for one tree.\n" \
-			"Recommended to set to 10 or lower to avoid attacking empty trees.\n" \
-			"Set to 0 for unlimited attacks (even empty trees, extremely high risk).\n" \
-			"Note: Memorized trees' attacks are reset after game restart."
-		);
+			ConfigWidget("Attacks per Tree", m_AttackPerTree, 1, 0, 100, "Count of attacks for one tree.\n" \
+				"Recommended to set to 10 or lower to avoid attacking empty trees.\n" \
+				"Set to 0 for unlimited attacks (even empty trees, extremely high risk).\n" \
+				"Note: Memorized trees' attacks are reset after game restart."
+			);
 
-		ConfigWidget("Range (m)", m_Range, 0.1f, 1.0f, 15.0f);
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Range is softly limited to ~15m for safety purposes.");
+			ConfigWidget("Range (m)", m_Range, 0.1f, 1.0f, 15.0f);
+			ImGui::TextColored(ImColor(255, 165, 0, 255), "Range is softly limited to ~15m for safety purposes.");
+		}
 	}
 
 	bool AutoTreeFarm::NeedStatusDraw() const

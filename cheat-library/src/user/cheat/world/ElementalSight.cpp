@@ -15,7 +15,7 @@ namespace cheat::feature
 
     const FeatureGUIInfo& ElementalSight::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "", "World", false };
+        static const FeatureGUIInfo info{ "Misc", "World", true };
         return info;
     }
 

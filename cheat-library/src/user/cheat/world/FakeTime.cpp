@@ -23,14 +23,17 @@ namespace cheat::feature
 	}
 	const FeatureGUIInfo& FakeTime::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "FakeTime", "World", true };
+		static const FeatureGUIInfo info{ "", "World", true };
 		return info;
 	}
 	void FakeTime::DrawMain()
 	{
-		ConfigWidget("Enabled", f_Enabled, "Keep game time the same");
-		ConfigWidget("TimeHour", f_TimeHour, 1, 0, 24);
-		ConfigWidget("TimeMinute", f_TimeMinute, 1, 0, 60);
+		if (ImGui::CollapsingHeader("Fake Time"))
+		{
+			ConfigWidget("Enabled", f_Enabled, "Keep game time the same");
+			ConfigWidget("TimeHour", f_TimeHour, 1, 0, 24);
+			ConfigWidget("TimeMinute", f_TimeMinute, 1, 0, 60);
+		}
 	}
 	bool FakeTime::NeedStatusDraw() const
 	{

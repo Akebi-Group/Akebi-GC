@@ -29,7 +29,7 @@ namespace cheat::feature
 
 	const FeatureGUIInfo& CustomTeleports::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "Custom Teleports", "Teleport", true };
+		static const FeatureGUIInfo info{ "", "Teleport", true };
 		return info;
 	}
 
@@ -196,211 +196,215 @@ namespace cheat::feature
 
 	void CustomTeleports::DrawMain()
 	{
-		// Buffers
-		static std::string nameBuffer_;
-		static std::string searchBuffer_;
-		static std::string JSONBuffer_;
-		static std::string descriptionBuffer_;
-
-		ImGui::InputText("Name", &nameBuffer_);
-		ImGui::InputText("Description", &descriptionBuffer_);
-		if (ImGui::Button("Add Teleport"))
+		if (ImGui::CollapsingHeader("Custom Teleports"))
 		{
-			selectedIndex = -1;
-			UpdateIndexName();
-			SerializeTeleport(Teleport_(nameBuffer_, app::ActorUtils_GetAvatarPos(nullptr), descriptionBuffer_));
-			nameBuffer_ = "";
-			descriptionBuffer_ = "";
-		}
-		ImGui::SameLine();
+			// Buffers
+			static std::string nameBuffer_;
+			static std::string searchBuffer_;
+			static std::string JSONBuffer_;
+			static std::string descriptionBuffer_;
 
-		if (ImGui::Button("Reload"))
-		{
-			selectedIndex = -1;
-			UpdateIndexName();
-			checkedIndices.clear();
-			ReloadTeleports();
-		}
-
-		ImGui::SameLine();
-		if (ImGui::Button("Open Folder"))
-		{
-			CheckFolder();
-			ShellExecuteA(NULL, "open", dir.string().c_str(), NULL, NULL, SW_SHOW);
-		}
-
-		ImGui::SameLine();
-		if (ImGui::Button("Load from JSON"))
-		{
-			selectedIndex = -1;
-			UpdateIndexName();
-			SerializeTeleport(SerializeFromJson(JSONBuffer_, false));
-			JSONBuffer_ = "";
-		}
-		ImGui::InputTextMultiline("JSON input", &JSONBuffer_, ImVec2(0, 50), ImGuiInputTextFlags_AllowTabInput);
-
-		ConfigWidget("Teleport Next", f_Next, true, "Press to teleport next of selected");
-		ConfigWidget("Teleport Previous", f_Previous, true, "Press to teleport previous of selected");
-		ConfigWidget("Enable", f_Enabled,
-					 "Enable teleport-through-list functionality\n"
-					 "Usage:\n"
-					 "1. Put Checkmark to the teleports you want to teleport using hotkey\n"
-					 "2. Single click the teleport (with checkmark) to select where you want to start\n"
-					 "3. You can now press Next or Previous Hotkey to Teleport through the Checklist\n"
-					 "Initially it will teleport the player to the selection made\n"
-					 "Note: Double click or click the arrow to open teleport details");
-		ImGui::SameLine();
-
-		if (ImGui::Button("Delete Checked"))
-		{
-			if (!Teleports.empty())
+			ImGui::InputText("Name", &nameBuffer_);
+			ImGui::InputText("Description", &descriptionBuffer_);
+			if (ImGui::Button("Add Teleport"))
 			{
-				if (checkedIndices.empty())
-				{
-					LOG_INFO("No teleports selected");
-					return;
-				}
-				std::vector<std::string> teleportNames;
-				for (auto &Teleport : Teleports)
-					teleportNames.push_back(Teleport.name);
-				for (auto &index : checkedIndices)
-				{
-					std::filesystem::remove(dir / (teleportNames[index] + ".json"));
-					LOG_INFO("Deleted teleport %s", teleportNames[index].c_str());
-				}
-				checkedIndices.clear();
+				selectedIndex = -1;
 				UpdateIndexName();
-				ReloadTeleports();
-			} else {LOG_INFO("No teleports to delete");}
-		}
-		ImGui::SameLine();
-		HelpMarker("Warning: This will delete the file from the directory and\n \
-		remove the teleport from the list. It will be lost forever.");
+				SerializeTeleport(Teleport_(nameBuffer_, app::ActorUtils_GetAvatarPos(nullptr), descriptionBuffer_));
+				nameBuffer_ = "";
+				descriptionBuffer_ = "";
+			}
+			ImGui::SameLine();
 
-		if (ImGui::TreeNode("Teleports"))
-		{
-			std::sort(Teleports.begin(), Teleports.end(), [](const auto &a, const auto &b)
-					  { return StrCmpLogicalW(std::wstring(a.name.begin(), a.name.end()).c_str(), std::wstring(b.name.begin(), b.name.end()).c_str()) < 0; });
-			bool allChecked = checkedIndices.size() == Teleports.size() && !Teleports.empty();
-			bool allSearchChecked = checkedIndices.size() == searchIndices.size() && !searchIndices.empty();
-			ImGui::Checkbox("All", &allChecked);
-			if (ImGui::IsItemClicked())
+			if (ImGui::Button("Reload"))
+			{
+				selectedIndex = -1;
+				UpdateIndexName();
+				checkedIndices.clear();
+				ReloadTeleports();
+			}
+
+			ImGui::SameLine();
+			if (ImGui::Button("Open Folder"))
+			{
+				CheckFolder();
+				ShellExecuteA(NULL, "open", dir.string().c_str(), NULL, NULL, SW_SHOW);
+			}
+
+			ImGui::SameLine();
+			if (ImGui::Button("Load from JSON"))
+			{
+				selectedIndex = -1;
+				UpdateIndexName();
+				SerializeTeleport(SerializeFromJson(JSONBuffer_, false));
+				JSONBuffer_ = "";
+			}
+			ImGui::InputTextMultiline("JSON input", &JSONBuffer_, ImVec2(0, 50), ImGuiInputTextFlags_AllowTabInput);
+
+			ConfigWidget("Teleport Next", f_Next, true, "Press to teleport next of selected");
+			ConfigWidget("Teleport Previous", f_Previous, true, "Press to teleport previous of selected");
+			ConfigWidget("Enable", f_Enabled,
+				"Enable teleport-through-list functionality\n"
+				"Usage:\n"
+				"1. Put Checkmark to the teleports you want to teleport using hotkey\n"
+				"2. Single click the teleport (with checkmark) to select where you want to start\n"
+				"3. You can now press Next or Previous Hotkey to Teleport through the Checklist\n"
+				"Initially it will teleport the player to the selection made\n"
+				"Note: Double click or click the arrow to open teleport details");
+			ImGui::SameLine();
+
+			if (ImGui::Button("Delete Checked"))
 			{
 				if (!Teleports.empty())
 				{
-					if (allChecked)
+					if (checkedIndices.empty())
 					{
-						selectedIndex = -1;
-						if (!searchIndices.empty())
-							for (const auto &i : searchIndices)
-								checkedIndices.erase(i);
-						else
-							checkedIndices.clear();
+						LOG_INFO("No teleports selected");
+						return;
 					}
-					else if (!searchIndices.empty())
-						checkedIndices.insert(searchIndices.begin(), searchIndices.end());
-					else
-						for (int i = 0; i < Teleports.size(); i++)
-							checkedIndices.insert(i);
+					std::vector<std::string> teleportNames;
+					for (auto& Teleport : Teleports)
+						teleportNames.push_back(Teleport.name);
+					for (auto& index : checkedIndices)
+					{
+						std::filesystem::remove(dir / (teleportNames[index] + ".json"));
+						LOG_INFO("Deleted teleport %s", teleportNames[index].c_str());
+					}
+					checkedIndices.clear();
 					UpdateIndexName();
+					ReloadTeleports();
 				}
+				else { LOG_INFO("No teleports to delete"); }
 			}
 			ImGui::SameLine();
-			ImGui::InputText("Search", &searchBuffer_);
-			unsigned int index = 0;
-			searchIndices.clear();
+			HelpMarker("Warning: This will delete the file from the directory and\n \
+		remove the teleport from the list. It will be lost forever.");
 
-			unsigned int maxNameLength = 0;
-			for (auto &Teleport : Teleports)
-				if (Teleport.name.length() > maxNameLength)
-					maxNameLength = Teleport.name.length();
-			ImGui::BeginTable("Teleports", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable | ImGuiTableFlags_NoSavedSettings);
-			ImGui::TableSetupColumn("#", ImGuiTableColumnFlags_WidthFixed, 20);
-			ImGui::TableSetupColumn("Commands", ImGuiTableColumnFlags_WidthFixed, 100);
-			ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed, maxNameLength * 8 + 10);
-			ImGui::TableSetupColumn("Position");
-			ImGui::TableHeadersRow();
-			ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
-
-			for (const auto &[name, position, description] : Teleports)
+			if (ImGui::TreeNode("Teleports"))
 			{
-				if (searchBuffer_.empty() || std::search(name.begin(), name.end(), searchBuffer_.begin(), searchBuffer_.end(), [](char a, char b)
-														 { return std::tolower(a) == std::tolower(b); }) != name.end())
+				std::sort(Teleports.begin(), Teleports.end(), [](const auto& a, const auto& b)
+					{ return StrCmpLogicalW(std::wstring(a.name.begin(), a.name.end()).c_str(), std::wstring(b.name.begin(), b.name.end()).c_str()) < 0; });
+				bool allChecked = checkedIndices.size() == Teleports.size() && !Teleports.empty();
+				bool allSearchChecked = checkedIndices.size() == searchIndices.size() && !searchIndices.empty();
+				ImGui::Checkbox("All", &allChecked);
+				if (ImGui::IsItemClicked())
 				{
-					if (!searchBuffer_.empty())
-						searchIndices.insert(index);
-					bool checked = std::any_of(checkedIndices.begin(), checkedIndices.end(), [&index](const auto &i)
-											   { return i == index; });
-					bool selected = index == selectedIndex;
-
-					ImGui::TableNextRow();
-					ImGui::TableNextColumn();
-					ImGui::Text("%d", index);
-					ImGui::TableNextColumn();
-					ImGui::Checkbox(("##Index" + std::to_string(index)).c_str(), &checked);
-					if (ImGui::IsItemClicked(0))
+					if (!Teleports.empty())
 					{
-						if (checked)
+						if (allChecked)
 						{
-							if (selected)
-								selectedIndex = -1;
-							checkedIndices.erase(index);
+							selectedIndex = -1;
+							if (!searchIndices.empty())
+								for (const auto& i : searchIndices)
+									checkedIndices.erase(i);
+							else
+								checkedIndices.clear();
 						}
+						else if (!searchIndices.empty())
+							checkedIndices.insert(searchIndices.begin(), searchIndices.end());
 						else
-							checkedIndices.insert(index);
+							for (int i = 0; i < Teleports.size(); i++)
+								checkedIndices.insert(i);
 						UpdateIndexName();
 					}
-
-					ImGui::SameLine();
-					if (ImGui::Button(("TP##Button" + std::to_string(index)).c_str()))
-					{
-						auto &manager = game::EntityManager::instance();
-						auto avatar = manager.avatar();
-						if (avatar->moveComponent() == nullptr)
-						{
-							LOG_ERROR("Avatar has no move component, Is scene loaded?");
-							return;
-						}
-						if (PositionDistance(position, app::ActorUtils_GetAvatarPos(nullptr)) > 60.0f)
-							MapTeleport::GetInstance().TeleportTo(position);
-						else
-							manager.avatar()->setAbsolutePosition(position);
-					}
-
-					ImGui::SameLine();
-					if (ImGui::Button(("Select##Button" + std::to_string(index)).c_str()))
-					{
-						selectedIndex = index;
-						selectedByClick = true;
-						UpdateIndexName();
-					}
-					ImGui::SameLine();
-					ImGui::PushStyleColor(ImGuiCol_Text, selected ? IM_COL32(40, 90, 175, 255) : IM_COL32(255, 255, 255, 255));
-
-					if (selected)
-						nodeFlags |= ImGuiTreeNodeFlags_Selected;
-					ImGui::PopStyleColor();
-					ImGui::TableNextColumn();
-
-					ImGui::Text("%s", name.c_str());
-					if (ImGui::IsItemHovered())
-					{
-						ImGui::BeginTooltip();
-						ImGui::Text("%s", description.c_str());
-						ImGui::Text("Distance: %.2f", PositionDistance(position, app::ActorUtils_GetAvatarPos(nullptr)));
-						ImGui::EndTooltip();
-					}
-					ImGui::TableNextColumn();
-					ImGui::Text("%f, %f, %f", position.x, position.y, position.z);
 				}
-				index++;
-			}
-			ImGui::EndTable();
-			ImGui::TreePop();
-		}
+				ImGui::SameLine();
+				ImGui::InputText("Search", &searchBuffer_);
+				unsigned int index = 0;
+				searchIndices.clear();
 
-		if (selectedIndex != -1)
-			ImGui::Text("Selected: [%d] %s", selectedIndex, Teleports[selectedIndex].name.c_str());
+				unsigned int maxNameLength = 0;
+				for (auto& Teleport : Teleports)
+					if (Teleport.name.length() > maxNameLength)
+						maxNameLength = Teleport.name.length();
+				ImGui::BeginTable("Teleports", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable | ImGuiTableFlags_NoSavedSettings);
+				ImGui::TableSetupColumn("#", ImGuiTableColumnFlags_WidthFixed, 20);
+				ImGui::TableSetupColumn("Commands", ImGuiTableColumnFlags_WidthFixed, 100);
+				ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_WidthFixed, maxNameLength * 8 + 10);
+				ImGui::TableSetupColumn("Position");
+				ImGui::TableHeadersRow();
+				ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
+
+				for (const auto& [name, position, description] : Teleports)
+				{
+					if (searchBuffer_.empty() || std::search(name.begin(), name.end(), searchBuffer_.begin(), searchBuffer_.end(), [](char a, char b)
+						{ return std::tolower(a) == std::tolower(b); }) != name.end())
+					{
+						if (!searchBuffer_.empty())
+							searchIndices.insert(index);
+						bool checked = std::any_of(checkedIndices.begin(), checkedIndices.end(), [&index](const auto& i)
+							{ return i == index; });
+						bool selected = index == selectedIndex;
+
+						ImGui::TableNextRow();
+						ImGui::TableNextColumn();
+						ImGui::Text("%d", index);
+						ImGui::TableNextColumn();
+						ImGui::Checkbox(("##Index" + std::to_string(index)).c_str(), &checked);
+						if (ImGui::IsItemClicked(0))
+						{
+							if (checked)
+							{
+								if (selected)
+									selectedIndex = -1;
+								checkedIndices.erase(index);
+							}
+							else
+								checkedIndices.insert(index);
+							UpdateIndexName();
+						}
+
+						ImGui::SameLine();
+						if (ImGui::Button(("TP##Button" + std::to_string(index)).c_str()))
+						{
+							auto& manager = game::EntityManager::instance();
+							auto avatar = manager.avatar();
+							if (avatar->moveComponent() == nullptr)
+							{
+								LOG_ERROR("Avatar has no move component, Is scene loaded?");
+								return;
+							}
+							if (PositionDistance(position, app::ActorUtils_GetAvatarPos(nullptr)) > 60.0f)
+								MapTeleport::GetInstance().TeleportTo(position);
+							else
+								manager.avatar()->setAbsolutePosition(position);
+						}
+
+						ImGui::SameLine();
+						if (ImGui::Button(("Select##Button" + std::to_string(index)).c_str()))
+						{
+							selectedIndex = index;
+							selectedByClick = true;
+							UpdateIndexName();
+						}
+						ImGui::SameLine();
+						ImGui::PushStyleColor(ImGuiCol_Text, selected ? IM_COL32(40, 90, 175, 255) : IM_COL32(255, 255, 255, 255));
+
+						if (selected)
+							nodeFlags |= ImGuiTreeNodeFlags_Selected;
+						ImGui::PopStyleColor();
+						ImGui::TableNextColumn();
+
+						ImGui::Text("%s", name.c_str());
+						if (ImGui::IsItemHovered())
+						{
+							ImGui::BeginTooltip();
+							ImGui::Text("%s", description.c_str());
+							ImGui::Text("Distance: %.2f", PositionDistance(position, app::ActorUtils_GetAvatarPos(nullptr)));
+							ImGui::EndTooltip();
+						}
+						ImGui::TableNextColumn();
+						ImGui::Text("%f, %f, %f", position.x, position.y, position.z);
+					}
+					index++;
+				}
+				ImGui::EndTable();
+				ImGui::TreePop();
+			}
+
+			if (selectedIndex != -1)
+				ImGui::Text("Selected: [%d] %s", selectedIndex, Teleports[selectedIndex].name.c_str());
+		}
 	}
 
 	bool CustomTeleports::NeedStatusDraw() const

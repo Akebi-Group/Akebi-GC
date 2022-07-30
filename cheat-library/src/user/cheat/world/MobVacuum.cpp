@@ -30,42 +30,45 @@ namespace cheat::feature
 
     const FeatureGUIInfo& MobVacuum::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "Mob Vacuum", "World", true };
+        static const FeatureGUIInfo info{ "", "World", true };
         return info;
     }
 
     void MobVacuum::DrawMain()
     {
-        ConfigWidget("Enabled", f_Enabled, "Enables mob vacuum.\n" \
-            "Mobs within the specified radius will move\nto a specified distance in front of the player.");
-
-        bool filtersChanged = false;
-        ImGui::BeginGroupPanel("Monsters");
+        if (ImGui::CollapsingHeader("Mob Vacuum"))
         {
-            filtersChanged |= ConfigWidget(f_IncludeMonsters, "Include monsters in vacuum.");
-            filtersChanged |= ConfigWidget(f_MonsterCommon, "Common enemies."); ImGui::SameLine();
-            filtersChanged |= ConfigWidget(f_MonsterElites, "Elite enemies."); ImGui::SameLine();
-            filtersChanged |= ConfigWidget(f_MonsterBosses, "World and Trounce boss enemies.");
-        }
-        ImGui::EndGroupPanel();
-        
-        ImGui::BeginGroupPanel("Animals");
-        {
-            filtersChanged |= ConfigWidget(f_IncludeAnimals, "Include animals in vacuum.");
-            filtersChanged |= ConfigWidget(f_AnimalDrop, "Animals you need to kill before collecting."); ImGui::SameLine();
-            filtersChanged |= ConfigWidget(f_AnimalPickUp, "Animals you can immediately collect."); ImGui::SameLine();
-            filtersChanged |= ConfigWidget(f_AnimalNPC, "Animals without mechanics.");
-        }
-        ImGui::EndGroupPanel();
+            ConfigWidget("Enabled", f_Enabled, "Enables mob vacuum.\n" \
+                "Mobs within the specified radius will move\nto a specified distance in front of the player.");
 
-        if (filtersChanged)
-            UpdateFilters();
+            bool filtersChanged = false;
+            ImGui::BeginGroupPanel("Monsters");
+            {
+                filtersChanged |= ConfigWidget(f_IncludeMonsters, "Include monsters in vacuum.");
+                filtersChanged |= ConfigWidget(f_MonsterCommon, "Common enemies."); ImGui::SameLine();
+                filtersChanged |= ConfigWidget(f_MonsterElites, "Elite enemies."); ImGui::SameLine();
+                filtersChanged |= ConfigWidget(f_MonsterBosses, "World and Trounce boss enemies.");
+            }
+            ImGui::EndGroupPanel();
 
-    	ConfigWidget("Instant Vacuum", f_Instantly, "Vacuum entities instantly.");
-        ConfigWidget("Only Hostile/Aggro", f_OnlyTarget, "If enabled, vacuum will only affect monsters targeting you. Will not affect animals.");
-        ConfigWidget("Speed", f_Speed, 0.1f, 1.0f, 15.0f, "If 'Instant Vacuum' is not checked, mob will be vacuumed at the specified speed.");
-        ConfigWidget("Radius (m)", f_Radius, 0.1f, 5.0f, 150.0f, "Radius of vacuum.");
-        ConfigWidget("Distance (m)", f_Distance, 0.1f, 0.5f, 10.0f, "Distance between the player and the monster.");
+            ImGui::BeginGroupPanel("Animals");
+            {
+                filtersChanged |= ConfigWidget(f_IncludeAnimals, "Include animals in vacuum.");
+                filtersChanged |= ConfigWidget(f_AnimalDrop, "Animals you need to kill before collecting."); ImGui::SameLine();
+                filtersChanged |= ConfigWidget(f_AnimalPickUp, "Animals you can immediately collect."); ImGui::SameLine();
+                filtersChanged |= ConfigWidget(f_AnimalNPC, "Animals without mechanics.");
+            }
+            ImGui::EndGroupPanel();
+
+            if (filtersChanged)
+                UpdateFilters();
+
+            ConfigWidget("Instant Vacuum", f_Instantly, "Vacuum entities instantly.");
+            ConfigWidget("Only Hostile/Aggro", f_OnlyTarget, "If enabled, vacuum will only affect monsters targeting you. Will not affect animals.");
+            ConfigWidget("Speed", f_Speed, 0.1f, 1.0f, 15.0f, "If 'Instant Vacuum' is not checked, mob will be vacuumed at the specified speed.");
+            ConfigWidget("Radius (m)", f_Radius, 0.1f, 5.0f, 150.0f, "Radius of vacuum.");
+            ConfigWidget("Distance (m)", f_Distance, 0.1f, 0.5f, 10.0f, "Distance between the player and the monster.");
+        }
     }
 
     bool MobVacuum::NeedStatusDraw() const

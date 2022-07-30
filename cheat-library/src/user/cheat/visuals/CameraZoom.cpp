@@ -17,18 +17,21 @@ namespace cheat::feature
 
     const FeatureGUIInfo& CameraZoom::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "CameraZoom", "Visuals", false };
+        static const FeatureGUIInfo info{ "", "Visuals", false };
         return info;
     }
 
     void CameraZoom::DrawMain()
     {
-        ConfigWidget("", f_Enabled); ImGui::SameLine();
-        ConfigWidget("Camera Zoom", f_Zoom, 0.01f, 1.0f, 500.0f, "Custom camera zooming.\n"
-            "Specified value is multiplier for default zoom distance.\n"
-			"For example:\n"
-            "\t2.0 = 2.0 * defaultZoom"
-        );
+        if (ImGui::CollapsingHeader("Camera Zoom"))
+        {
+            ConfigWidget("", f_Enabled); ImGui::SameLine();
+            ConfigWidget("Camera Zoom", f_Zoom, 0.01f, 1.0f, 500.0f, "Custom camera zooming.\n"
+                "Specified value is multiplier for default zoom distance.\n"
+                "For example:\n"
+                "\t2.0 = 2.0 * defaultZoom"
+            );
+        }
     }
 
     bool CameraZoom::NeedStatusDraw() const

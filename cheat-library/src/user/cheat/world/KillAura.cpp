@@ -28,24 +28,27 @@ namespace cheat::feature
 
     const FeatureGUIInfo& KillAura::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "Kill Aura", "World", true };
+        static const FeatureGUIInfo info{ "", "Combat", true };
         return info;
     }
 
     void KillAura::DrawMain()
     {
-		ConfigWidget("Enable Kill Aura", f_Enabled, "Enables kill aura. Need to choose a mode to work.");
-		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Choose any or both modes below.");
+		if (ImGui::CollapsingHeader("Kill Aura"))
+		{
+			ConfigWidget("Enable Kill Aura", f_Enabled, "Enables kill aura. Need to choose a mode to work.");
+			ImGui::SameLine();
+			ImGui::TextColored(ImColor(255, 165, 0, 255), "Choose any or both modes below.");
 
-		ConfigWidget("Crash Damage Mode", f_DamageMode, "Kill aura causes crash damage for monster around you.");
-		ConfigWidget("Instant Death Mode", f_InstantDeathMode, "Kill aura will attempt to instagib any valid target.");
-		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Can get buggy with bosses like PMA and Hydro Hypo.");
-		ConfigWidget("Kill Range", f_Range, 0.1f, 5.0f, 100.0f);
-		ConfigWidget("Only Hostile/Aggro", f_OnlyTargeted, "If enabled, kill aura will only affect monsters targeting/aggro towards you.");
-		ConfigWidget("Crash Attack Delay (ms)", f_AttackDelay, 1, 0, 1000, "Delay in ms before next crash damage.");
-		ConfigWidget("Crash Repeat Delay (ms)", f_RepeatDelay, 1, 100, 2000, "Delay in ms before crash damaging same monster.");
+			ConfigWidget("Crash Damage Mode", f_DamageMode, "Kill aura causes crash damage for monster around you.");
+			ConfigWidget("Instant Death Mode", f_InstantDeathMode, "Kill aura will attempt to instagib any valid target.");
+			ImGui::SameLine();
+			ImGui::TextColored(ImColor(255, 165, 0, 255), "Can get buggy with bosses like PMA and Hydro Hypo.");
+			ConfigWidget("Kill Range", f_Range, 0.1f, 5.0f, 100.0f);
+			ConfigWidget("Only Hostile/Aggro", f_OnlyTargeted, "If enabled, kill aura will only affect monsters targeting/aggro towards you.");
+			ConfigWidget("Crash Attack Delay (ms)", f_AttackDelay, 1, 0, 1000, "Delay in ms before next crash damage.");
+			ConfigWidget("Crash Repeat Delay (ms)", f_RepeatDelay, 1, 100, 2000, "Delay in ms before crash damaging same monster.");
+		}
     }
 
     bool KillAura::NeedStatusDraw() const

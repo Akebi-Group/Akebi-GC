@@ -33,35 +33,38 @@ namespace cheat::feature
 
 	const FeatureGUIInfo& MapTeleport::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "Map Teleport", "Teleport", true };
+		static const FeatureGUIInfo info{ "", "Teleport", true };
 		return info;
 	}
 
 	void MapTeleport::DrawMain()
 	{
-		ConfigWidget("Enabled",
-			f_Enabled,
-			"Enable teleport-to-mark functionality.\n" \
-			"Usage: \n" \
-			"\t1. Open map.\n" \
-			"\t2. Hold [Teleport Key] and click with the LMB anywhere in the map.\n" \
-			"\tDone. You have been teleported to selected location.\n" \
-			"Teleport might glitch if teleporting to an extremely high location. \n" \
-			"Adjust Override Height accordingly to help avoid."
-		);
+		if (ImGui::CollapsingHeader("Map Teleport"))
+		{
+			ConfigWidget("Enabled",
+				f_Enabled,
+				"Enable teleport-to-mark functionality.\n" \
+				"Usage: \n" \
+				"\t1. Open map.\n" \
+				"\t2. Hold [Teleport Key] and click with the LMB anywhere in the map.\n" \
+				"\tDone. You have been teleported to selected location.\n" \
+				"Teleport might glitch if teleporting to an extremely high location. \n" \
+				"Adjust Override Height accordingly to help avoid."
+			);
 
-		if (!f_Enabled)
-			ImGui::BeginDisabled();
+			if (!f_Enabled)
+				ImGui::BeginDisabled();
 
-		ConfigWidget("Override Height (m)", f_DefaultHeight, 1.0F, 200.0F, 800.0F,
-			"If teleport cannot get ground height of target location,\nit will teleport you to the height specified here.\n" \
-			"It is recommended to have this value to be at least as high as a mountain.\nOtherwise, you may fall through the ground.");
+			ConfigWidget("Override Height (m)", f_DefaultHeight, 1.0F, 200.0F, 800.0F,
+				"If teleport cannot get ground height of target location,\nit will teleport you to the height specified here.\n" \
+				"It is recommended to have this value to be at least as high as a mountain.\nOtherwise, you may fall through the ground.");
 
-		ConfigWidget("Teleport Key", f_Key, true,
-			"Key to hold down before clicking on target location.");
+			ConfigWidget("Teleport Key", f_Key, true,
+				"Key to hold down before clicking on target location.");
 
-		if (!f_Enabled)
-			ImGui::EndDisabled();
+			if (!f_Enabled)
+				ImGui::EndDisabled();
+		}
 	}
 
 	MapTeleport& MapTeleport::GetInstance()

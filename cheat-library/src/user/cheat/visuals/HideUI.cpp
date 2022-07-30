@@ -16,7 +16,7 @@ namespace cheat::feature
 
     const FeatureGUIInfo& HideUI::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "HideUI", "Visuals", false };
+        static const FeatureGUIInfo info{ "Misc", "Visuals", true };
         return info;
     }
 

@@ -16,7 +16,7 @@ namespace cheat::feature
 
     const FeatureGUIInfo& ChestIndicator::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "ShowChest", "Visuals", false };
+        static const FeatureGUIInfo info{ "Misc", "Visuals", true };
         return info;
     }
 
