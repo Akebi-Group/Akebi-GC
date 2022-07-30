@@ -20,7 +20,7 @@ namespace cheat::feature
 
     const FeatureGUIInfo& PaimonFollow::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "PaimonFollow", "Visuals", true };
+        static const FeatureGUIInfo info{ "Misc", "Visuals", true };
         return info;
     }
 

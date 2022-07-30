@@ -33,48 +33,51 @@ namespace cheat::feature
 
     const FeatureGUIInfo& NoCD::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "Cooldown Effects", "Player", true };
+        static const FeatureGUIInfo info{ "", "Combat", true };
         return info;
     }
 
     void NoCD::DrawMain()
     {
+		if (ImGui::CollapsingHeader("Cooldown Effects"))
+		{
 
-		ConfigWidget("Max Burst Energy", f_UtimateMaxEnergy,
-			"Removes energy requirement for elemental bursts.\n" \
-			"(Energy bubble may appear incomplete but still usable.)");
+			ConfigWidget("Max Burst Energy", f_UtimateMaxEnergy,
+				"Removes energy requirement for elemental bursts.\n" \
+				"(Energy bubble may appear incomplete but still usable.)");
 
-		ConfigWidget("## AbilityReduce", f_AbilityReduce); ImGui::SameLine();
-		ConfigWidget("Reduce Skill/Burst Cooldown", f_TimerReduce, 1.f, 1.f, 6.0f,
-			"Reduce cooldowns of elemental skills and bursts.\n"\
-			"1.0 - no CD, 2.0 and higher - increases the timer value.");
+			ConfigWidget("## AbilityReduce", f_AbilityReduce); ImGui::SameLine();
+			ConfigWidget("Reduce Skill/Burst Cooldown", f_TimerReduce, 1.f, 1.f, 6.0f,
+				"Reduce cooldowns of elemental skills and bursts.\n"\
+				"1.0 - no CD, 2.0 and higher - increases the timer value.");
 
-    	ConfigWidget(f_Sprint, "Removes delay in-between sprints.");
+			ConfigWidget(f_Sprint, "Removes delay in-between sprints.");
 
-    	ConfigWidget("Instant Bow Charge", f_InstantBow, "Disable cooldown of bow charge.\n" \
-			"Known issues with Fischl.");
+			ConfigWidget("Instant Bow Charge", f_InstantBow, "Disable cooldown of bow charge.\n" \
+				"Known issues with Fischl.");
 
-    	if (f_InstantBow) {
-			ImGui::Text("If Instant Bow Charge doesn't work:");
-			TextURL("Please contribute to issue on GitHub.", "https://github.com/Akebi-Group/Akebi-GC/issues/281", false, false);
-			if (ImGui::TreeNode("Ability Log [DEBUG]"))
-			{
-				if (ImGui::Button("Copy to Clipboard"))
+			if (f_InstantBow) {
+				ImGui::Text("If Instant Bow Charge doesn't work:");
+				TextURL("Please contribute to issue on GitHub.", "https://github.com/Akebi-Group/Akebi-GC/issues/281", false, false);
+				if (ImGui::TreeNode("Ability Log [DEBUG]"))
 				{
-					ImGui::LogToClipboard();
+					if (ImGui::Button("Copy to Clipboard"))
+					{
+						ImGui::LogToClipboard();
 
-					ImGui::LogText("Ability Log:\n");
+						ImGui::LogText("Ability Log:\n");
 
-					for (auto& logEntry : abilityLog)
-						ImGui::LogText("%s\n", logEntry.c_str());
+						for (auto& logEntry : abilityLog)
+							ImGui::LogText("%s\n", logEntry.c_str());
 
-					ImGui::LogFinish();
+						ImGui::LogFinish();
+					}
+
+					for (std::string& logEntry : abilityLog)
+						ImGui::Text(logEntry.c_str());
+
+					ImGui::TreePop();
 				}
-
-				for (std::string& logEntry : abilityLog)
-					ImGui::Text(logEntry.c_str());
-
-				ImGui::TreePop();
 			}
 		}
     }

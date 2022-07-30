@@ -56,36 +56,39 @@ namespace cheat::feature
 
     const FeatureGUIInfo& ProfileChanger::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "CustomProfile", "Visuals", true };
+        static const FeatureGUIInfo info{ "", "Visuals", true };
         return info;
     }
 
     void ProfileChanger::DrawMain()
     {
-        ConfigWidget(f_Enabled, "Custom Profile.");
-        ConfigWidget(f_UID, "Changes the uid visually.");
-        ConfigWidget("Append \"UID:\" prefix on the water-mark", f_UIDWaterMarkPrefix);
-        ConfigWidget("UID size", f_UIDsize, 0.1, 1, 500.0, "Set UID size");
-        ConfigWidget("UID Pos X", f_UIDpos_x, 1.f, 1.f, static_cast<float>(app::Screen_get_width(nullptr)), "Set UID position X");
-        ConfigWidget("UID Pos y", f_UIDpos_y, 1.f, 0, static_cast<float>(app::Screen_get_height(nullptr)), "Set UID position y");
-        ConfigWidget(f_NickName, "Changes the nickname visually.");
-        ConfigWidget(f_Level, "Changes the level visually.");
-        ConfigWidget(f_Exp, "Changes the exp visually.");
-        if (f_Exp) {
-            ConfigWidget("CurExp", f_CurExp, 1, 2, 100000, "Changes the ExpBar visually.");
-            ConfigWidget("MaxExp", f_MaxExp, 1, 2, 100000, "Changes the ExpBar visually.");
-            ConfigWidget(f_ExpBar, "Changes the ExpBar visually.");
-            if (f_ExpBar)
-                ConfigWidget("ExpBarValue", f_ExpBarValue, 1, 2, 100, "Changes the ExpBar visually.");
-        }   
-        ConfigWidget(f_WorldLevel, "Changes the world-level visually.");
-        ConfigWidget(f_Avatar, "Changes the Avatar Image visually.\n" \
-            "Note the size of the picture must be: 256x256.\n" \
-            "Example path: C:\\Avatars.png");
+        if (ImGui::CollapsingHeader("Custom Profile"))
+        {
+            ConfigWidget("Custom Profile.", f_Enabled, "Custom Profile.");
+            ConfigWidget(f_UID, "Changes the uid visually.");
+            ConfigWidget("Append \"UID:\" prefix on the water-mark", f_UIDWaterMarkPrefix);
+            ConfigWidget("UID size", f_UIDsize, 0.1, 1, 500.0, "Set UID size");
+            ConfigWidget("UID Pos X", f_UIDpos_x, 1.f, 1.f, static_cast<float>(app::Screen_get_width(nullptr)), "Set UID position X");
+            ConfigWidget("UID Pos y", f_UIDpos_y, 1.f, 0, static_cast<float>(app::Screen_get_height(nullptr)), "Set UID position y");
+            ConfigWidget(f_NickName, "Changes the nickname visually.");
+            ConfigWidget(f_Level, "Changes the level visually.");
+            ConfigWidget(f_Exp, "Changes the exp visually.");
+            if (f_Exp) {
+                ConfigWidget("CurExp", f_CurExp, 1, 2, 100000, "Changes the ExpBar visually.");
+                ConfigWidget("MaxExp", f_MaxExp, 1, 2, 100000, "Changes the ExpBar visually.");
+                ConfigWidget(f_ExpBar, "Changes the ExpBar visually.");
+                if (f_ExpBar)
+                    ConfigWidget("ExpBarValue", f_ExpBarValue, 1, 2, 100, "Changes the ExpBar visually.");
+            }
+            ConfigWidget(f_WorldLevel, "Changes the world-level visually.");
+            ConfigWidget(f_Avatar, "Changes the Avatar Image visually.\n" \
+                "Note the size of the picture must be: 256x256.\n" \
+                "Example path: C:\\Avatars.png");
 
-        ConfigWidget(f_Card, "Changes the Card visually.\n" \
-            "Note the size of the picture must be: 840x400.\n" \
-            "Example path: C:\\Avatars.png");
+            ConfigWidget(f_Card, "Changes the Card visually.\n" \
+                "Note the size of the picture must be: 840x400.\n" \
+                "Example path: C:\\Avatars.png");
+        }
     }
 
     bool ProfileChanger::NeedStatusDraw() const

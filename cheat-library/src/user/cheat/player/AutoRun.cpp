@@ -19,14 +19,17 @@ namespace cheat::feature
 
 	const FeatureGUIInfo& AutoRun::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "Auto Run", "Player", true };
+		static const FeatureGUIInfo info{ "", "Player", true };
 		return info;
 	}
 
 	void AutoRun::DrawMain()
 	{
-		ConfigWidget("Enable", f_Enabled);
-		ConfigWidget("Auto Run speed", f_Speed, 0.01f, 0.01f, 1000.0f, "Speed of character \n Not recommended going above 5");
+		if (ImGui::CollapsingHeader("Auto Run"))
+		{
+			ConfigWidget("Enable", f_Enabled);
+			ConfigWidget("Auto Run speed", f_Speed, 0.01f, 0.01f, 1000.0f, "Speed of character \n Not recommended going above 5");
+		}
 	}
 
 	bool AutoRun::NeedStatusDraw() const

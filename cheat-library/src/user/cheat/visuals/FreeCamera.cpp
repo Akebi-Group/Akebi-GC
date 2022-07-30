@@ -45,46 +45,48 @@ namespace cheat::feature
 
 	const FeatureGUIInfo& FreeCamera::GetGUIInfo() const
 	{
-		static const FeatureGUIInfo info{ "Free Camera", "Visuals", true };
+		static const FeatureGUIInfo info{ "", "Visuals", true };
 		return info;
 	}
 
 	void FreeCamera::DrawMain()
 	{
-		ConfigWidget("Enable", f_Enabled);
-		ConfigWidget("Freeze Character Animation", f_FreezeAnimation, "Freezes the active character's animation.\nAfter disabling, jump to un-freeze your character.");
-		if (ImGui::BeginTable("FreeCameraDrawTable", 1, ImGuiTableFlags_NoBordersInBody))
+		if (ImGui::CollapsingHeader("Free Camera"))
 		{
-			ImGui::TableNextRow();
-			ImGui::TableSetColumnIndex(0);
-
-			ImGui::BeginGroupPanel("Settings");
+			ConfigWidget("Enable", f_Enabled);
+			if (ImGui::BeginTable("FreeCameraDrawTable", 1, ImGuiTableFlags_NoBordersInBody))
 			{
-				ConfigWidget("Movement Speed", f_Speed, 0.01f, 0.01f, 1000.0f);
-				ConfigWidget("Look Sensitivity", f_LookSens, 0.01f, 0.01f, 100.0f);
-				ConfigWidget("Roll Speed", f_RollSpeed, 0.01f, 0.01f, 100.0f);
-				ConfigWidget("FOV Speed", f_FOVSpeed, 0.01f, 0.01f, 100.0f);
-				ConfigWidget("Field of View", f_FOV, 0.1f, 0.01f, 200.0f);
-				ConfigWidget("Smoothing", f_Smoothing, 0.01f, 0.001f, 1.0f, "Lower = Smoother");
-			}
-			ImGui::EndGroupPanel();
+				ImGui::TableNextRow();
+				ImGui::TableSetColumnIndex(0);
 
-			ImGui::BeginGroupPanel("Hotkeys");
-			{
-				ConfigWidget("Forward", f_Forward, true);
-				ConfigWidget("Backward", f_Backward, true);
-				ConfigWidget("Left", f_Left, true);
-				ConfigWidget("Right", f_Right, true);
-				ConfigWidget("Up", f_Up, true);
-				ConfigWidget("Down", f_Down, true);
-				ConfigWidget("Roll Left", f_LeftRoll, true);
-				ConfigWidget("Roll Right", f_RightRoll, true);
-				ConfigWidget("Reset Roll", f_ResetRoll, true);
-				ConfigWidget("Increase FOV", f_IncFOV, true);
-				ConfigWidget("Decrease FOV", f_DecFOV, true);
+				ImGui::BeginGroupPanel("Settings");
+				{
+					ConfigWidget("Movement Speed", f_Speed, 0.01f, 0.01f, 1000.0f);
+					ConfigWidget("Look Sensitivity", f_LookSens, 0.01f, 0.01f, 100.0f);
+					ConfigWidget("Roll Speed", f_RollSpeed, 0.01f, 0.01f, 100.0f);
+					ConfigWidget("FOV Speed", f_FOVSpeed, 0.01f, 0.01f, 100.0f);
+					ConfigWidget("Field of View", f_FOV, 0.1f, 0.01f, 200.0f);
+					ConfigWidget("Smoothing", f_Smoothing, 0.01f, 0.001f, 1.0f, "Lower = Smoother");
+				}
+				ImGui::EndGroupPanel();
+
+				ImGui::BeginGroupPanel("Hotkeys");
+				{
+					ConfigWidget("Forward", f_Forward, true);
+					ConfigWidget("Backward", f_Backward, true);
+					ConfigWidget("Left", f_Left, true);
+					ConfigWidget("Right", f_Right, true);
+					ConfigWidget("Up", f_Up, true);
+					ConfigWidget("Down", f_Down, true);
+					ConfigWidget("Roll Left", f_LeftRoll, true);
+					ConfigWidget("Roll Right", f_RightRoll, true);
+					ConfigWidget("Reset Roll", f_ResetRoll, true);
+					ConfigWidget("Increase FOV", f_IncFOV, true);
+					ConfigWidget("Decrease FOV", f_DecFOV, true);
+				}
+				ImGui::EndGroupPanel();
+				ImGui::EndTable();
 			}
-			ImGui::EndGroupPanel();
-			ImGui::EndTable();
 		}
 	}
 

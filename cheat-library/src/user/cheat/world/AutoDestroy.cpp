@@ -25,26 +25,29 @@ namespace cheat::feature
 
     const FeatureGUIInfo& AutoDestroy::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info { "Auto Destroy Objects", "World", true };
+        static const FeatureGUIInfo info { "", "World", true };
         return info;
     }
 
     void AutoDestroy::DrawMain()
     {
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Note. This feature is not fully tested detection-wise.\n"
-			"Not recommended for main accounts or used with high values.");
-		
-		ConfigWidget("Enabled", f_Enabled, "Instantly destroys non-living objects within range.");
-		ImGui::Indent();
-		ConfigWidget("Ores", f_DestroyOres, "Ores and variants, e.g. electro crystals, marrows, etc.");
-		ConfigWidget("Shields", f_DestroyShields, "Abyss mage/churl/slime shields.");
-		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Extremely risky!");
-		ConfigWidget("Doodads", f_DestroyDoodads, "Barrels, boxes, vases, etc.");
-		ImGui::SameLine();
-		ImGui::TextColored(ImColor(255, 165, 0, 255), "Extremely risky!");
-		ImGui::Unindent();
-		ConfigWidget("Range (m)", f_Range, 0.1f, 1.0f, 15.0f);
+		if (ImGui::CollapsingHeader("Auto Destroy Objects"))
+		{
+			ImGui::TextColored(ImColor(255, 165, 0, 255), "Note. This feature is not fully tested detection-wise.\n"
+				"Not recommended for main accounts or used with high values.");
+
+			ConfigWidget("Enabled", f_Enabled, "Instantly destroys non-living objects within range.");
+			ImGui::Indent();
+			ConfigWidget("Ores", f_DestroyOres, "Ores and variants, e.g. electro crystals, marrows, etc.");
+			ConfigWidget("Shields", f_DestroyShields, "Abyss mage/churl/slime shields.");
+			ImGui::SameLine();
+			ImGui::TextColored(ImColor(255, 165, 0, 255), "Extremely risky!");
+			ConfigWidget("Doodads", f_DestroyDoodads, "Barrels, boxes, vases, etc.");
+			ImGui::SameLine();
+			ImGui::TextColored(ImColor(255, 165, 0, 255), "Extremely risky!");
+			ImGui::Unindent();
+			ConfigWidget("Range (m)", f_Range, 0.1f, 1.0f, 15.0f);
+		}
     }
 
     bool AutoDestroy::NeedStatusDraw() const

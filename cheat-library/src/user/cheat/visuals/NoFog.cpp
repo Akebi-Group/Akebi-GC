@@ -15,7 +15,7 @@ namespace cheat::feature
 
     const FeatureGUIInfo& NoFog::GetGUIInfo() const
     {
-        static const FeatureGUIInfo info{ "NoFog", "Visuals", false };
+        static const FeatureGUIInfo info{ "Misc", "Visuals", true };
         return info;
     }
 
