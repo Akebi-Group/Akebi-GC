@@ -21,6 +21,7 @@
     <ClInclude Include="src\user\cheat\misc\sniffer\pipe\PipeClient.h" />
     <ClInclude Include="src\user\cheat\misc\sniffer\pipe\PipeIO.h" />
     <ClInclude Include="src\user\cheat\player\AutoRun.h" />
+    <ClInclude Include="src\user\cheat\visuals\AnimationChanger.h" />
     <ClInclude Include="src\user\cheat\visuals\TextureChanger.h" />
     <ClInclude Include="src\user\cheat\visuals\FreeCamera.h" />
     <ClInclude Include="src\user\cheat\world\AutoSeelie.h" />
@@ -113,6 +114,7 @@
     <ClCompile Include="src\user\cheat\misc\sniffer\pipe\PipeClient.cpp" />
     <ClCompile Include="src\user\cheat\misc\sniffer\pipe\PipeIO.cpp" />
     <ClCompile Include="src\user\cheat\player\AutoRun.cpp" />
+    <ClCompile Include="src\user\cheat\visuals\AnimationChanger.cpp" />
     <ClCompile Include="src\user\cheat\visuals\TextureChanger.cpp" />
     <ClCompile Include="src\user\cheat\visuals\FreeCamera.cpp" />
     <ClCompile Include="src\user\cheat\world\AutoSeelie.cpp" />
@@ -219,6 +221,7 @@
     <Image Include="res\iconsHD\Andrius.png" />
     <Image Include="res\iconsHD\Azhdaha.png" />
     <Image Include="res\iconsHD\Boar.png" />
+    <Image Include="res\iconsHD\BookPage.png" />
     <Image Include="res\iconsHD\Cat.png" />
     <Image Include="res\iconsHD\Cicin.png" />
     <Image Include="res\iconsHD\Crane.png" />
@@ -557,6 +560,7 @@
     <Image Include="res\icons\Andrius.png" />
     <Image Include="res\icons\Azhdaha.png" />
     <Image Include="res\icons\Boar.png" />
+    <Image Include="res\icons\BookPage.png" />
     <Image Include="res\icons\Cat.png" />
     <Image Include="res\icons\Cicin.png" />
     <Image Include="res\icons\Crane.png" />

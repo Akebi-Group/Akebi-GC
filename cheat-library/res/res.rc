@@ -25,21 +25,21 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE 
+1 TEXTINCLUDE
 BEGIN
-    "resource.h\0"
+"resource.h\0"
 END
 
-2 TEXTINCLUDE 
+2 TEXTINCLUDE
 BEGIN
-    "#include ""winres.h""\r\n"
-    "\0"
+"#include ""winres.h""\r\n"
+"\0"
 END
 
-3 TEXTINCLUDE 
+3 TEXTINCLUDE
 BEGIN
-    "\r\n"
-    "\0"
+"\r\n"
+"\0"
 END
 
 #endif    // APSTUDIO_INVOKED
@@ -139,6 +139,8 @@ HDBLUETHUNDERWEASEL     PNG                     "iconsHD\\BluethunderWeasel.png"
 HDBOAR 					PNG                     "iconsHD\\Boar.png"
 
 HDBOOK                  PNG                     "iconsHD\\Book.png"
+
+HDBOOKPAGE				PNG                     "iconsHD\\BookPage.png"
 
 HDBOOTWEASEL            PNG                     "iconsHD\\BootWeasel.png"
 
@@ -315,6 +317,8 @@ HDGEOCULUS              PNG                     "iconsHD\\Geoculus.png"
 HDGEOGRANUM             PNG                     "iconsHD\\Geogranum.png"
 
 HDGEOHYPOSTASIS         PNG                     "iconsHD\\GeoHypostasis.png"
+
+HDGEOPUZZLE             PNG                     "iconsHD\\MiniPuzzle.png"
 
 HDGEOSIGIL              PNG                     "iconsHD\\GeoSigil.png"
 
@@ -626,7 +630,7 @@ HDSHOGUN 				PNG                     "iconsHD\\Shogun.png"
 
 HDSHOGUNATEINFANTRY 	PNG                     "iconsHD\\ShogunateInfantry.png"
 
-HDSHRINEOFDEPTH 		PNG                     "iconsHD\\ShrineOfDepth.png"
+HDSHRINEOFDEPTH 		PNG                     "iconsHD\\Mondstadt.png"
 
 HDSIGNORA 				PNG                     "iconsHD\\Signora.png"
 
@@ -850,6 +854,8 @@ BOAR 					PNG                     "icons\\Boar.png"
 
 BOOK                    PNG                     "icons\\Book.png"
 
+BOOKPAGE				PNG                     "icons\\BookPage.png"
+
 BOOTWEASEL              PNG                     "icons\\BootWeasel.png"
 
 BRIGHTCROWNPIGEON       PNG                     "icons\\BrightcrownPigeon.png"
@@ -1025,6 +1031,8 @@ GEOCULUS                PNG                     "icons\\Geoculus.png"
 GEOGRANUM               PNG                     "icons\\Geogranum.png"
 
 GEOHYPOSTASIS           PNG                     "icons\\GeoHypostasis.png"
+
+GEOPUZZLE               PNG                     "icons\\MiniPuzzle.png"
 
 GEOSIGIL                PNG                     "icons\\GeoSigil.png"
 

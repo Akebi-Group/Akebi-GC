@@ -21,17 +21,17 @@ namespace cheat::feature
 	ESP::ESP() : Feature(),
 		NF(f_Enabled, "ESP", "ESP", false),
 
-        NF(f_DrawBoxMode, "Draw Mode", "ESP", DrawMode::Box),
+		NF(f_DrawBoxMode, "Draw Mode", "ESP", DrawMode::Box),
 		NF(f_DrawTracerMode, "Tracer Mode", "ESP", DrawTracerMode::Line),
-        NF(f_Fill, "Fill Box/Rectangle/Arrows", "ESP", false),
-        NF(f_FillTransparency, "Fill Transparency", "ESP", 0.5f),
+		NF(f_Fill, "Fill Box/Rectangle/Arrows", "ESP", false),
+		NF(f_FillTransparency, "Fill Transparency", "ESP", 0.5f),
 
 		NF(f_ArrowRadius, "Arrow Radius", "ESP", 100.0f),
 		NF(f_OutlineThickness, "Outline Thickness", "ESP", 1.0f),
 		NF(f_TracerSize, "Tracer Size", "ESP", 1.0f),
 		NF(f_MiddleScreenTracer, "Middle Screen Tracer", "ESP", false),
-        NF(f_DrawDistance, "Draw Distance", "ESP", false),
-        NF(f_DrawName, "Draw Name", "ESP", false),
+		NF(f_DrawDistance, "Draw Distance", "ESP", false),
+		NF(f_DrawName, "Draw Name", "ESP", false),
 
 		NF(f_FontSize, "Font Size", "ESP", 12.0f),
 		NF(f_FontOutline, "Font outline", "ESP", true),
@@ -69,7 +69,7 @@ namespace cheat::feature
 
 			ConfigWidget(f_DrawBoxMode, "Select the mode of box drawing.");
 			ConfigWidget(f_DrawTracerMode, "Select the mode of tracer drawing.");
-      
+
 			ConfigWidget(f_Fill);
 			ConfigWidget(f_FillTransparency, 0.01f, 0.0f, 1.0f, "Transparency of filled part.");
 			ConfigWidget(f_MiddleScreenTracer, "Draw tracer from middle part of the screen.");
@@ -84,7 +84,7 @@ namespace cheat::feature
 				}
 				ImGui::EndGroupPanel();
 			}
-      
+
 			ImGui::Spacing();
 			ConfigWidget(f_DrawName, "Draw name of object.");
 			ConfigWidget(f_DrawDistance, "Draw distance of object.");
@@ -189,55 +189,55 @@ namespace cheat::feature
 			//switch statement to determine how we will get name
 			switch (count)
 			{
-				case 3:
+			case 3:
+			{
+				j = 0;		// j is the number of spaces before the name starts
+				pos1 = 0;
+				pos2 = 0;
+				for (int i = 0; i < name.length(); i++)
 				{
-					j = 0;		// j is the number of spaces before the name starts
-					pos1 = 0;
-					pos2 = 0;
-					for (int i = 0; i < name.length(); i++)
+					if (name[i] == '_')
 					{
-						if (name[i] == '_')
+						j++;
+						if (j == 3)
 						{
-							j++;
-							if (j == 3)
-							{
-								pos1 = i;
-							}
-
+							pos1 = i;
 						}
-						if (name[i] == '(')
+
+					}
+					if (name[i] == '(')
+					{
+						pos2 = i;
+						break;
+					}
+				}
+				name = name.substr(pos1, pos2 - pos1);
+			}
+			case 4:
+			{
+				j = 0;		// j is the number of spaces before the name starts
+				pos1 = 0;
+				pos2 = 0;
+				for (int i = 0; i < name.length(); i++)
+				{
+					if (name[i] == '_')
+					{
+						j++;
+						if (j == 3)
+						{
+							pos1 = i;
+						}
+						if (j == 4)
 						{
 							pos2 = i;
 							break;
 						}
 					}
-					name = name.substr(pos1, pos2 - pos1);
 				}
-				case 4:
-				{
-					j = 0;		// j is the number of spaces before the name starts
-					pos1 = 0;
-					pos2 = 0;
-					for (int i = 0; i < name.length(); i++)
-					{
-						if (name[i] == '_')
-						{
-							j++;
-							if (j == 3)
-							{
-								pos1 = i;
-							}
-							if (j == 4)
-							{
-								pos2 = i;
-								break;
-							}
-						}
-					}
-					name = name.substr(pos1 + 1, pos2 - pos1 - 1);
-				}
-				default:
-					break;
+				name = name.substr(pos1 + 1, pos2 - pos1 - 1);
+			}
+			default:
+				break;
 			}
 			return;
 		}
@@ -574,12 +574,16 @@ namespace cheat::feature
 		ADD_FILTER_FIELD(collection, WoodenCrate);
 		ADD_FILTER_FIELD(collection, GeoSigil);
 
+		// Regular Chests
 		ADD_FILTER_FIELD(chest, CommonChest);
 		ADD_FILTER_FIELD(chest, ExquisiteChest);
 		ADD_FILTER_FIELD(chest, PreciousChest);
 		ADD_FILTER_FIELD(chest, LuxuriousChest);
 		ADD_FILTER_FIELD(chest, RemarkableChest);
+		// Other Chests
+		ADD_FILTER_FIELD(chest, BuriedChest);
 		ADD_FILTER_FIELD(chest, SearchPoint);
+		
 
 		ADD_FILTER_FIELD(featured, Anemoculus);
 		ADD_FILTER_FIELD(featured, CrimsonAgate);

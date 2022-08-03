@@ -252,6 +252,9 @@
     <ClInclude Include="src\user\cheat\world\CustomWeather.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\user\cheat\visuals\AnimationChanger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\Ruda-Bold.ttf" />
@@ -460,6 +463,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\user\cheat\world\CustomWeather.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\cheat\visuals\AnimationChanger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2506,6 +2512,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\icons\Spincrocodile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\iconsHD\BookPage.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icons\BookPage.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

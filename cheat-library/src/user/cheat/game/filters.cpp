@@ -32,6 +32,7 @@ namespace cheat::game::filters
 		ChestFilter SFrozen = ChestFilter(Chest::ChestState::Frozen);
 		ChestFilter SBramble = ChestFilter(Chest::ChestState::Bramble);
 		ChestFilter STrap = ChestFilter(Chest::ChestState::Trap);
+		SimpleFilter BuriedChest = { EntityType__Enum_1::Field, "_WorldArea_Operator" };
 	}
 
 	namespace equipment
@@ -111,7 +112,7 @@ namespace cheat::game::filters
 		SimpleFilter WeaselThief = { EntityType__Enum_1::Monster, "Thoarder_Weasel" };
 		SimpleFilter Kitsune = { EntityType__Enum_1::EnvAnimal, "Vulpes" };
 		SimpleFilter BakeDanuki = { EntityType__Enum_1::Monster, "Inu_Tanuki" };
-		SimpleFilter Meat = { EntityType__Enum_1::GatherObject , { "_Food_BirdMeat", "_Food_Meat", "_Fishmeat" }};
+		SimpleFilter Meat = { EntityType__Enum_1::GatherObject , { "_Food_BirdMeat", "_Food_Meat", "_Fishmeat" } };
 	}
 
 	namespace mineral
@@ -131,7 +132,7 @@ namespace cheat::game::filters
 		SimpleFilter DunlinsTooth = { EntityType__Enum_1::GatherObject, "_DunlinsTooth" };
 
 		SimpleFilter AmethystLumpDrop = { EntityType__Enum_1::GatherObject, "_Thundercrystaldrop" };
-		SimpleFilter CrystalChunkDrop = { EntityType__Enum_1::GatherObject,"_Drop_Crystal"};
+		SimpleFilter CrystalChunkDrop = { EntityType__Enum_1::GatherObject,"_Drop_Crystal" };
 		SimpleFilter ElectroCrystalDrop = { EntityType__Enum_1::GatherObject, "_Drop_Ore_ElectricRock" };
 		SimpleFilter IronChunkDrop = { EntityType__Enum_1::GatherObject, "_Drop_Stone" };
 		SimpleFilter NoctilucousJadeDrop = { EntityType__Enum_1::GatherObject,"_NightBerth" };
@@ -161,7 +162,7 @@ namespace cheat::game::filters
 		SimpleFilter RuinGrader = { EntityType__Enum_1::Monster, "_Konungmathr" };
 		SimpleFilter RuinSentinel = { EntityType__Enum_1::Monster, "_Apparatus_Enigma" };
 		SimpleFilter Samachurl = { EntityType__Enum_1::Monster, "_Shaman" };
-	    SimpleFilter ShadowyHusk = { EntityType__Enum_1::Monster, "ForlornVessel_Strong" };
+		SimpleFilter ShadowyHusk = { EntityType__Enum_1::Monster, "ForlornVessel_Strong" };
 		SimpleFilter Slime = { EntityType__Enum_1::Monster, "_Slime" };
 		SimpleFilter FloatingFungus = { EntityType__Enum_1::Monster, "Fungus_Un_" };
 		SimpleFilter StretchyFungus = { EntityType__Enum_1::Monster, "Fungus_Deux_" };
@@ -221,7 +222,7 @@ namespace cheat::game::filters
 		SimpleFilter JadeplumeTerrorshroom = { EntityType__Enum_1::Monster, "Fungus_Raptor" };
 		SimpleFilter RishbolandTiger = { EntityType__Enum_1::Monster, "_Megamoth_" };
 		SimpleFilter ShaggySumpterBeast = { EntityType__Enum_1::Monster, "_Panther" };
-		SimpleFilter Spincrocodile = { EntityType__Enum_1::Monster, "_Gator" };	
+		SimpleFilter Spincrocodile = { EntityType__Enum_1::Monster, "_Gator" };
 		SimpleFilter SentryTurrets = { EntityType__Enum_1::Field, "SentryTurrets_" };
 	}
 
@@ -285,7 +286,7 @@ namespace cheat::game::filters
 		SimpleFilter AncientRime = { EntityType__Enum_1::Gadget, "_IceSolidBulk" };
 		SimpleFilter BakeDanuki = { EntityType__Enum_1::Monster, "Animal_Inu_Tanuki_" };
 		SimpleFilter BloattyFloatty = { EntityType__Enum_1::Field, "_Flower_PongPongTree_" };
-		WhitelistFilter CubeDevices = { {EntityType__Enum_1::Gadget, EntityType__Enum_1::Platform }, {"_ElecStone", "_ElecSwitch" }};
+		WhitelistFilter CubeDevices = { {EntityType__Enum_1::Gadget, EntityType__Enum_1::Platform }, {"_ElecStone", "_ElecSwitch" } };
 		SimpleFilter EightStoneTablets = { EntityType__Enum_1::Gadget, "_HistoryBoard" };
 		SimpleFilter ElectricConduction = { EntityType__Enum_1::Gear, "_ElectricPowerSource" };
 		SimpleFilter RelayStone = { EntityType__Enum_1::Worktop, "_ElectricTransfer_" };
@@ -346,6 +347,13 @@ namespace cheat::game::filters
 			mineral::Starsilver,
 			mineral::WhiteIronChunk
 		};
+		SimpleFilter PlantDestroy = {
+			//plant::SakuraBloom,
+			plant::DandelionSeed,
+			plant::MistFlowerCorolla,
+			plant::FlamingFlowerStamen
+		};
+
 		WhitelistFilter Doodads = {
 			EntityType__Enum_1::Gadget,
 			{
@@ -518,15 +526,15 @@ namespace cheat::game::filters
 			monster::Whopperflower
 		};
 		SimpleFilter MonsterEquips = { EntityType__Enum_1::MonsterEquip };
-        BlacklistFilter Living = {
-            {EntityType__Enum_1::EnvAnimal, EntityType__Enum_1::Monster},
-            {
-                // Environmental mobs
-                "Cat", "DogPrick", "Vulpues", "Inu_Tanuki",
-                // Overworld bosses
-                "Ningyo", "Regisvine", "Hypostasis", "Planelurker", "Nithhoggr"
-            }
-        };
+		BlacklistFilter Living = {
+			{EntityType__Enum_1::EnvAnimal, EntityType__Enum_1::Monster},
+			{
+				// Environmental mobs
+				"Cat", "DogPrick", "Vulpues", "Inu_Tanuki",
+				// Overworld bosses
+				"Ningyo", "Regisvine", "Hypostasis", "Planelurker", "Nithhoggr"
+			}
+		};
 		SimpleFilter OrganicTargets = { Monsters, Animals }; // Solael: Please don't mess around with this filter.
 		//m0nkrel: We can choose the entities we need ourselves so as not to magnetize cats, dogs, etc.
 		//AdvancedFilter Animals = { {EntityType__Enum_1::EnvAnimal, EntityType__Enum_1::Monster }, {"Crane", "Tit", "Boar", "Squirrel", "Fox", "Pigeon", "Wigeon", "Falcon" ,"Marten" } };
